@@ -18,8 +18,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AdministrativnaappHeader.cpp">
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AdministrativnaAppHeader.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
+    </ClInclude>
   </ItemGroup>
 </Project>

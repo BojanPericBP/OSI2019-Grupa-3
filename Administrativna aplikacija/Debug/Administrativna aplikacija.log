@@ -1,3 +1,2 @@
 ﻿  main.cpp
-main.obj : error LNK2005: "void __cdecl logovanje_administratora(void)" (?logovanje_administratora@@YAXXZ) already defined in AdministrativnaappHeader.obj
-C:\Users\Lenovo\Desktop\Sta se radi na estradi\Debug\Administrativna aplikacija.exe : fatal error LNK1169: one or more multiply defined symbols found
+  Administrativna aplikacija.vcxproj -> C:\Users\Lenovo\Desktop\Sta se radi na estradi\Debug\Administrativna aplikacija.exe

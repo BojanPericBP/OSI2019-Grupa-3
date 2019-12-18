@@ -18,8 +18,8 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KorisnickaAppHeader.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="KorisnickaAppHeader.h">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
