@@ -121,11 +121,11 @@ void odabir_opcije_korisnika()
 			meni_prikaz_preporucenih_dogadjaja();
 			do {
 				printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n");
-				scanf("\n%s", c);
+				scanf("\n%[^\n]s", c);
 				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p') || c[1] != 0)
 				{
 					printf("Nepostojeca opcija! Izaberite ponovo: \n");
-					scanf("\n%s", c);
+					scanf("\n%[^\n]s", c);
 				}
 				if (c[0] == 'M' || c[0] == 'm')
 				{
@@ -160,11 +160,11 @@ void odabir_opcije_korisnika()
 			meni_svih_dogadjaja();
 			do {
 				printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n");
-				scanf("\n%s", c);
+				scanf("\n%[^\n]s", c);
 				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p') || c[1] != 0)
 				{
 					printf("Nepostojeca opcija! Izaberite ponovo: \n");
-					scanf("\n%s", c);
+					scanf("\n%[^\n]s", c);
 				}
 				if (c[0] == 'M' || c[0] == 'm')
 				{
