@@ -118,9 +118,9 @@ void odabir_opcije_korisnika()
 			system("cls");
 			meni_prikaz_preporucenih_dogadjaja();
 			do {
-				printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n");
+				printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n");
 				scanf("\n%[^\n]s", c);
-				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p') || c[1] != 0)
+				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p' && c[0] != 'O' && c[0] != 'o') || c[1] != 0)
 				{
 					printf("Nepostojeca opcija! Izaberite ponovo: \n");
 					scanf("\n%[^\n]s", c);
@@ -149,6 +149,12 @@ void odabir_opcije_korisnika()
 					//funkcija za unos id-a
 					//funkcija za trazenje dogadjaja po id-u
 					//ispis rezultata
+				}
+				else if (c[0] == 'O' || c[0] == 'o') // O -> Pregled opisa nekog dogadjaja
+				{
+					flag = 0;
+					printf("\n************Pregled opisa************\n\n");
+
 				}
 			} while (!flag);
 			break;
@@ -157,9 +163,9 @@ void odabir_opcije_korisnika()
 			system("cls");
 			meni_svih_dogadjaja();
 			do {
-				printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n");
+				printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n");
 				scanf("\n%[^\n]s", c);
-				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p') || c[1] != 0)
+				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p' && c[0] != 'O' && c[0] != 'o') || c[1] != 0)
 				{
 					printf("Nepostojeca opcija! Izaberite ponovo: \n");
 					scanf("\n%[^\n]s", c);
@@ -188,6 +194,12 @@ void odabir_opcije_korisnika()
 					//funkcija za unos id-a
 					//funkcija za trazenje dogadjaja po id-u
 					//ispis rezultata
+				}
+				else if (c[0] == 'O' || c[0] == 'o') // O -> Pregled opisa nekog dogadjaja
+				{
+					flag = 0;
+					printf("\n************Pregled opisa************\n\n");
+
 				}
 			} while (!flag);
 			break;
