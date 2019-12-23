@@ -1,5 +1,2 @@
 ﻿  Main.cpp
-C:\Users\Sasa\Documents\FAX\3. semestar\OSI\PROJEKAT\project_source_code\Korisnicka aplikacija\Main.cpp(16,8): warning C4473: 'scanf' : not enough arguments passed for format string
-C:\Users\Sasa\Documents\FAX\3. semestar\OSI\PROJEKAT\project_source_code\Korisnicka aplikacija\Main.cpp(16,8): message : placeholders and their parameters expect 1 variadic arguments, but 0 were provided
-C:\Users\Sasa\Documents\FAX\3. semestar\OSI\PROJEKAT\project_source_code\Korisnicka aplikacija\Main.cpp(16,8): message : the missing variadic argument 1 is required by format string '%d'
-  Korisnicka aplikacija.vcxproj -> C:\Users\Sasa\Documents\FAX\3. semestar\OSI\PROJEKAT\project_source_code\x64\Debug\Korisnicka aplikacija.exe
+  Korisnicka aplikacija.vcxproj -> C:\Users\Sasa\Documents\FAX\3. semestar\OSI\PROJEKAT\OSI2019-Grupa-3\x64\Debug\Korisnicka aplikacija.exe

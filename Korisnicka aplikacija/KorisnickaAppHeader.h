@@ -79,8 +79,6 @@ void meni_help()
 	printf("\nAplikacija 'Sta se radi na estradi' je aplikacija koja omogucava pracenje dogadjaja u nekom gradu.\nOmogucava korisniku da pregleda koji se sve dogadjai odrzavaju u nekom gradu, datum i mjesto dorzavanja dogadjaja,\nkao i komentare drugih korisnika o predstojecim dogadjajima.\n"
 		"Za detaljne informacije pogledajte korisnicku dokumentaziju.\n");
 	printf("\n**********************************************************************************************************************************************\n\n");
-
-	printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
 }
 
 void meni_o_korisnickoj_aplikaciji()
@@ -198,11 +196,11 @@ void odabir_opcije_korisnika()
 			system("cls");
 
 			meni_kviza();
-			scanf("\n%s", c);
+			scanf("\n%[^\n]s", c);
 			while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
 			{
 				printf("\nNepostojeca opcija! Izaberite ponovo: \n");
-				scanf("\n%s", c);
+				scanf("\n%[^\n]s", c);
 			}
 			if (c[0] == 'M' || c[0] == 'm')
 			{
@@ -217,29 +215,11 @@ void odabir_opcije_korisnika()
 			system("cls");
 
 			meni_rang_liste();
-			scanf("\n%s", c);
+			scanf("\n%[^\n]s", c);
 			while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
 			{
 				printf("Nepostojeca opcija! Izaberite ponovo: \n");
-				scanf("\n%s", c);
-			}
-			if (c[0] == 'M' || c[0] == 'm')
-			{
-				system("cls");
-				glavni_meni_korisnicke_aplikacije();
-			}
-			else if (c[0] == 'E' || c[0] == 'e')
-				exit(1);
-
-			break;
-		case '5':
-			system("cls");
-			meni_help();
-			scanf("\n%s", c);
-			while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
-			{
-				printf("Nepostojeca opcija! Izaberite ponovo: \n");
-				scanf("\n%s", c);
+				scanf("\n%[^\n]s", c);
 			}
 			if (c[0] == 'M' || c[0] == 'm')
 			{
@@ -253,14 +233,33 @@ void odabir_opcije_korisnika()
 		case '6':
 			system("cls");
 			meni_o_korisnickoj_aplikaciji();
+			printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
+			scanf("\n%[^\n]s", c);
+			while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
+			{
+				printf("Nepostojeca opcija! Izaberite ponovo: \n");
+				scanf("\n%[^\n]s", c);
+			}
+			if (c[0] == 'M' || c[0] == 'm')
+			{
+				system("cls");
+				glavni_meni_korisnicke_aplikacije();
+			}
+			else if (c[0] == 'E' || c[0] == 'e')
+				exit(1);
+
+			break;
+		case '5':
+			system("cls");
+			meni_help();
 			do 
 			{
 				printf("Unesite D -> Pregled korisnicke dokumentacije\n\tM -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
-				scanf("\n%s", c);
+				scanf("\n%[^\n]s", c);
 				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'D' && c[0] != 'd') || c[1] != 0)
 				{
 					printf("Nepostojeca opcija! Izaberite ponovo: \n");
-					scanf("\n%s", c);
+					scanf("\n%[^\n]s", c);
 				}
 				if (c[0] == 'M' || c[0] == 'm')
 				{
