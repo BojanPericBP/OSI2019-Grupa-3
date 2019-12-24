@@ -23,5 +23,8 @@
     <ClInclude Include="AdministrativnaAppHeader.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="AdministrativneFunkcije.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
