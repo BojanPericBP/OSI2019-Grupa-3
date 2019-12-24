@@ -127,7 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdministrativnaAppHeader.h" />
-    <ClInclude Include="AdministrativneFunkcije.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
