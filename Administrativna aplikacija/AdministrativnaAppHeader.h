@@ -24,43 +24,50 @@ void glavni_meni_administrativne_aplikacije()
 
 void meni_logovanje_administratora()
 {
-	system("color f0");
-	printf("\n*******************************************************************PRIJAVA********************************************************************\n\n");
+	//system("color f0");
+	printf("\n*******************************************************************PRIJAVA********************************************************************\n");
 	//funkcija za logovanje administratora u kojoj se nalazi funkcija za provjeru validnosti pristupnih podataka
-
+	printf("Unesite:E->za izlazak iz programa\n");
+	printf("   _________________________________________________________________________________________________________________________________________\n\n");
 }
 
 void meni_dodavanje_dogadjaja()
 {
 	system("color 0a");
 	printf("\n**************************************************************DODAVANJE DOGADJAJA*************************************************************\n\n");
-
+	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
+	printf("   _________________________________________________________________________________________________________________________________________\n\n");
 }
 void meni_uredjivanje_dogadjaja()
 {
 	system("color 0a");
 	printf("\n*************************************************************UREDJIVANJE DOGADJAJA************************************************************\n\n");
-
+	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
+	printf("______________________________________________________________\n\n");
 }
 
 void meni_brisanje_dogadjaja()
 {
 	system("color 0a");
 	printf("\n**************************************************************BRISANJE DOGADJAJA**************************************************************\n\n");
-
+	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
+	printf("   _________________________________________________________________________________________________________________________________________\n\n");
 }
 
 void meni_dodavanje_kategorije()
 {
 	system("color 0a");
 	printf("\n*************************************************************DODAVANJE KATEGORIJE*************************************************************\n\n");
-
+	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
+	printf("   _________________________________________________________________________________________________________________________________________\n\n");
 }
 
 void meni_uredjivanje_kviza()
 {
 	system("color 0a");
 	printf("\n**************************************************************UREDJIVANJE KVIZA**************************************************************\n\n");
+	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
+	printf("   _________________________________________________________________________________________________________________________________________\n\n");
 }
 
 void odabir_opcije_admina()

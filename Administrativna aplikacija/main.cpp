@@ -4,7 +4,9 @@
 int main()
 {
 	char c[5];//smjestam opciju koju je korisnik izabrao, npr wxit ili try again i slicno
-	int br_pokusaja = 5;  //broji pokusaja da se unesu tacni podaci
+	
+	meni_logovanje_administratora();
+	logovanje_admina();
 
 	HWND console = GetConsoleWindow();
 	RECT r;
@@ -12,9 +14,8 @@ int main()
 	MoveWindow(console, r.left, r.top, 1055, 700, TRUE);
 
 
-	meni_logovanje_administratora();
 
-	while (br_pokusaja && !logovanje_admina())
+	/*while (br_pokusaja && !unos_korisnickih_podataka_admina())
 	{
 		--br_pokusaja;
 
@@ -42,7 +43,7 @@ int main()
 			printf("Unesite 'e' za izlazak: ");
 			scanf("%s", &c);
 		} while (c[1] != 0 || (c[0] != 'e' && c[0] != 'E'));
-	}
+	}*/
 
 	glavni_meni_administrativne_aplikacije();
 	odabir_opcije_admina();
