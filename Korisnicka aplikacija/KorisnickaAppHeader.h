@@ -146,7 +146,7 @@ void odabir_opcije_korisnika()
 					flag = 0;
 					printf("\n************Pregled komentara************\n\n");
 
-					//funkcija za unos id-a
+					//funkcija za unos id-a uz provjeru formata unosa
 					//funkcija za trazenje dogadjaja po id-u
 					//ispis rezultata
 				}
