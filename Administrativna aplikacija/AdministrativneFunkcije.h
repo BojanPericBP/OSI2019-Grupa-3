@@ -1,5 +1,5 @@
 #pragma once
-#pragma warning(warning : disable 4996)
+#pragma warning(disable : 4996)
 #define MAX 20
 #include<conio.h>
 #include <stdlib.h>
@@ -12,8 +12,27 @@ typedef struct admin {
 	short flag;//ako je korisnik 5 puta unio pogreesne pristupne podatke da se onemoguci ponovno unosenje neko vrijeme
 }ADMIN;
 
+typedef struct datum {
+	int dan, mjesec, godina;
+}DATUM;
+
+typedef struct vrijeme {
+	int sat, minute;
+}VRIJEME;
+
+typedef struct dogadjaj {
+	int id;
+	char naziv[100], opis, lokacija[100], kategorija[30], datum[12], vrijeme[6], komentari, preporucen;
+}DOGADJAJ;
+
 int unos_korisnickih_podataka_admina();
 int logovanje_admina();
+int dodaj_dogadjaj();
+int unos_datuma(char*);
+int prestupna_godina(int godina);
+int provjera_datuma(DATUM datum);
+int unos_vremena(char []);
+int provjera_vremena(VRIJEME);
 void sleep(unsigned int secs);
 
 int unos_korisnickih_podataka_admina()
@@ -91,10 +110,116 @@ int logovanje_admina()
 	}
 }
 
+
+int dodaj_dogadjaj()
+{
+	int br_kategorija;
+	char datum[12] = "";
+	char vrijeme[6];
+	DOGADJAJ dogadjaj;
+	VRIJEME vrijeme_provjera;//za provjeru da li je korisnik dobro unio vrijeme
+	FILE* kategorije_dat;
+	char* kategorija[20];	//moram dealocirati nekada negdje
+	
+
+	if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "r+")) != NULL)
+	{
+		fscanf(kategorije_dat, "%d", &br_kategorija);
+		for (int i = 0; i < br_kategorija; i++)
+			kategorija[i] = (char*)calloc(br_kategorija,sizeof(char));
+		int i = 0;
+		while (fgets(kategorija[i], 20, kategorije_dat) != NULL)
+		{
+			++i;
+			fgets(kategorija[i], 20, kategorije_dat);
+		}
+	}
+	else
+		printf("Greska u otvaranju datoteke kategorije.txt");
+	for (int i = 0; i < br_kategorija; i++)
+		printf("%s", kategorija[i]);
+	/*
+	printf("Naziv dogadjaja: ");
+	scanf("\n%[^\n]s",dogadjaj.naziv);
+	printf("Mjesto odrzavanja dogadjaja: ");
+	scanf("\n%[^\n]s",dogadjaj.lokacija);
+	printf("Vrijeme odrzavanaja dogadjaja: ");
+	unos_vremena(vrijeme);
+	printf("Datum odrzavanja dogadjaja: ");
+	unos_datuma(datum);//korisnik ce unositi datum dok datum ne bude dobar
+	*/
+	return 1;
+}
+
+int unos_datuma(char* datum)
+{
+	DATUM datum_check;
+	char mjesec[3], godina[5];
+	do
+	{
+		printf("Dan: ");
+		scanf("%d", &datum_check.dan);
+		printf("Mjesec: ");
+		scanf("%d", &datum_check.mjesec);
+		printf("Godina: ");
+		scanf("%d", &datum_check.godina);
+	} while (!provjera_datuma(datum_check));
+	itoa(datum_check.dan, datum,10);
+	strcat(datum, ".");
+	strcat(datum, itoa(datum_check.mjesec, mjesec, 10));
+	strcat(datum, ".");
+	strcat(datum, itoa(datum_check.godina, godina, 10));
+	strcat(datum, ".");
+	return 1;
+}
+
+int prestupna_godina(int godina)
+{
+	if ((godina % 4 == 0 && godina % 100 != 0) || (godina % 4 == 0 && godina % 400 == 0))
+		return 1;
+	else return 0;
+}
+int provjera_datuma(DATUM datum)
+{
+	if ((datum.mjesec == 1 || datum.mjesec == 3 || datum.mjesec == 5 || datum.mjesec == 7
+		|| datum.mjesec == 8 || datum.mjesec == 10 || datum.mjesec == 12) && (datum.dan > 31 || datum.dan < 1))
+		return 0;
+	else if ((datum.mjesec == 4 || datum.mjesec == 6 || datum.mjesec == 9 || datum.mjesec == 11) && (datum.dan > 30 || datum.dan < 1))
+		return 0;
+	else if ((datum.mjesec == 2 && prestupna_godina(datum.godina)) && (datum.dan > 29 || datum.dan <1))
+		return 0;
+	else if ((datum.mjesec == 2 && !prestupna_godina(datum.godina)) && (datum.dan > 28 || datum.dan < 1))
+		return 0;
+	return 1;		
+}
+
+int unos_vremena(char vrijeme[])
+{
+	VRIJEME time;
+	do
+	{
+		printf("U koliko sati: ");
+		scanf("%d", &time.sat);
+		printf("U koliko minuta: ");
+		scanf("%d", &time.sat);
+	} while (!provjera_vremena(time));
+	char min[3];
+	itoa(time.sat, vrijeme, 10);
+	strcat(vrijeme, ".");
+	strcat(vrijeme, itoa(time.minute, min, 10));
+	return 1;
+}
+
+int provjera_vremena(VRIJEME time)
+{
+	if ((time.sat > 23 || time.sat < 0) || (time.minute > 60 || time.minute < 0))
+		return 0;
+	else return 1;
+	
+}
 void sleep(unsigned int* secs)
 {
 	unsigned int retTime = time(0) + *secs;  
 	while (time(0) < retTime);
-	*secs = *secs - 1;
 }
 

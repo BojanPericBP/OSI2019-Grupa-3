@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <windows.h>
+#include "AdministrativneFunkcije.h"
 
 #pragma once
 #pragma warning(disable:4996)
@@ -27,6 +28,7 @@ void meni_logovanje_administratora()
 	//system("color f0");
 	printf("\n*******************************************************************PRIJAVA********************************************************************\n");
 	//funkcija za logovanje administratora u kojoj se nalazi funkcija za provjeru validnosti pristupnih podataka
+	logovanje_admina();
 	printf("Unesite:E->za izlazak iz programa\n");
 	printf("   _________________________________________________________________________________________________________________________________________\n\n");
 }
