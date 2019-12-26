@@ -115,7 +115,7 @@ int dodaj_dogadjaj()
 {
 	int br_kategorija;
 	char datum[12] = "";
-	char vrijeme[6];
+	char vrijeme[6],c;
 	DOGADJAJ dogadjaj;
 	VRIJEME vrijeme_provjera;//za provjeru da li je korisnik dobro unio vrijeme
 	FILE* kategorije_dat;
@@ -139,20 +139,7 @@ int dodaj_dogadjaj()
 		printf("Greska u otvaranju datoteke kategorije.txt");
 
 	printf("UNesite odgovarajuci broj da izaberete zeljenu kategoriju ili da unesete novu kategoriju.\n");
-	
-
-	/*for (int i = 0; i < br_kategorija; i++)
-		printf("%s", kategorija[i]);*/
-	/*
-	printf("Naziv dogadjaja: ");
-	scanf("\n%[^\n]s",dogadjaj.naziv);
-	printf("Mjesto odrzavanja dogadjaja: ");
-	scanf("\n%[^\n]s",dogadjaj.lokacija);
-	printf("Vrijeme odrzavanaja dogadjaja: ");
-	unos_vremena(vrijeme);
-	printf("Datum odrzavanja dogadjaja: ");
-	unos_datuma(datum);//korisnik ce unositi datum dok datum ne bude dobar
-	*/
+	printf("Unesite:\n\t");
 	return 1;
 }
 
