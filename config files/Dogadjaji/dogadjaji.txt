@@ -1,5 +1,10 @@
+1004 id,4 br dogadjaja
+1001,ISTINA,1,pozoriste jazavac,predstava,29.12.1019,20:00,1,1
+1002,Koncert Jovana Perisica,1,hala Metal,koncert,27.12.1019,21:00,0,1
+1003,ISTINA,1,pozoriste jazavac,predstava,29.12.1019,20:00,1,1
+1004,Koncert Jovana Perisica,1,hala Metal,koncert,27.12.2019.,21:00,0,1
+
+----------------------------------------------------------------------------------------------------------------------
 ID    ||  naziv  ||  opis  ||  lokacija  ||  kategorija  ||  datum i vrijeme održavanja  ||  komentari   || preporucen
 ----------------------------------------------------------------------------------------------------------------------
 
-0001,ISTINA,1,pozoriste jazavac,predstava,29.12.1019,20:00,1,1
-0002,Koncert Jovana Perisica,1,hala Metal,koncert,27.12.1019,21:00,0,1

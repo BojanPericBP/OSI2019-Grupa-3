@@ -23,5 +23,8 @@
     <ClInclude Include="KorisnickaAppHeader.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="korisnickeFunkcije.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
