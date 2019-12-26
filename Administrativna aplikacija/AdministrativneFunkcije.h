@@ -122,7 +122,7 @@ int dodaj_dogadjaj()
 	char* kategorija[20];	//moram dealocirati nekada negdje
 	
 
-	if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "r+")) != NULL)
+	if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "r")) != NULL)
 	{
 		fscanf(kategorije_dat, "%d", &br_kategorija);
 		for (int i = 0; i < br_kategorija; i++)
@@ -133,11 +133,16 @@ int dodaj_dogadjaj()
 			++i;
 			fgets(kategorija[i], 20, kategorije_dat);
 		}
+		fclose(kategorije_dat);
 	}
 	else
 		printf("Greska u otvaranju datoteke kategorije.txt");
-	for (int i = 0; i < br_kategorija; i++)
-		printf("%s", kategorija[i]);
+
+	printf("UNesite odgovarajuci broj da izaberete zeljenu kategoriju ili da unesete novu kategoriju.\n");
+	
+
+	/*for (int i = 0; i < br_kategorija; i++)
+		printf("%s", kategorija[i]);*/
 	/*
 	printf("Naziv dogadjaja: ");
 	scanf("\n%[^\n]s",dogadjaj.naziv);
