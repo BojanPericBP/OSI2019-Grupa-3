@@ -6,7 +6,7 @@ int main()
 	RECT r;
 	GetWindowRect(console, &r);
 	MoveWindow(console,r.left,r.top,1055, 700, TRUE);
-	system("color f0");
+	system("color a0");
 	meni_logovanje_administratora();
 	glavni_meni_administrativne_aplikacije();
 	odabir_opcije_admina();
