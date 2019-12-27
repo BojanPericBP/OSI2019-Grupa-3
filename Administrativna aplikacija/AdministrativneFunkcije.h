@@ -134,14 +134,14 @@ int dodaj_dogadjaj()
 			kategorija[i] = (char*)calloc(br_kategorija,sizeof(char));
 
 		int i = 0;
-		while (fscanf(kategorije_dat,"%s",kategorija[i]) != EOF)
+		while (fscanf(kategorije_dat,"\n%[^\n]s",kategorija[i]) != EOF)
 			++i;
 
 		printf("\n\tUNOS KATEGORIJE\n\n");
 		printf("Odaberite:\n\tU->Unos postojecu kategoriju\n\tD->Dodavanje nove kategorije\n\n");
-
+		printf("\n\tPOSTOJECE KATEGORIJE:\n\n");
 		for (int i = 0; i < br_kategorija; i++)
-			printf("\t%d->%s\n", i+1, kategorija[i]);
+			printf("\t%d.%s\n", i+1, kategorija[i]);
 		printf("\n");
 
 		do

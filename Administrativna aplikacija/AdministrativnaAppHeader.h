@@ -17,9 +17,10 @@ void glavni_meni_administrativne_aplikacije()
 	printf("                     2: UREDJIVANJE DOGADJAJA\n");
 	printf("                     3: BRISANJE DOGADJAJA\n");
 	printf("                     4: DODAVANJE KATEGORIJE\n");
-	printf("                     5: UREDJIVANJE KVIZA\n");
+	printf("                     5: BRISANJE KATEGORIJE\n");
+	printf("                     6: UREDJIVANJE KVIZA\n");
 	printf("     ____________________________________________________________________________________________________________________________________     \n\n");
-	printf("                     6: IZLAZ\n");
+	printf("                     0: IZLAZ\n");
 	printf("\n**********************************************************************************************************************************************\n\n");
 }
 
@@ -79,112 +80,119 @@ void odabir_opcije_admina()
 	system("title STA SE RADI NA ESTRADI");
 	char a[50];
 	char c[50];
+	char ch;
 
 	while (1)
 	{
 		
-		scanf("\n%[^\n]s", a);
-		while (a[1] != 0)
+		//scanf("\n%[^\n]s", a);
+		ch = _getch();
+		/*while (ch != 0)
 		{
 			printf("Nepostojeca opcija!\nUnesite ponovo: ");
-			scanf("\n%[^\n]s", a);
-		}
-		switch (a[0])
+			//scanf("\n%[^\n]s", a);
+			ch = _getch();
+		}*/
+		switch (ch)
 		{
+		case '0':
+			exit(1);
+			break;
 		case '1':
 			system("cls");
 			meni_dodavanje_dogadjaja();
 			
-			scanf("\n%[^\n]s", c);
-			while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
+			ch = _getch();
+			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 			{
 				printf("Nepostojeca opcija! Izaberite ponovo: \n");
-				scanf("\n%[^\n]s", c);
+				ch = _getch();
 			}
-			if (c[0] == 'M' || c[0] == 'm')
+			if (ch == 'M' || ch == 'm')
 			{
 				system("cls");
 				glavni_meni_administrativne_aplikacije();
 			}
-			else if (c[0] == 'E' || c[0] == 'e')
+			else if (ch == 'E' || ch == 'e')
 				exit(1);
 
 			break;
 		case '2':
 			system("cls");
-			meni_dodavanje_dogadjaja();
+			meni_uredjivanje_dogadjaja();
 
-			scanf("\n%[^\n]s", c);
+			ch = _getch();
 
-			while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
+			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 			{
 				printf("Nepostojeca opcija! Izaberite ponovo: \n");
-				scanf("\n%[^\n]s", c);
+				ch = _getch();
 			}
-			if (c[0] == 'M' || c[0] == 'm')
+			if (ch == 'M' || ch == 'm')
 			{
 				system("cls");
 				glavni_meni_administrativne_aplikacije();
 			}
-			else if (c[0] == 'E' || c[0] == 'e')
+			else if (ch == 'E' || ch == 'e')
 				exit(1);
 			break;
 		case '3':
 			system("cls");
 			meni_brisanje_dogadjaja();
 
-			scanf("\n%[^\n]s", c);
-			while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
+			ch = _getch();
+			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 			{
 				printf("Nepostojeca opcija! Izaberite ponovo: \n");
-				scanf("\n%[^\n]s", c);
+				ch = _getch();
 			}
-			if (c[0] == 'M' || c[0] == 'm')
+			if (ch == 'M' || ch == 'm')
 			{
 				system("cls");
 				glavni_meni_administrativne_aplikacije();
 			}
-			else if (c[0] == 'E' || c[0] == 'e')
+			else if (ch == 'E' || ch == 'e')
 				exit(1);
 			break;
 
 		case '4':
 			system("cls");
 			meni_dodavanje_kategorije();
-			scanf("\n%[^\n]s", c);
-			while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
+			ch = _getch();
+			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 			{
 				printf("Nepostojeca opcija! Izaberite ponovo: \n");
-				scanf("\n%[^\n]s", c);
+				ch = _getch();
 			}
-			if (c[0] == 'M' || c[0] == 'm')
+			if (ch == 'M' || ch == 'm')
 			{
 				system("cls");
 				glavni_meni_administrativne_aplikacije();
 			}
-			else if (c[0] == 'E' || c[0] == 'e')
+			else if (ch == 'E' || ch == 'e')
+				exit(1);
+				break;
+		case '6':
+			system("cls");
+			meni_uredjivanje_kviza();
+
+			ch = _getch();
+			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
+			{
+				printf("Nepostojeca opcija! Izaberite ponovo: \n");
+				ch = _getch();
+			}
+			if (ch == 'M' || ch == 'm')
+			{
+				system("cls");
+				glavni_meni_administrativne_aplikacije();
+			}
+			else if (ch == 'E' || ch == 'e')
 				exit(1);
 				break;
 		case '5':
 			system("cls");
-			meni_uredjivanje_kviza();
-
-			scanf("\n%[^\n]s", c);
-			while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
-			{
-				printf("Nepostojeca opcija! Izaberite ponovo: \n");
-				scanf("\n%[^\n]s", c);
-			}
-			if (c[0] == 'M' || c[0] == 'm')
-			{
-				system("cls");
-				glavni_meni_administrativne_aplikacije();
-			}
-			else if (c[0] == 'E' || c[0] == 'e')
-				exit(1);
-				break;
-		case '6':
-			exit(1);
+			printf("OBRISANA KATEGORIJA");
 			break;
 		default:
 			printf("Nepostojeca opcija!\n");
