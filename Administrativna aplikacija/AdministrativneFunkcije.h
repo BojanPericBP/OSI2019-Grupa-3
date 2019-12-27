@@ -22,7 +22,7 @@ typedef struct vrijeme {
 
 typedef struct dogadjaj {
 	int id;
-	char naziv[100], opis, lokacija[100], kategorija[30], datum[12], vrijeme[6], komentari, preporucen;
+	char naziv[100], opis, lokacija[100], kategorija[20], datum[12], vrijeme[6], komentari, preporucen;
 }DOGADJAJ;
 
 int unos_korisnickih_podataka_admina();
@@ -33,6 +33,8 @@ int prestupna_godina(int godina);
 int provjera_datuma(DATUM datum);
 int unos_vremena(char []);
 int provjera_vremena(VRIJEME);
+int provjera_kategorije(char**,char*,int,short*);
+int provjera_nove_kategorije(char*);
 void sleep(unsigned int secs);
 
 int unos_korisnickih_podataka_admina()
@@ -114,32 +116,82 @@ int logovanje_admina()
 int dodaj_dogadjaj()
 {
 	int br_kategorija;
+	short flag = 0;
 	char datum[12] = "";
-	char vrijeme[6],c;
+	char vrijeme[6],nova_kategorija[100];
+	char ch;
 	DOGADJAJ dogadjaj;
 	VRIJEME vrijeme_provjera;//za provjeru da li je korisnik dobro unio vrijeme
 	FILE* kategorije_dat;
 	char* kategorija[20];	//moram dealocirati nekada negdje
 	
 
-	if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "r")) != NULL)
+	if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "r+")) != NULL)
 	{
 		fscanf(kategorije_dat, "%d", &br_kategorija);
-		for (int i = 0; i < br_kategorija; i++)
+
+		for (int i = 0; i <= br_kategorija; i++)
 			kategorija[i] = (char*)calloc(br_kategorija,sizeof(char));
+
 		int i = 0;
-		while (fgets(kategorija[i], 20, kategorije_dat) != NULL)
-		{
+		while (fscanf(kategorije_dat,"%s",kategorija[i]) != EOF)
 			++i;
-			fgets(kategorija[i], 20, kategorije_dat);
+
+		printf("\n\tUNOS KATEGORIJE\n\n");
+		printf("Odaberite:\n\tU->Unos postojecu kategoriju\n\tD->Dodavanje nove kategorije\n\n");
+
+		for (int i = 0; i < br_kategorija; i++)
+			printf("\t%d->%s\n", i+1, kategorija[i]);
+		printf("\n");
+
+		do
+			ch = _getch();
+		while (ch != 'u' && ch != 'U' && ch != 'd' && ch != 'D');
+
+		if (ch == 'u' || ch == 'U')
+		{
+			do
+			{
+				if(!flag)
+					printf("Kategorija koju ste unijeli ne postoji, pokusajte ponovo!\n");
+				printf("Unesite kategoriju: ");
+				scanf("\n%[^\n]s", dogadjaj.kategorija);
+				strlwr(dogadjaj.kategorija);
+			} while (!provjera_kategorije(kategorija,dogadjaj.kategorija,br_kategorija,&flag));
+			if (flag)
+				printf("Uspjesnos te unijeli kategoriju.\n");
+			
 		}
+		else if (ch == 'd' || ch == 'D')
+		{
+			printf("Dodajte novu kategoriju: ");
+			do
+			{
+				if (flag)
+				{
+					printf("Kategorija vec postoji!\n");
+					printf("Unesite ponovo kategoriju:\n");
+				}
+				scanf("\n%[^\n]s", nova_kategorija);
+				strlwr(nova_kategorija);
+				
+			}
+			while (!provjera_nove_kategorije(nova_kategorija) || provjera_kategorije(kategorija,nova_kategorija,br_kategorija,&flag));
+			
+			fprintf(kategorije_dat, "%s\n", nova_kategorija);
+			++br_kategorija;
+			fseek(kategorije_dat,0, SEEK_SET);
+			fprintf(kategorije_dat, "%d", br_kategorija);
+			strcpy(dogadjaj.kategorija, nova_kategorija);
+			printf("Uspjesnos te unijeli kategoriju.\n");
+		}
+
 		fclose(kategorije_dat);
 	}
 	else
 		printf("Greska u otvaranju datoteke kategorije.txt");
 
-	printf("UNesite odgovarajuci broj da izaberete zeljenu kategoriju ili da unesete novu kategoriju.\n");
-	printf("Unesite:\n\t");
+	
 	return 1;
 }
 
@@ -209,6 +261,32 @@ int provjera_vremena(VRIJEME time)
 	else return 1;
 	
 }
+
+int provjera_kategorije(char** arr,char* korisnicki_unos,int n,short* flag)
+{
+	for (int i = 0; i < n; i++)
+	{
+		if (strcmp(arr[i], korisnicki_unos) == 0)
+		{
+			*flag = 1;
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int provjera_nove_kategorije(char* kategorija)
+{
+	int i;
+	for ( i = 0; i < strlen(kategorija); i++);
+	if (i > 20)
+	{
+		printf("Kategorija mora imati manje od 20 karaktera!\nUnesite ponovo: ");
+		return 0;
+	}
+	return 1;
+}
+
 void sleep(unsigned int* secs)
 {
 	unsigned int retTime = time(0) + *secs;  

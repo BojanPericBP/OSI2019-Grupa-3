@@ -28,9 +28,10 @@ void meni_logovanje_administratora()
 	//system("color f0");
 	printf("\n*******************************************************************PRIJAVA********************************************************************\n");
 	//funkcija za logovanje administratora u kojoj se nalazi funkcija za provjeru validnosti pristupnih podataka
-	logovanje_admina();
 	printf("Unesite:E->za izlazak iz programa\n");
 	printf("   _________________________________________________________________________________________________________________________________________\n\n");
+
+	logovanje_admina();
 }
 
 void meni_dodavanje_dogadjaja()
@@ -39,6 +40,7 @@ void meni_dodavanje_dogadjaja()
 	printf("\n**************************************************************DODAVANJE DOGADJAJA*************************************************************\n\n");
 	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
 	printf("   _________________________________________________________________________________________________________________________________________\n\n");
+	dodaj_dogadjaj();
 }
 void meni_uredjivanje_dogadjaja()
 {
@@ -77,7 +79,6 @@ void odabir_opcije_admina()
 	system("title STA SE RADI NA ESTRADI");
 	char a[50];
 	char c[50];
-	//glavni_meni_administrativne_aplikacije();
 
 	while (1)
 	{
