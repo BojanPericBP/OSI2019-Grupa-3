@@ -1,1 +1,6 @@
-999 0
+1004 5
+1000,koncert marije serifovic,0,trg krajine,1,koncert,21:0,1,1
+1001,koncert serifovic,0,trg krajine,1,koncert,21:0,1,1
+1002,jabuka,0,lokacija,ostalo,12.12.2012.,14:14,1,0
+1003,koncert,0,trg krajine,1,koncert,21:0,1,1
+1004,izlozba,0,izlozba,izlozba,11.11.2011.,11:11,0,1

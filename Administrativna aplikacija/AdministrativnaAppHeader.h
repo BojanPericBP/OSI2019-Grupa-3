@@ -49,6 +49,7 @@ void meni_uredjivanje_dogadjaja()
 	printf("\n*************************************************************UREDJIVANJE DOGADJAJA************************************************************\n\n");
 	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
 	printf("   _________________________________________________________________________________________________________________________________________\n\n");
+	uredi_dogadjaj();
 }
 
 void meni_brisanje_dogadjaja()
