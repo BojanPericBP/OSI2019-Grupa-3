@@ -22,7 +22,7 @@ typedef struct vrijeme {
 
 typedef struct dogadjaj {
 	int id;
-	char naziv[100], opis, lokacija[100], kategorija[20], datum[12], vrijeme[6], komentari, preporucen;
+	char naziv[31], opis, lokacija[51], kategorija[20], datum[12], vrijeme[6], komentari, preporucen;
 }DOGADJAJ;
 
 int unos_korisnickih_podataka_admina();
@@ -35,11 +35,13 @@ int unos_vremena(char []);
 int provjera_vremena(VRIJEME);
 int provjera_kategorije(char**,char*,int,short*);
 int provjera_nove_kategorije(char*);
+int provjera_naziva(char*,const int);
 void sleep(unsigned int secs);
 
 int unos_korisnickih_podataka_admina()
 {
 	FILE* pristupni_podaci;		//Datoteka u kojoj se nalaze pristupni podaci za logovanje administratora na sistem
+	
 	char usernamecheck[MAX], passwordcheck[MAX], ch;	//za smjestanje pristupnih podataka iz daoteke
 
 	ADMIN admin;
@@ -115,14 +117,12 @@ int logovanje_admina()
 
 int dodaj_dogadjaj()
 {
-	int br_kategorija;
-	short flag = 0;
-	char datum[12] = "";
-	char vrijeme[6],nova_kategorija[100];
-	char ch;
+	int br_kategorija,id,br_dogadjaja;
+	short flag1 = -1, flag2 = 0;
+	char datum[12] = "", vrijeme[6], nova_kategorija[100],ch,naziv[100],mjesto[100],opis[1000];
 	DOGADJAJ dogadjaj;
 	VRIJEME vrijeme_provjera;//za provjeru da li je korisnik dobro unio vrijeme
-	FILE* kategorije_dat;
+	FILE* kategorije_dat,* dogadjaji_dat,* opis_dogadjaja_dat;
 	char* kategorija[20];	//moram dealocirati nekada negdje
 	
 
@@ -152,13 +152,13 @@ int dodaj_dogadjaj()
 		{
 			do
 			{
-				if(!flag)
+				if(flag1 ==0 )
 					printf("Kategorija koju ste unijeli ne postoji, pokusajte ponovo!\n");
 				printf("Unesite kategoriju: ");
 				scanf("\n%[^\n]s", dogadjaj.kategorija);
 				strlwr(dogadjaj.kategorija);
-			} while (!provjera_kategorije(kategorija,dogadjaj.kategorija,br_kategorija,&flag));
-			if (flag)
+			} while (!provjera_kategorije(kategorija,dogadjaj.kategorija,br_kategorija,&flag1));
+			if (flag1)
 				printf("Uspjesnos te unijeli kategoriju.\n");
 			
 		}
@@ -167,7 +167,7 @@ int dodaj_dogadjaj()
 			printf("Dodajte novu kategoriju: ");
 			do
 			{
-				if (flag)
+				if (flag2)
 				{
 					printf("Kategorija vec postoji!\n");
 					printf("Unesite ponovo kategoriju:\n");
@@ -176,22 +176,64 @@ int dodaj_dogadjaj()
 				strlwr(nova_kategorija);
 				
 			}
-			while (!provjera_nove_kategorije(nova_kategorija) || provjera_kategorije(kategorija,nova_kategorija,br_kategorija,&flag));
+			while (!provjera_nove_kategorije(nova_kategorija) || provjera_kategorije(kategorija,nova_kategorija,br_kategorija,&flag2));
 			
 			fprintf(kategorije_dat, "%s\n", nova_kategorija);
 			++br_kategorija;
 			fseek(kategorije_dat,0, SEEK_SET);
 			fprintf(kategorije_dat, "%d", br_kategorija);
 			strcpy(dogadjaj.kategorija, nova_kategorija);
-			printf("Uspjesnos te unijeli kategoriju.\n");
+			printf("Uspjesnos te unijeli kategoriju.\n\n");
 		}
-
 		fclose(kategorije_dat);
+
+		printf("NAZIV DOGADJAJA:\n");
+		do
+		{
+			printf("Unesite naziv dogadjaja: ");
+			scanf("\n%[^\n]s", naziv);
+		} while (provjera_naziva(naziv,31) == 0);
+
+		strcpy(dogadjaj.naziv, naziv);
+
+		do
+		{
+			printf("Unesite mjesto gdje se odrzava dogadjaj: ");
+			scanf("\n%[^\n]s", mjesto);
+		} while (provjera_naziva(mjesto, 51) == 0);
+		strcpy(dogadjaj.lokacija, mjesto);
+
+		dogadjaj.komentari = 0;
+
+
+		if ((opis_dogadjaja_dat = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "a")) == NULL)
+		{
+			printf("greska prilikom otvaranja konfiguracionog fajla!\nUnesite bilo koji znak za izlaz: ");
+			ch = _getch();
+			if (ch != 0)
+				exit(1);
+		}
+		else 
+		{
+			printf("Unesite opis dogadjaja:\n");
+			scanf("\n%[^\n]s", opis);
+			fprintf(opis_dogadjaja_dat, "%s", opis);
+			//treba dodati id jos
+			dogadjaj.opis = 1;
+		}
+		fclose(opis_dogadjaja_dat);
+
+		printf("UNOS DATUMA:\n\n");
+		unos_datuma(datum);
+		strcpy(dogadjaj.datum, datum);
+		unos_vremena(vrijeme);
+		strcpy(dogadjaj.vrijeme, vrijeme);
+		printf("%s %s", dogadjaj.datum, dogadjaj.vrijeme);
+
+		fclose(dogadjaji_dat);
 	}
 	else
 		printf("Greska u otvaranju datoteke kategorije.txt");
-
-	
 	return 1;
 }
 
@@ -225,15 +267,39 @@ int prestupna_godina(int godina)
 }
 int provjera_datuma(DATUM datum)
 {
-	if ((datum.mjesec == 1 || datum.mjesec == 3 || datum.mjesec == 5 || datum.mjesec == 7
-		|| datum.mjesec == 8 || datum.mjesec == 10 || datum.mjesec == 12) && (datum.dan > 31 || datum.dan < 1))
-		return 0;
+	
+	 if ((datum.mjesec == 1 || datum.mjesec == 3 || datum.mjesec == 5 || datum.mjesec == 7
+		 || datum.mjesec == 8 || datum.mjesec == 10 || datum.mjesec == 12) && (datum.dan > 31 || datum.dan < 1))
+	 {
+		 printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
+		 return 0;
+	 }
+	
 	else if ((datum.mjesec == 4 || datum.mjesec == 6 || datum.mjesec == 9 || datum.mjesec == 11) && (datum.dan > 30 || datum.dan < 1))
+	{
+		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
 		return 0;
+	}
 	else if ((datum.mjesec == 2 && prestupna_godina(datum.godina)) && (datum.dan > 29 || datum.dan <1))
+	{
+		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
 		return 0;
+	}
 	else if ((datum.mjesec == 2 && !prestupna_godina(datum.godina)) && (datum.dan > 28 || datum.dan < 1))
+	{
+		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
 		return 0;
+	}
+	 else if (datum.mjesec > 12 || datum.mjesec < 1)
+	 {
+		 printf("Pogresno ste unijeli mjesec, pokusajte ponovo!\n");
+		 return 0;
+	 }
+	 else if (datum.godina < 1)
+	 {
+		 printf("Pogresno ste unijeli godinu, pokusajte ponovo!\n");
+		 return 0;
+	 }
 	return 1;		
 }
 
@@ -245,11 +311,11 @@ int unos_vremena(char vrijeme[])
 		printf("U koliko sati: ");
 		scanf("%d", &time.sat);
 		printf("U koliko minuta: ");
-		scanf("%d", &time.sat);
+		scanf("%d", &time.minute);
 	} while (!provjera_vremena(time));
 	char min[3];
 	itoa(time.sat, vrijeme, 10);
-	strcat(vrijeme, ".");
+	strcat(vrijeme, ":");
 	strcat(vrijeme, itoa(time.minute, min, 10));
 	return 1;
 }
@@ -257,9 +323,12 @@ int unos_vremena(char vrijeme[])
 int provjera_vremena(VRIJEME time)
 {
 	if ((time.sat > 23 || time.sat < 0) || (time.minute > 60 || time.minute < 0))
+	{
+		printf("Pogresno ste unijeli vrijeme, pokusajte ponovo!\n");
 		return 0;
+	}
+		
 	else return 1;
-	
 }
 
 int provjera_kategorije(char** arr,char* korisnicki_unos,int n,short* flag)
@@ -272,6 +341,7 @@ int provjera_kategorije(char** arr,char* korisnicki_unos,int n,short* flag)
 			return 1;
 		}
 	}
+	*flag = 0;
 	return 0;
 }
 
@@ -287,6 +357,18 @@ int provjera_nove_kategorije(char* kategorija)
 	return 1;
 }
 
+int provjera_naziva(char* arr,const int a)
+{
+	int i;
+	for (i = 0; i < strlen(arr); i++);
+	if (i > a)
+	{
+		printf("Dozvoljeno je maksimalno 30 karaktera, pokusajte ponovo!\n");
+		return 0;
+	}
+
+	return 1;
+}
 void sleep(unsigned int* secs)
 {
 	unsigned int retTime = time(0) + *secs;  

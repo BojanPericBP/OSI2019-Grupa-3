@@ -1,4 +1,4 @@
-8
+9
 izlozba
 koncert
 promocija
@@ -7,3 +7,4 @@ utakmica
 konferencija
 seminar
 ostalo
+a

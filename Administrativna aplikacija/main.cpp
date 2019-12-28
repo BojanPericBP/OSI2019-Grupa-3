@@ -1,12 +1,12 @@
 #include "AdministrativnaAppHeader.h"
 #include "AdministrativneFunkcije.h"
 #include<time.h>
-#include <Windows.h>
+#include <windows.h>
 #pragma warning(disable : 4996)
 int main()
 {
 	char c[5];//smjestam opciju koju je korisnik izabrao, npr exit ili try again i slicno
-	
+
 	HWND console = GetConsoleWindow();
 	RECT r;
 	GetWindowRect(console, &r);
