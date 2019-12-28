@@ -21,11 +21,11 @@ int ucitaj_br_dogadjaja(FILE*);
 void ucitaj_dogadjaje_iz_datoteke(FILE*,DOGADJAJ*);
 
 void ispisi_dogadjaj(DOGADJAJ*); //pomocna funkcija, koja ispisuje samo 1 dogadjaj
-void svi_dogadjaji(DOGADJAJ*);
-void preporuceni_dogadjaji(DOGADJAJ*);
-void danasnji_dogadjaji(DOGADJAJ*);
-void prosli_dogadjaji(DOGADJAJ*);
-void buduci_dogadjaji(DOGADJAJ*);
+void svi_dogadjaji(DOGADJAJ*,int);
+void preporuceni_dogadjaji(DOGADJAJ*,int);
+void danasnji_dogadjaji(DOGADJAJ*,int);
+void prosli_dogadjaji(DOGADJAJ*,int);
+void buduci_dogadjaji(DOGADJAJ*,int);
 
 
 int unesi_id();
@@ -38,6 +38,7 @@ void prikazi_opis(int);
 int ucitaj_br_dogadjaja(FILE* dat_dogadjaji)
 {
 	//ucita samo prvi red iz datoteke i vrati kao int
+	return 2;
 }
 
 void ucitaj_dogadjaje_iz_datoteke(FILE* dat_dogadjaji, DOGADJAJ* lista_dogadjaja)
@@ -45,33 +46,33 @@ void ucitaj_dogadjaje_iz_datoteke(FILE* dat_dogadjaji, DOGADJAJ* lista_dogadjaja
 	//niz vec alociran, samo ucitava red po red i smijesta u niz
 }
 
-void svi_dogadjaji(DOGADJAJ* lista_dogadjaja)
+void ispisi_dogadjaj(DOGADJAJ* lista_dogadjaja)
 {
-	int br_dogadjaja = sizeof(lista_dogadjaja) / sizeof(DOGADJAJ);
-	//ispisuje cijelu listu dogadjaja
+	printf("%5d  %s  %s  %s  %s  %s  %s  %s  %s\n",lista_dogadjaja->id,lista_dogadjaja->naziv, lista_dogadjaja->opis==1?"ima opis":"nema opisa" ,lista_dogadjaja->lokacija,lista_dogadjaja->kategorija,lista_dogadjaja->datum,lista_dogadjaja->vrijeme,lista_dogadjaja->komentari==1?"Ima komentar":"NEma komentar",lista_dogadjaja->preporucen==1?"Preporucen":"Nije preporucen");
 }
 
-void preporuceni_dogadjaji(DOGADJAJ* lista_dogadjaja)
+void svi_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
-	int br_dogadjaja = sizeof(lista_dogadjaja) / sizeof(DOGADJAJ);
-	//prolazi listom dogadjaja i ispisuje one koji imaju preporucen==1
+	for (int i = 0; i < br_dogadjaja; i++)
+		ispisi_dogadjaj(&lista_dogadjaja[i]);
+}
+
+void preporuceni_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
+{
+	for (int i = 0; i < br_dogadjaja; i++)
+		if(lista_dogadjaja[i].preporucen)
+			ispisi_dogadjaj(&lista_dogadjaja[i]);
 }
 
 void buduci_dogadjaji(DOGADJAJ* lista_dogadjaja)
 {
-	int br_dogadjaja = sizeof(lista_dogadjaja) / sizeof(DOGADJAJ);
 	//generise danasnji datum
 	//prolazi listom i poredi datume dogadjaja iz liste sa danasnjim
 	//ispise ako su veci od danasnjeg
 }
 
-void prosli_dogadjaji(DOGADJAJ* lista_dogadjaja)
+void prosli_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
-	int br_dogadjaja = sizeof(lista_dogadjaja) / sizeof(DOGADJAJ);
 
-}
-void buduci_dogadjaji(DOGADJAJ* lista_dogadjaja)
-{
-	int br_dogadjaja = sizeof(lista_dogadjaja) / sizeof(DOGADJAJ);
 
 }
