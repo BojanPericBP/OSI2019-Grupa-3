@@ -35,13 +35,13 @@ void glavni_meni_korisnicke_aplikacije()
 	printf("\n**********************************************************************************************************************************************\n");
 }
 
-void meni_prikaz_preporucenih_dogadjaja()
+void meni_prikaz_preporucenih_dogadjaja(DOGADJAJ* lista_dogadjaja)
 {
 	system("cls");
 	system("color 4f");
 
 	printf("\n****************************************************** PREGLED PREPORUCENIH DOGADJAJA ********************************************************\n");
-	//ispis preporucenih dogadjaja
+	preporuceni_dogadjaji(lista_dogadjaja);
 	printf("\n**********************************************************************************************************************************************\n\n");
 }
 
@@ -75,13 +75,13 @@ void meni_prosli_dogadjaja()
 	printf("\n**********************************************************************************************************************************************\n\n");
 }
 
-void meni_buducih_dogadjaja()
+void meni_buducih_dogadjaja(DOGADJAJ* lista_dogadjaja)
 {
 	system("cls");
 	system("color 4f");
 
 	printf("\n*********************************************************** PREGLED BUDUCIH DOGADJAJA ********************************************************\n");
-	//buduci_dogadjaji(DOGADJAJ*); //slati argument
+	buduci_dogadjaji(lista_dogadjaja);
 	printf("\n**********************************************************************************************************************************************\n\n");
 }
 
@@ -130,7 +130,7 @@ void meni_o_korisnickoj_aplikaciji()
 	printf("\n**********************************************************************************************************************************************\n\n");
 }
 
-void odabir_opcije_korisnika()
+void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja)
 {
 	char a[50] = {};
 	char c[50] = {};
@@ -152,7 +152,7 @@ void odabir_opcije_korisnika()
 
 		case '1':
 			system("cls");
-			meni_prikaz_preporucenih_dogadjaja();
+			meni_prikaz_preporucenih_dogadjaja(lista_dogadjaja);
 			do {
 				printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n");
 				scanf("\n%[^\n]s", c);
@@ -414,7 +414,7 @@ void odabir_opcije_korisnika()
 			break;
 		case '2':
 			system("cls");
-			meni_buducih_dogadjaja();
+			meni_buducih_dogadjaja(lista_dogadjaja);
 			do
 			{
 				printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n");
