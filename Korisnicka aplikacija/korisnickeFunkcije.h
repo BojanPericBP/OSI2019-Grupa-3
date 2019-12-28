@@ -7,7 +7,7 @@
 typedef struct dogadjaj
 {
 	int id;
-	char naziv[100];
+	char naziv[31];
 	char opis;
 	char lokacija[100];
 	char kategorija[20];
@@ -37,8 +37,9 @@ void prikazi_opis(int);
 
 int ucitaj_br_dogadjaja(FILE* dat_dogadjaji)
 {
-	//ucita samo prvi red iz datoteke i vrati kao int
-	return 2;
+	int id, br;
+	fscanf(dat_dogadjaji, "%d %d", &id, &br);
+	return br;
 }
 
 void ucitaj_dogadjaje_iz_datoteke(FILE* dat_dogadjaji, DOGADJAJ* lista_dogadjaja)
@@ -48,7 +49,7 @@ void ucitaj_dogadjaje_iz_datoteke(FILE* dat_dogadjaji, DOGADJAJ* lista_dogadjaja
 
 void ispisi_dogadjaj(DOGADJAJ* lista_dogadjaja)
 {
-	printf("%5d  %s  %s  %s  %s  %s  %s  %s  %s\n",lista_dogadjaja->id,lista_dogadjaja->naziv, lista_dogadjaja->opis==1?"ima opis":"nema opisa" ,lista_dogadjaja->lokacija,lista_dogadjaja->kategorija,lista_dogadjaja->datum,lista_dogadjaja->vrijeme,lista_dogadjaja->komentari==1?"Ima komentar":"NEma komentar",lista_dogadjaja->preporucen==1?"Preporucen":"Nije preporucen");
+	printf("%5d  %-30s  %s  %s  %-20s  %s  %s  %s  %s\n",lista_dogadjaja->id,lista_dogadjaja->naziv, lista_dogadjaja->opis==1?"ima opis":"nema opisa" ,lista_dogadjaja->lokacija,lista_dogadjaja->kategorija,lista_dogadjaja->datum,lista_dogadjaja->vrijeme,lista_dogadjaja->komentari==1?"Ima komentar":"NEma komentar",lista_dogadjaja->preporucen==1?"Preporucen":"Nije preporucen");
 }
 
 void svi_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)

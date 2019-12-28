@@ -25,7 +25,7 @@ int main()
 	strcpy(dog[0].lokacija, "banja luka");
 	strcpy(dog[0].naziv, "Film123");
 	strcpy(dog[0].vrijeme, "20:00");
-	dog[0].opis = 1;
+	dog[0].opis = 0;
 
 	strcpy(dog[1].datum, "23.10.1996");
 	dog[1].id = 1011;
