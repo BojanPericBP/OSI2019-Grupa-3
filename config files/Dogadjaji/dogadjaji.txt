@@ -1,5 +1,1 @@
-1002 2
-1001,ISTINA,1,pozoriste jazavac,predstava,29.12.1019,20:00,1,1
-1002,Koncert Jovana Perisica,1,hala Metal,koncert,27.12.1019,21:00,0,1
-
-id *naziv opis *mjesto *kategorija *datum *vrijeme *komentar
+999 0

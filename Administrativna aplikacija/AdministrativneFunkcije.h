@@ -125,115 +125,146 @@ int dodaj_dogadjaj()
 	FILE* kategorije_dat,* dogadjaji_dat,* opis_dogadjaja_dat;
 	char* kategorija[20];	//moram dealocirati nekada negdje
 	
-
-	if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "r+")) != NULL)
+	if ((dogadjaji_dat = fopen("../config files/Dogadjaji/dogadjaji.txt", "r+")) != NULL)//prepravio sam na r+
 	{
-		fscanf(kategorije_dat, "%d", &br_kategorija);
+		fscanf(dogadjaji_dat, "%d %d", &dogadjaj.id, &br_dogadjaja);
+		dogadjaj.id++;
+		br_dogadjaja++;
 
-		for (int i = 0; i <= br_kategorija; i++)
-			kategorija[i] = (char*)calloc(br_kategorija,sizeof(char));
-
-		int i = 0;
-		while (fscanf(kategorije_dat,"\n%[^\n]s",kategorija[i]) != EOF)
-			++i;
-
-		printf("\n\tUNOS KATEGORIJE\n\n");
-		printf("Odaberite:\n\tU->Unos postojecu kategoriju\n\tD->Dodavanje nove kategorije\n\n");
-		printf("\n\tPOSTOJECE KATEGORIJE:\n\n");
-		for (int i = 0; i < br_kategorija; i++)
-			printf("\t%d.%s\n", i+1, kategorija[i]);
-		printf("\n");
-
-		do
-			ch = _getch();
-		while (ch != 'u' && ch != 'U' && ch != 'd' && ch != 'D');
-
-		if (ch == 'u' || ch == 'U')
+		if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "r+")) != NULL)
 		{
+			fscanf(kategorije_dat, "%d", &br_kategorija);
+
+			for (int i = 0; i <= br_kategorija; i++)
+				kategorija[i] = (char*)calloc(br_kategorija, sizeof(char));
+
+			int i = 0;
+			while (fscanf(kategorije_dat, "\n%[^\n]s", kategorija[i]) != EOF)
+				++i;
+
+			printf("\n\tUNOS KATEGORIJE\n\n");
+			printf("Odaberite:\n\tU->Unos postojecu kategoriju\n\tD->Dodavanje nove kategorije\n\n");
+			printf("\n\tPOSTOJECE KATEGORIJE:\n\n");
+			for (int i = 0; i < br_kategorija; i++)
+				printf("\t%d.%s\n", i + 1, kategorija[i]);
+			printf("\n");
+
 			do
+				ch = _getch();
+			while (ch != 'u' && ch != 'U' && ch != 'd' && ch != 'D');
+
+			if (ch == 'u' || ch == 'U')
 			{
-				if(flag1 ==0 )
-					printf("Kategorija koju ste unijeli ne postoji, pokusajte ponovo!\n");
-				printf("Unesite kategoriju: ");
-				scanf("\n%[^\n]s", dogadjaj.kategorija);
-				strlwr(dogadjaj.kategorija);
-			} while (!provjera_kategorije(kategorija,dogadjaj.kategorija,br_kategorija,&flag1));
-			if (flag1)
-				printf("Uspjesnos te unijeli kategoriju.\n");
-			
-		}
-		else if (ch == 'd' || ch == 'D')
-		{
-			printf("Dodajte novu kategoriju: ");
-			do
-			{
-				if (flag2)
+				do
 				{
-					printf("Kategorija vec postoji!\n");
-					printf("Unesite ponovo kategoriju:\n");
-				}
-				scanf("\n%[^\n]s", nova_kategorija);
-				strlwr(nova_kategorija);
-				
+					if (flag1 == 0)
+						printf("Kategorija koju ste unijeli ne postoji, pokusajte ponovo!\n");
+					printf("Unesite kategoriju: ");
+					scanf("\n%[^\n]s", dogadjaj.kategorija);
+					strlwr(dogadjaj.kategorija);
+				} while (!provjera_kategorije(kategorija, dogadjaj.kategorija, br_kategorija, &flag1));
+				if (flag1)
+					printf("Uspjesnos te unijeli kategoriju.\n");
+
 			}
-			while (!provjera_nove_kategorije(nova_kategorija) || provjera_kategorije(kategorija,nova_kategorija,br_kategorija,&flag2));
+			else if (ch == 'd' || ch == 'D')
+			{
+				printf("Dodajte novu kategoriju: ");
+				do
+				{
+					if (flag2)
+					{
+						printf("Kategorija vec postoji!\n");
+						printf("Unesite ponovo kategoriju:\n");
+					}
+					scanf("\n%[^\n]s", nova_kategorija);
+					strlwr(nova_kategorija);
+
+				} while (!provjera_nove_kategorije(nova_kategorija) || provjera_kategorije(kategorija, nova_kategorija, br_kategorija, &flag2));
+
+				fprintf(kategorije_dat, "%s\n", nova_kategorija);
+				++br_kategorija;
+				fseek(kategorije_dat, 0, SEEK_SET);
+				fprintf(kategorije_dat, "%d", br_kategorija);
+				strcpy(dogadjaj.kategorija, nova_kategorija);
+				printf("Uspjesnos te unijeli kategoriju.\n\n");
+			}
+			fclose(kategorije_dat);
+
+			printf("NAZIV DOGADJAJA:\n");
+			do
+			{
+				printf("Unesite naziv dogadjaja: ");
+				scanf("\n%[^\n]s", naziv);
+			} while (provjera_naziva(naziv, 31) == 0);
+
+			strcpy(dogadjaj.naziv, naziv);
+
+			do
+			{
+				printf("Unesite mjesto gdje se odrzava dogadjaj: ");
+				scanf("\n%[^\n]s", mjesto);
+			} while (provjera_naziva(mjesto, 51) == 0);
+			strcpy(dogadjaj.lokacija, mjesto);
 			
-			fprintf(kategorije_dat, "%s\n", nova_kategorija);
-			++br_kategorija;
-			fseek(kategorije_dat,0, SEEK_SET);
-			fprintf(kategorije_dat, "%d", br_kategorija);
-			strcpy(dogadjaj.kategorija, nova_kategorija);
-			printf("Uspjesnos te unijeli kategoriju.\n\n");
+
+			dogadjaj.komentari = 0;
+
+
+			if ((opis_dogadjaja_dat = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "a")) == NULL)
+			{
+				printf("greska prilikom otvaranja konfiguracionog fajla!\nUnesite bilo koji znak za izlaz: ");
+				ch = _getch();
+				if (ch != 0)
+					exit(1);
+			}
+			else
+			{
+				printf("UNOS DOGADJAJA:\n");
+				printf("Unesite:\n\to->za unos opisa\n\tp->da preskocite ovaj korak\n");
+				do
+					ch = _getch();
+				while (ch != 'o' && ch != 'O' && ch != 'p' && ch != 'P');
+
+				if (ch == 'o' || ch == 'O')
+				{
+					scanf("\n%[^\n]s", opis);
+					fprintf(opis_dogadjaja_dat, "%d,%s\n", dogadjaj.id, opis);
+					dogadjaj.opis = 1;
+				}
+				else if (ch == 'p' || ch == 'P')
+					dogadjaj.opis = 0;
+
+				do
+				{
+					printf("da li zelite preporuciti ovaj dogadjaj drugim korisnicima?\nunesite:\n\t1->DA\n\t0->NE\n");
+					dogadjaj.preporucen = _getch();
+				} while (dogadjaj.preporucen != '1' && dogadjaj.preporucen != '0');
+				
+
+			}
+			fclose(opis_dogadjaja_dat);
+
+			printf("UNOS DATUMA:\n\n");
+			unos_datuma(datum);
+			strcpy(dogadjaj.datum, datum);
+			unos_vremena(vrijeme);
+			strcpy(dogadjaj.vrijeme, vrijeme);
+			printf("%s %s", dogadjaj.datum, dogadjaj.vrijeme);
+
+			fseek(dogadjaji_dat, 0, SEEK_SET);
+			fprintf(dogadjaji_dat, "%d %d\n", dogadjaj.id, br_dogadjaja);
+			fseek(dogadjaji_dat, 0, SEEK_END);
+			fprintf(dogadjaji_dat, "%d,%s,%d,%s,%s,%s,%s,%d,%c\n", dogadjaj.id, dogadjaj.naziv, dogadjaj.opis, dogadjaj.lokacija, dogadjaj.kategorija,
+				dogadjaj.datum, dogadjaj.vrijeme, dogadjaj.komentari,dogadjaj.preporucen);
+			fclose(dogadjaji_dat);
 		}
-		fclose(kategorije_dat);
-
-		printf("NAZIV DOGADJAJA:\n");
-		do
-		{
-			printf("Unesite naziv dogadjaja: ");
-			scanf("\n%[^\n]s", naziv);
-		} while (provjera_naziva(naziv,31) == 0);
-
-		strcpy(dogadjaj.naziv, naziv);
-
-		do
-		{
-			printf("Unesite mjesto gdje se odrzava dogadjaj: ");
-			scanf("\n%[^\n]s", mjesto);
-		} while (provjera_naziva(mjesto, 51) == 0);
-		strcpy(dogadjaj.lokacija, mjesto);
-
-		dogadjaj.komentari = 0;
-
-
-		if ((opis_dogadjaja_dat = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "a")) == NULL)
-		{
-			printf("greska prilikom otvaranja konfiguracionog fajla!\nUnesite bilo koji znak za izlaz: ");
-			ch = _getch();
-			if (ch != 0)
-				exit(1);
-		}
-		else 
-		{
-			printf("Unesite opis dogadjaja:\n");
-			scanf("\n%[^\n]s", opis);
-			fprintf(opis_dogadjaja_dat, "%s", opis);
-			//treba dodati id jos
-			dogadjaj.opis = 1;
-		}
-		fclose(opis_dogadjaja_dat);
-
-		printf("UNOS DATUMA:\n\n");
-		unos_datuma(datum);
-		strcpy(dogadjaj.datum, datum);
-		unos_vremena(vrijeme);
-		strcpy(dogadjaj.vrijeme, vrijeme);
-		printf("%s %s", dogadjaj.datum, dogadjaj.vrijeme);
-
-		fclose(dogadjaji_dat);
+		else
+			printf("Greska u otvaranju datoteke kategorije.txt");
+			fclose(dogadjaji_dat);
 	}
 	else
-		printf("Greska u otvaranju datoteke kategorije.txt");
+	printf("Greska prilikom otvaranja datoteke sa dogadjajima!\n");
 	return 1;
 }
 
