@@ -21,17 +21,3 @@ int main()
 
 	return 0;
 }
-/*
-Projekat TODO :
-
-Funkcionalnosti:
-komentari
-pretraga po filtru
-zainteresovan za dogadjaj
-
-
-Finese:
-pozvati funkcije gdje su komentari u switchu
-pozvati ih u meniju, gdje su komentari
-koristiti _getch();
-*/

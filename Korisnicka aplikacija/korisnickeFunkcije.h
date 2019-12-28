@@ -97,7 +97,7 @@ void svi_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 void preporuceni_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
 	for (int i = 0; i < br_dogadjaja; i++)
-		if(lista_dogadjaja[i].preporucen-48)//char pa ne ispisuje dobro
+		if(lista_dogadjaja[i].preporucen-48)
 			ispisi_dogadjaj(&lista_dogadjaja[i]);
 }
 
