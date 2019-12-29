@@ -19,9 +19,13 @@ typedef struct dogadjaj
 	char preporucen;
 }DOGADJAJ;
 
+typedef struct zainteresovan
+{
+	int id, br;
+}ZAINTERESOVAN;
+
 int ucitaj_br_dogadjaja(FILE*);
 void ucitaj_dogadjaje_iz_datoteke(FILE*,DOGADJAJ*,int);
-
 void ispisi_dogadjaj(DOGADJAJ*); //pomocna funkcija, koja ispisuje samo 1 dogadjaj
 void svi_dogadjaji(DOGADJAJ*,int);
 void preporuceni_dogadjaji(DOGADJAJ*,int);
@@ -107,19 +111,22 @@ void danasnji_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
 	SYSTEMTIME t;
 	GetLocalTime(&t); //generise danasnji datum
+	char temp_date[12] = {};
+	char buffer[5];
+	strcat(temp_date, itoa(t.wDay, buffer, 10));
+	strcat(temp_date, ".");
+	strcat(temp_date, itoa(t.wMonth, buffer, 10));
+	strcat(temp_date, ".");
+	strcat(temp_date, itoa(t.wYear, buffer, 10));
+	strcat(temp_date, ".");
+	char flag = 0;
 	for (int i = 0; i < br_dogadjaja; i++)
-	{
-		char temp_date[12] = {};
-		char buffer[5];
-		strcat(temp_date, itoa(t.wDay, buffer, 10));
-		strcat(temp_date, ".");
-		strcat(temp_date, itoa(t.wMonth, buffer, 10));
-		strcat(temp_date, ".");
-		strcat(temp_date, itoa(t.wYear, buffer, 10));
-		strcat(temp_date, ".");
 		if (!strcmp(temp_date, lista_dogadjaja[i].datum))
+		{
 			ispisi_dogadjaj(&lista_dogadjaja[i]);
-	}
+			flag = 1;
+		}
+	if (!flag) printf("\tNema desavanja u gradu danas... :(\n");
 }
 
 void buduci_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
@@ -287,13 +294,45 @@ void unesi_komentar(int id)
 
 void zainteresovan_za_dogadjaj(int id)
 {
-	FILE* dat_zainteresovani = fopen("../config files/Dogadjaji/zainteresovani_za_dogadjaj.txt", "w+");
+	FILE* dat_zainteresovani = fopen("../config files/Dogadjaji/zainteresovani_za_dogadjaj.txt", "r");
 	if (!dat_zainteresovani) { printf("Neuspjesno ucitavanje datoteke zainteresovani_za_dogadjaj.txt"); return; }
 	else
 	{
+		int br_dogadjaja;
+		fscanf(dat_zainteresovani, "%d", &br_dogadjaja);
 		
 
+		ZAINTERESOVAN* niz = (ZAINTERESOVAN*)calloc(4, sizeof(ZAINTERESOVAN));
 
+		// ucitavanje iz datoteke u memoriju
+		for (int i = 0; i < br_dogadjaja; i++)
+			fscanf(dat_zainteresovani, "%d %d", &niz[0].id, &niz[0].br);
+		fclose(dat_zainteresovani); dat_zainteresovani = NULL;
+		char flag = 0;
+		int i = 0; //brojac
+		for (; i < br_dogadjaja && !flag; i++)
+			if (niz[i].id == id) flag = 1;
+		if (!flag) //ako ne nadje
+		{
+			br_dogadjaja++; //nema ga u nizu, pa povecamo niz za jedno mjesto
+			niz = (ZAINTERESOVAN*)realloc(niz, br_dogadjaja);
+			niz[br_dogadjaja - 1].id = id;
+			niz[br_dogadjaja - 1].br++;
+		
+		} 
+		else //ako nadje
+			niz[i].br++;
+	
+		if (i==(br_dogadjaja-1))
+			printf("\nUkupno je %d ljudi zainteresovano ta ovaj dogadjaj\n", niz[br_dogadjaja].br);
+		else printf("\nUkupno je %d ljudi zainteresovano ta ovaj dogadjaj\n", niz[i].br);
+		
+		//vracanje niza u datoteku
+		dat_zainteresovani = fopen("../config files/Dogadjaji/zainteresovani_za_dogadjaj.txt", "w");
+		fprintf(dat_zainteresovani, "%d", br_dogadjaja);
+		for (int j = 0; j < br_dogadjaja; j++)
+			fprintf(dat_zainteresovani, "\n%d %d", niz[i].id, niz[i].br);
+		free(niz);
 		fclose(dat_zainteresovani);
 	}
 }
