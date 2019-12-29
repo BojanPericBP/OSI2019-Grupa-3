@@ -132,8 +132,8 @@ void meni_o_korisnickoj_aplikaciji()
 
 void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
-	char a[200] = {};
-	char c[200] = {};
+	char a[1000] = {};
+	char c[1000] = {};
 	char flag = 0,flag_danasnji=0;
 	while (1)
 	{

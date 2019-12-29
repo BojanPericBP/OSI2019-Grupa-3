@@ -349,8 +349,6 @@ void zainteresovan_za_dogadjaj(int id)
 	}
 }
 
-/////////////////
-
 int prestupna_godina(int godina) // 1 prestupna, 0 nije prestupna
 {
 	if ((godina % 4 == 0 && godina % 100 != 0) || (godina % 4 == 0 && godina % 400 == 0))
@@ -424,7 +422,6 @@ int unos_datuma(char* datum)
 	return 1;
 }
 
-/////////////////
 int provjera_kategorije(char** arr, char* korisnicki_unos, int n, short* flag)
 {
 	for (int i = 0; i < n; i++)
@@ -438,7 +435,6 @@ int provjera_kategorije(char** arr, char* korisnicki_unos, int n, short* flag)
 	*flag = 0;
 	return 0;
 }
-//////////////////
 
 void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
