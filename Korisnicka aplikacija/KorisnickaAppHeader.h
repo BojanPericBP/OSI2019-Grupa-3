@@ -56,14 +56,15 @@ void meni_svih_dogadjaja(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 	printf("\n****************************************************************************************************************************************************************************\n");
 }
 
-void meni_danasnjih_dogadjaja(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
+int meni_danasnjih_dogadjaja(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
 	system("cls");
 	system("color 4f");
 
 	printf("\n************************************************************************** PREGLED DANASNJIH DOGADJAJA *********************************************************************\n\n");
-	danasnji_dogadjaji(lista_dogadjaja, br_dogadjaja);
+	int flag=danasnji_dogadjaji(lista_dogadjaja, br_dogadjaja);
 	printf("\n****************************************************************************************************************************************************************************\n");
+	return flag;
 }
 
 void meni_prosli_dogadjaja(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
@@ -133,7 +134,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
 	char a[200] = {};
 	char c[200] = {};
-	char flag = 0;
+	char flag = 0,flag_danasnji=0;
 	while (1)
 	{
 		scanf("\n%[^\n]s", a);
@@ -207,9 +208,9 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 			system("cls");
 			meni_svih_dogadjaja(lista_dogadjaja,br_dogadjaja);
 			do {
-				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
+				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n\tF -> Ako zelite da sortirate listu po nekom filtru\n");
 				scanf("\n%[^\n]s", c);
-				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p' && c[0] != 'O' && c[0] != 'o' && c[0] != 'Z' && c[0] != 'z') || c[1] != 0)
+				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p' && c[0] != 'O' && c[0] != 'o' && c[0] != 'Z' && c[0] != 'z' && c[0] != 'F' && c[0] != 'f') || c[1] != 0)
 				{
 					printf("Nepostojeca opcija! Izaberite ponovo: \n");
 					scanf("\n%[^\n]s", c);
@@ -253,6 +254,11 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 					if (trazeni_dogadjaj) zainteresovan_za_dogadjaj(temp_id);
 					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+				}
+				else if (c[0] == 'F' || c[0] == 'f') // F -> filtriranje
+				{
+					flag = 0;
+					pisi_dogadjaje_filter(lista_dogadjaja,br_dogadjaja);
 				}
 			} while (!flag);
 			break;
@@ -357,19 +363,71 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 			break;
 		case '3':
 			system("cls");
-			meni_danasnjih_dogadjaja(lista_dogadjaja, br_dogadjaja);
-			do {
-				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
+			flag_danasnji=meni_danasnjih_dogadjaja(lista_dogadjaja, br_dogadjaja);
+			if (flag_danasnji)
+			{
+				do {
+					printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
+					scanf("\n%[^\n]s", c);
+					while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p' && c[0] != 'O' && c[0] != 'o' && c[0] != 'Z' && c[0] != 'z') || c[1] != 0)
+					{
+						printf("Nepostojeca opcija! Izaberite ponovo: \n");
+						scanf("\n%[^\n]s", c);
+					}
+					if (c[0] == 'M' || c[0] == 'm')
+					{
+						system("cls");
+						flag = 1;
+						glavni_meni_korisnicke_aplikacije();
+					}
+					else if (c[0] == 'E' || c[0] == 'e')
+					{
+						free(lista_dogadjaja);
+						exit(1);
+					}
+					else if (c[0] == 'K' || c[0] == 'k') // K -> Dodavanje komentara za neki dogadjaj
+					{
+						flag = 0;
+						int temp_id = unesi_id();
+						DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
+						if (trazeni_dogadjaj) unesi_komentar(temp_id);
+						else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					}
+					else if (c[0] == 'P' || c[0] == 'p') // P -> Pregled komentara nekog dogadjaja
+					{
+						flag = 0;
+						int temp_id = unesi_id();
+						DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
+						if (trazeni_dogadjaj) ispisi_komentar(temp_id);
+						else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					}
+					else if (c[0] == 'O' || c[0] == 'o') // O -> Pregled opisa nekog dogadjaja
+					{
+						flag = 0;
+						prikazi_opis(lista_dogadjaja, br_dogadjaja);
+					}
+					else if (c[0] == 'Z' || c[0] == 'z') // Z -> zainteresovan za dogadjaj
+					{
+						flag = 0;
+						int temp_id = unesi_id();
+						DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
+						if (trazeni_dogadjaj) zainteresovan_za_dogadjaj(temp_id);
+						else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					}
+				} while (!flag);
+			}
+			else
+			{
+				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
 				scanf("\n%[^\n]s", c);
-				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e' && c[0] != 'K' && c[0] != 'k' && c[0] != 'P' && c[0] != 'p' && c[0] != 'O' && c[0] != 'o' && c[0] != 'Z' && c[0] != 'z') || c[1] != 0)
+				while ((c[0] != 'M' && c[0] != 'm' && c[0] != 'E' && c[0] != 'e') || c[1] != 0)
 				{
-					printf("Nepostojeca opcija! Izaberite ponovo: \n");
+					printf("\nNepostojeca opcija! Izaberite ponovo: \n");
 					scanf("\n%[^\n]s", c);
 				}
 				if (c[0] == 'M' || c[0] == 'm')
 				{
 					system("cls");
-					flag = 1;
 					glavni_meni_korisnicke_aplikacije();
 				}
 				else if (c[0] == 'E' || c[0] == 'e')
@@ -377,36 +435,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 					free(lista_dogadjaja);
 					exit(1);
 				}
-				else if (c[0] == 'K' || c[0] == 'k') // K -> Dodavanje komentara za neki dogadjaj
-				{
-					flag = 0;
-					int temp_id = unesi_id();
-					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
-					if (trazeni_dogadjaj) unesi_komentar(temp_id);
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
-				}
-				else if (c[0] == 'P' || c[0] == 'p') // P -> Pregled komentara nekog dogadjaja
-				{
-					flag = 0;
-					int temp_id = unesi_id();
-					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
-					if (trazeni_dogadjaj) ispisi_komentar(temp_id);
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
-				}
-				else if (c[0] == 'O' || c[0] == 'o') // O -> Pregled opisa nekog dogadjaja
-				{
-					flag = 0;
-					prikazi_opis(lista_dogadjaja, br_dogadjaja);
-				}
-				else if (c[0] == 'Z' || c[0] == 'z') // Z -> zainteresovan za dogadjaj
-				{
-					flag = 0;
-					int temp_id = unesi_id();
-					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
-					if (trazeni_dogadjaj) zainteresovan_za_dogadjaj(temp_id);
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
-				}
-			} while (!flag);
+			}
 			break;
 		case '4':
 			system("cls");
