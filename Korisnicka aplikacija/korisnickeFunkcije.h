@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
+#include <math.h>
 
 typedef struct dogadjaj
 {
@@ -32,9 +33,10 @@ void buduci_dogadjaji(DOGADJAJ*,int);
 int unesi_id();
 DOGADJAJ* trazi_dogadjaj_id(DOGADJAJ*,int,int);
 void pisi_dogadjaje_filter(DOGADJAJ*, char*);
-char* unesi_komentar();
+void unesi_komentar(int);
 void ispisi_komentar(int);
 void prikazi_opis(DOGADJAJ*, int);
+void zainteresovan_za_dogadjaj(int);
 
 int ucitaj_br_dogadjaja(FILE* dat_dogadjaji)
 {
@@ -235,5 +237,63 @@ void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 			}
 		}
 		fclose(dat_opis);
+	}
+}
+
+void ispisi_komentar(int id)
+{
+	FILE* dat_komentari = fopen("../config files/Dogadjaji/komentari.txt", "r");
+	if (!dat_komentari) { printf("Neuspjesno ucitavanje datoteke komentari.txt"); return; }
+	else
+	{
+		int c=0;
+		int temp_id=0;
+		char flag = 0;
+		while (c != EOF)
+		{
+			temp_id = 0;
+			for (int i = 3; i >=0; i--)
+			{
+				c = fgetc(dat_komentari);
+				temp_id += ((c - 48)* (int)pow(10,i));
+			}
+			c = fgetc(dat_komentari); //da preskoci zapetu
+			if (temp_id == id) { flag = 1; printf("\n"); }
+			while ((c = fgetc(dat_komentari)) != 10 && c!=EOF)
+			{
+				if (temp_id == id)
+					printf("%c", c);
+			}
+			if(temp_id==id) printf("\n");
+		}
+		if (!flag) printf("\nNije pronadjen komentar za dogadjaj sa unesenim id-om\n");
+		fclose(dat_komentari);
+	}
+}
+
+void unesi_komentar(int id)
+{
+	FILE* dat_komentari = fopen("../config files/Dogadjaji/komentari.txt", "a+");
+	if (!dat_komentari) { printf("Neuspjesno ucitavanje datoteke komentari.txt"); return; }
+	else
+	{
+		char kom[1000] = {};
+		printf("\nUnesite komentar: ");
+		scanf("\n%[^\n]s", kom);
+		fprintf(dat_komentari, "\n%d,%s", id, kom);
+		fclose(dat_komentari);
+	}
+}
+
+void zainteresovan_za_dogadjaj(int id)
+{
+	FILE* dat_zainteresovani = fopen("../config files/Dogadjaji/zainteresovani_za_dogadjaj.txt", "w+");
+	if (!dat_zainteresovani) { printf("Neuspjesno ucitavanje datoteke zainteresovani_za_dogadjaj.txt"); return; }
+	else
+	{
+		
+
+
+		fclose(dat_zainteresovani);
 	}
 }
