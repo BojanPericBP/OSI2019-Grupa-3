@@ -439,20 +439,20 @@ int provjera_kategorije(char** arr, char* korisnicki_unos, int n, short* flag)
 void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
 	int flag_petlje = 0;
-	char c[200] = {};
+	char ch = 0;
 	char uneseni_datum[12] = {};
 	FILE* kategorije_dat = NULL;
-	char unos[20] = {};//korisnikov unos kategorije
+	char unos[1000] = {};//korisnikov unos kategorije
 	do
 	{
 		printf("\nUnesite K -> Ako zelite da filtrirate dogadjaje po nekoj kategoriji\n\tD -> Ako zelite da provjerite sta se desava za odredjen dan\n");
-		scanf("\n%[^\n]s", c);
-		while ((c[0] != 'K' && c[0] != 'k' && c[0] != 'D' && c[0] != 'd') || c[1] != 0)
+		ch = _getch();
+		while (ch != 'K' && ch != 'k' && ch != 'D' && ch != 'd')
 		{
-			printf("Nepostojeca opcija! Izaberite ponovo po cemu zelite filtrirati: \n");
-			scanf("\n%[^\n]s", c);
+			if (ch != 13) printf("Nepostojeca opcija! Izaberite ponovo po cemu zelite filtrirati: \n");
+			ch = _getch();
 		}
-		if (c[0] == 'K' || c[0] == 'k')
+		if (ch == 'K' || ch == 'k')
 		{
 			char* kategorija[20];
 			int br_kategorija;
@@ -471,7 +471,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 				fclose(kategorije_dat);
 				printf("\nUnesite neku od postojecih kategorija:\n");
 				for (int i = 0; i < br_kategorija; i++)
-					printf("\t%d.%s\n", i + 1, kategorija[i]);
+					printf("\t%c %s\n", 254,kategorija[i]);
 				printf("\n");
 
 				do
@@ -489,7 +489,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 			}
 			flag_petlje = 1;
 		}
-		else if (c[0] == 'D' || c[0] == 'd')
+		else if (ch == 'D' || ch == 'd')
 		{
 			unos_datuma(uneseni_datum);
 			flag_petlje = 1;
@@ -498,7 +498,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 
 	printf("\n****************************************************************************************************************************************************************************\n");
 
-	if (c[0] == 'D' || c[0] == 'd')
+	if (ch == 'D' || ch == 'd')
 	{
 		char flag_datum = 0;
 		for (int i = 0; i < br_dogadjaja; i++)
@@ -509,7 +509,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 			}
 		if (!flag_datum) printf("\tNema desavanja u gradu %s... :(\n",uneseni_datum);
 	}
-	else if (c[0] == 'K' || c[0] == 'k')
+	else if (ch == 'K' || ch == 'k')
 	{
 		char flag_kategorije = 0;
 		for (int i = 0; i < br_dogadjaja; i++)
