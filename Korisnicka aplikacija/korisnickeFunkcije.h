@@ -242,19 +242,24 @@ void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 		printf("\nDogadjaj sa unesenim id-om nema opis.\n\n");
 	else
 	{
-		dat_opis = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "r");
-		char temp_arr[200] = {};
-		while ((fscanf(dat_opis, "\n%[^\n]s", temp_arr) != EOF) && !flag)
+		if ((dat_opis = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "r")) != NULL)
 		{
-			char* ostatak;
-			pom_id = strtol(temp_arr, &ostatak, 10);
-			if (pom_id == id)
+			char temp_arr[200] = {};
+			fscanf(dat_opis, "%d",&pom_id);//samo da preskoci red, ne koristim ovaj podatak
+			while ((fscanf(dat_opis, "\n%[^\n]s", temp_arr) != EOF) && !flag)
 			{
-				printf("\n%s\n\n", ostatak + 1);
-				flag = 1;
+				char* ostatak;
+				pom_id = strtol(temp_arr, &ostatak, 10);
+				if (pom_id == id)
+				{
+					printf("\n%s\n\n", ostatak + 1);
+					flag = 1; //opis moze samo jednom biti u datoteci i nema smisla dalje citati datoteku
+				}
 			}
+			fclose(dat_opis);
 		}
-		fclose(dat_opis);
+		else 
+			printf("Neuspjesno otvaranje datoteke opis_dogadjaja.txt");
 	}
 }
 
@@ -267,7 +272,8 @@ void ispisi_komentar(int id)
 		int c=0;
 		int temp_id=0;
 		char flag = 0;
-		while (c != EOF)
+		fscanf(dat_komentari, "%d", &c); c = fgetc(dat_komentari);//samo da preskoci red, ne koristim ovaj podatak
+		while (c != EOF) // ide do kraja datoteke jer se moze vise puta pojaviti komentar za isti dogadjaj
 		{
 			temp_id = 0;
 			for (int i = 3; i >=0; i--)
