@@ -362,33 +362,33 @@ int provjera_datuma(DATUM datum) // 1 ispravan datum, 0 nije ispravan
 	if ((datum.mjesec == 1 || datum.mjesec == 3 || datum.mjesec == 5 || datum.mjesec == 7
 		|| datum.mjesec == 8 || datum.mjesec == 10 || datum.mjesec == 12) && (datum.dan > 31 || datum.dan < 1))
 	{
-		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
+		printf("\nUnijeli ste nepostojeci datum, unesite ponovo cijeli datum!\n\n");
 		return 0;
 	}
 
 	else if ((datum.mjesec == 4 || datum.mjesec == 6 || datum.mjesec == 9 || datum.mjesec == 11) && (datum.dan > 30 || datum.dan < 1))
 	{
-		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
+		printf("\nUnijeli ste nepostojeci datum, unesite ponovo cijeli datum!\n\n");
 		return 0;
 	}
 	else if ((datum.mjesec == 2 && prestupna_godina(datum.godina)) && (datum.dan > 29 || datum.dan < 1))
 	{
-		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
+		printf("\nnijeli ste nepostojeci datum, unesite ponovo cijeli datum!\n\n");
 		return 0;
 	}
 	else if ((datum.mjesec == 2 && !prestupna_godina(datum.godina)) && (datum.dan > 28 || datum.dan < 1))
 	{
-		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
+		printf("\nUnijeli ste nepostojeci datum, unesite ponovo cijeli datum!\n\n");
 		return 0;
 	}
 	else if (datum.mjesec > 12 || datum.mjesec < 1)
 	{
-		printf("Pogresno ste unijeli mjesec, pokusajte ponovo!\n");
+		printf("\nUnijeli ste nepostojeci datum, unesite ponovo cijeli datum!\n\n");
 		return 0;
 	}
-	else if (datum.godina < 1)
+	else if (datum.godina < 2018)
 	{
-		printf("Pogresno ste unijeli godinu, pokusajte ponovo!\n");
+		printf("\nNema dogadjaja koji se desio prije 2018 godine, unesite ponovo cijeli datum!\n\n");
 		return 0;
 	}
 	return 1;
@@ -397,21 +397,36 @@ int provjera_datuma(DATUM datum) // 1 ispravan datum, 0 nije ispravan
 int unos_datuma(char* datum)
 {
 	DATUM datum_check;
-	char mjesec[3], godina[5];
+	char mjesec[3], godina[5];//bufferi ta funkciju strcat
+	char niz[1000] = {};
 	do
 	{
 		printf("Dan: ");
-		scanf("%d", &datum_check.dan);
-		//popraviti unos
+		scanf("\n%[^\n]s", niz);
+		while ((niz[1] != '\0' || niz[0] < 48 || niz[0]>57) && (niz[2]!='\0' || niz[0] < 48 || niz[0]>57 || niz[1] < 48 || niz[1]>57))
+		{
+			printf("Neispravan unos, unesite ponovo dan: ");
+			scanf("\n%[^\n]s", niz);
+		}
+		datum_check.dan = (niz[0] - '0') * 10 + niz[1] - '0';
 
 		printf("Mjesec: ");
-		scanf("%d", &datum_check.mjesec);
-		//popraviti unos
+		scanf("\n%[^\n]s", niz);
+		while ((niz[1] != '\0' || niz[0] < 48 || niz[0]>57) && (niz[2] != '\0' || niz[0] < 48 || niz[0]>57 || niz[1] < 48 || niz[1]>57))
+		{
+			printf("Neispravan unos, unesite ponovo mjesec: ");
+			scanf("\n%[^\n]s", niz);
+		}
+		datum_check.mjesec = (niz[0] - '0') * 10 + niz[1] - '0';
 
 		printf("Godina: ");
-		scanf("%d", &datum_check.godina);
-		//popraviti unos
-
+		scanf("\n%[^\n]s", niz);
+		while (niz[4] != '\0' || niz[0] < 48 || niz[0]>57 || niz[1] < 48 || niz[1]>57 || niz[2] < 48 || niz[2]>57 || niz[3] < 48 || niz[3]>57)
+		{
+			printf("Niste unijeli sve cetiri cifre za godinu, unesite ponovo godinu: ");
+			scanf("\n%[^\n]s", niz);
+		}
+		datum_check.godina = (niz[0] - '0') * 1000 + (niz[1] - '0') * 100 + (niz[2] - '0') * 10 + niz[3] - '0';
 	} while (!provjera_datuma(datum_check));
 	itoa(datum_check.dan, datum, 10);
 	strcat(datum, ".");
