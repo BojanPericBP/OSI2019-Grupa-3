@@ -1,0 +1,9 @@
+8
+1 sasa
+4 aaaaa
+5 hhhhh
+8 rrr
+9 www
+10 eeee
+10 qqqqq
+10 llll

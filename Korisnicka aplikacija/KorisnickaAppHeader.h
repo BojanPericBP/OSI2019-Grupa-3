@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <Windows.h>
+#include "KvizHeader.h"
 
 void inicijalizuj_prozor()
 {
@@ -54,7 +55,7 @@ void meni_kviza()
 	system("cls");
 	system("color 0b");
 	printf("\n********************************************************* DOBRO DOSLI U KVIZ *****************************************************************\n");
-	//igranje kviza
+	igraj_kviz();
 	printf("\n**********************************************************************************************************************************************\n\n");
 	printf("Unesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
 }
