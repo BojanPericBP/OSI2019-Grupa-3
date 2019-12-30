@@ -175,7 +175,6 @@ void prikazi_rang_listu()
 	}
 	else
 	{
-		printf("\n\t\t***RANG LISTA***\n");
 		printf("\n -----------------------------------------------------");
 		printf("\n | Rb. | Br bodova | Korisnicko ime                  |");
 		printf("\n -----------------------------------------------------");
@@ -188,7 +187,7 @@ void prikazi_rang_listu()
 			fscanf(rang_lista_dat, "%d \n%[^\n]s", &temp_bodovi, temp_korisnik);
 			printf("\n | %2d. | %9d |  %-30s |", i + 1, temp_bodovi, temp_korisnik);
 		}
-		printf("\n -----------------------------------------------------");
+		printf("\n -----------------------------------------------------\n\n");
 	}
 	fclose(rang_lista_dat);
 }
