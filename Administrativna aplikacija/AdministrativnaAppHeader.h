@@ -16,9 +16,8 @@ void glavni_meni_administrativne_aplikacije()
 	printf("                     1: DODAVANJE DOGADJAJA\n");
 	printf("                     2: UREDJIVANJE DOGADJAJA\n");
 	printf("                     3: BRISANJE DOGADJAJA\n");
-	printf("                     4: DODAVANJE KATEGORIJE\n");
-	printf("                     5: BRISANJE KATEGORIJE\n");
-	printf("                     6: UREDJIVANJE KVIZA\n");
+	printf("                     4: BRISANJE KATEGORIJE\n");
+	printf("                     5: UREDJIVANJE KVIZA\n");
 	printf("     ____________________________________________________________________________________________________________________________________     \n\n");
 	printf("                     0: IZLAZ\n");
 	printf("\n**********************************************************************************************************************************************\n\n");
@@ -60,10 +59,10 @@ void meni_brisanje_dogadjaja()
 	printf("   _________________________________________________________________________________________________________________________________________\n\n");
 }
 
-void meni_dodavanje_kategorije()
+void meni_brisanje_kategorije()
 {
 	system("color 0a");
-	printf("\n*************************************************************DODAVANJE KATEGORIJE*************************************************************\n\n");
+	printf("\n*************************************************************BRISANJE KATEGORIJE*************************************************************\n\n");
 	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
 	printf("   _________________________________________________________________________________________________________________________________________\n\n");
 }
@@ -75,6 +74,8 @@ void meni_uredjivanje_kviza()
 	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
 	printf("   _________________________________________________________________________________________________________________________________________\n\n");
 }
+
+
 
 void odabir_opcije_admina()
 {
@@ -88,12 +89,7 @@ void odabir_opcije_admina()
 		
 		//scanf("\n%[^\n]s", a);
 		ch = _getch();
-		/*while (ch != 0)
-		{
-			printf("Nepostojeca opcija!\nUnesite ponovo: ");
-			//scanf("\n%[^\n]s", a);
-			ch = _getch();
-		}*/
+		
 		switch (ch)
 		{
 		case '0':
@@ -158,7 +154,7 @@ void odabir_opcije_admina()
 
 		case '4':
 			system("cls");
-			meni_dodavanje_kategorije();
+			meni_brisanje_kategorije();
 			ch = _getch();
 			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 			{
@@ -173,7 +169,9 @@ void odabir_opcije_admina()
 			else if (ch == 'E' || ch == 'e')
 				exit(1);
 				break;
-		case '6':
+
+		case '5':
+		
 			system("cls");
 			meni_uredjivanje_kviza();
 
@@ -190,11 +188,8 @@ void odabir_opcije_admina()
 			}
 			else if (ch == 'E' || ch == 'e')
 				exit(1);
-				break;
-		case '5':
-			system("cls");
-			printf("OBRISANA KATEGORIJA");
 			break;
+		
 		default:
 			printf("Nepostojeca opcija!\n");
 			}

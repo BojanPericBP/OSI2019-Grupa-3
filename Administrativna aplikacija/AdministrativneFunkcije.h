@@ -122,11 +122,12 @@ int dodaj_dogadjaj()
 {
 	int br_kategorija,id,br_dogadjaja;
 	short flag1 = -1, flag2 = 0;
+	char** kategorija;
 	char datum[12] = "", vrijeme[6], nova_kategorija[100],ch,naziv[100],mjesto[100],opis[1000];
 	DOGADJAJ dogadjaj;
 	VRIJEME vrijeme_provjera;//za provjeru da li je korisnik dobro unio vrijeme
 	FILE* kategorije_dat,* dogadjaji_dat,* opis_dogadjaja_dat;
-	char* kategorija[20];	//moram dealocirati nekada negdje
+	//char* kategorija[20];	//moram dealocirati nekada negdje
 	
 	if ((dogadjaji_dat = fopen("../config files/Dogadjaji/dogadjaji.txt", "r+")) != NULL)//prepravio sam na r+
 	{
@@ -138,8 +139,11 @@ int dodaj_dogadjaj()
 		{
 			fscanf(kategorije_dat, "%d", &br_kategorija);
 
-			for (int i = 0; i <= br_kategorija; i++)
-				kategorija[i] = (char*)calloc(br_kategorija, sizeof(char));
+
+			
+			kategorija = (char**)calloc(br_kategorija, sizeof(char*));
+			for (int i = 0; i < br_kategorija; i++)
+				kategorija[i] = (char*)calloc(20, sizeof(char));
 
 			int i = 0;
 			while (fscanf(kategorije_dat, "\n%[^\n]s", kategorija[i]) != EOF)
@@ -463,8 +467,6 @@ DOGADJAJ* ucitaj_dogadjaje(int *id,int *br_dogadjaja)
 			lista_dogadjaja[i].preporucen = ostatak[j++];
 
 			++i;
-			//-------------------
-			
 		}
 		fclose(dogadjaji_dat);
 		return lista_dogadjaja;
