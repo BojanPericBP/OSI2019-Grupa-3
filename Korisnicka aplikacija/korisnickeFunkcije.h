@@ -26,8 +26,7 @@ typedef struct dogadjaj
 
 typedef struct zainteres
 {
-	int id;
-	int br;
+	int id, br;
 }ZAINTERESOVAN;
 
 typedef struct datum 
@@ -310,16 +309,17 @@ void zainteresovan_za_dogadjaj(int id)
 	if (!dat_zainteresovani) { printf("Neuspjesno ucitavanje datoteke zainteresovani_za_dogadjaj.txt"); return; }
 	else
 	{
-		int br_dogadjaja;
+		int br_dogadjaja=0;
 		fscanf(dat_zainteresovani, "%d", &br_dogadjaja);
-		
 
-		ZAINTERESOVAN* niz = (ZAINTERESOVAN*)calloc(4, 8);
+		ZAINTERESOVAN* niz = (ZAINTERESOVAN*)calloc(br_dogadjaja, sizeof(DOGADJAJ));
 
 		// ucitavanje iz datoteke u memoriju
+
 		for (int i = 0; i < br_dogadjaja; i++)
-			fscanf(dat_zainteresovani, "%d %d", &(niz+i)->id, &(niz + i)->br);
+			fscanf(dat_zainteresovani, "%d %d", &niz[i].id, &niz[i].br);
 		fclose(dat_zainteresovani); dat_zainteresovani = NULL;
+
 		char flag = 0;
 		int i = 0; //brojac
 		for (; i < br_dogadjaja && !flag; i++)
@@ -334,10 +334,10 @@ void zainteresovan_za_dogadjaj(int id)
 		} 
 		else //ako nadje
 			niz[i].br++;
-	
+			//to do, ako je 0 zainteresovanih, popraviti ispis
 		if (i==(br_dogadjaja-1))
-			printf("\nUkupno je %d ljudi zainteresovano ta ovaj dogadjaj\n", niz[br_dogadjaja].br);
-		else printf("\nUkupno je %d ljudi zainteresovano ta ovaj dogadjaj\n", niz[i].br);
+			printf("\nUkupno je %d ljudi zainteresovano za ovaj dogadjaj.\n", niz[br_dogadjaja].br);
+		else printf("\nUkupno je %d ljudi zainteresovano za ovaj dogadjaj.\n", niz[i].br);
 		
 		//vracanje niza u datoteku
 		dat_zainteresovani = fopen("../config files/Dogadjaji/zainteresovani_za_dogadjaj.txt", "w");
@@ -454,7 +454,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 		}
 		if (ch == 'K' || ch == 'k')
 		{
-			char* kategorija[20];
+			char** kategorija;
 			int br_kategorija;
 			char ch;
 			short flag1 = -1;
@@ -462,8 +462,9 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 			{
 				fscanf(kategorije_dat, "%d", &br_kategorija);
 
-				for (int i = 0; i <= br_kategorija; i++)
-					kategorija[i] = (char*)calloc(br_kategorija, sizeof(char));
+				kategorija = (char**)calloc(br_kategorija, sizeof(char*));
+				for (int i = 0; i < br_kategorija; i++)
+					kategorija[i] = (char*)calloc(21, sizeof(char));
 
 				int i = 0;
 				while (fscanf(kategorije_dat, "\n%[^\n]s", kategorija[i]) != EOF)
@@ -482,6 +483,9 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 					scanf("\n%[^\n]s", unos);
 					strlwr(unos);
 				} while (!provjera_kategorije(kategorija, unos, br_kategorija, &flag1));
+				for (int i = 0; i < br_kategorija; i++)
+					free(kategorija[i]);
+				free(kategorija);
 			}
 			else 
 			{
