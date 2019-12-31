@@ -317,39 +317,55 @@ void zainteresovan_za_dogadjaj(int id)
 	{
 		int br_dogadjaja=0;
 		fscanf(dat_zainteresovani, "%d", &br_dogadjaja);
-
-		ZAINTERESOVAN* niz = (ZAINTERESOVAN*)calloc(br_dogadjaja, sizeof(DOGADJAJ));
+		int br_dogadjaja_backup = br_dogadjaja;
+		ZAINTERESOVAN* niz = (ZAINTERESOVAN*)calloc(br_dogadjaja+1, sizeof(DOGADJAJ));
 
 		// ucitavanje iz datoteke u memoriju
-
 		for (int i = 0; i < br_dogadjaja; i++)
 			fscanf(dat_zainteresovani, "%d %d", &niz[i].id, &niz[i].br);
 		fclose(dat_zainteresovani); dat_zainteresovani = NULL;
 
+		//pretraga u nizu
 		char flag = 0;
 		int i = 0; //brojac
 		for (; i < br_dogadjaja && !flag; i++)
 			if (niz[i].id == id) flag = 1;
+
 		if (!flag) //ako ne nadje
 		{
-			br_dogadjaja++; //nema ga u nizu, pa povecamo niz za jedno mjesto
-			niz = (ZAINTERESOVAN*)realloc(niz, br_dogadjaja);
+			br_dogadjaja++; //nema ga u nizu, pa se ukupan broj uvecava za 1
 			niz[br_dogadjaja - 1].id = id;
 			niz[br_dogadjaja - 1].br++;
-		
-		} 
+
+		}
 		else //ako nadje
-			niz[i].br++;
-			//to do, ako je 0 zainteresovanih, popraviti ispis
-		if (i==(br_dogadjaja-1))
-			printf("\nUkupno je %d ljudi zainteresovano za ovaj dogadjaj.\n", niz[br_dogadjaja].br);
-		else printf("\nUkupno je %d ljudi zainteresovano za ovaj dogadjaj.\n", niz[i].br);
+			niz[i - 1].br++;
+
+		//ispis
+		if (i == (br_dogadjaja - 1)&&br_dogadjaja!=br_dogadjaja_backup)
+		{
+			if (niz[br_dogadjaja - 1].br == 1 || niz[br_dogadjaja - 1].br%10==1)
+				printf("\nUkupno je %d osoba zainteresovana za ovaj dogadjaj.\n", niz[br_dogadjaja - 1].br);
+			else if(niz[br_dogadjaja - 1].br < 5 )
+				printf("\nUkupno su %d osobe zainteresovane za ovaj dogadjaj.\n", niz[br_dogadjaja - 1].br);
+			else
+				printf("\nUkupno je %d osoba zainteresovanih za ovaj dogadjaj.\n", niz[br_dogadjaja - 1].br);
+		}
+		else
+		{
+			if (niz[i - 1].br == 1 || niz[i - 1].br % 10 == 1)
+				printf("\nUkupno je %d osoba zainteresovana za ovaj dogadjaj.\n", niz[i - 1].br);
+			else if (niz[i - 1].br < 5)
+				printf("\nUkupno su %d osobe zainteresovane za ovaj dogadjaj.\n", niz[i - 1].br);
+			else
+				printf("\nUkupno je %d osoba zainteresovanih za ovaj dogadjaj.\n", niz[i - 1].br);
+		}
 		
 		//vracanje niza u datoteku
 		dat_zainteresovani = fopen("../config files/Dogadjaji/zainteresovani_za_dogadjaj.txt", "w");
 		fprintf(dat_zainteresovani, "%d", br_dogadjaja);
 		for (int j = 0; j < br_dogadjaja; j++)
-			fprintf(dat_zainteresovani, "\n%d %d", niz[i].id, niz[i].br);
+			fprintf(dat_zainteresovani, "\n%d %d", niz[j].id, niz[j].br);
 		free(niz);
 		fclose(dat_zainteresovani);
 	}
