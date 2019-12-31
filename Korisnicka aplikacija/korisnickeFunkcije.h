@@ -344,18 +344,18 @@ void zainteresovan_za_dogadjaj(int id)
 		//ispis
 		if (i == (br_dogadjaja - 1)&&br_dogadjaja!=br_dogadjaja_backup)
 		{
-			if (niz[br_dogadjaja - 1].br == 1 || niz[br_dogadjaja - 1].br%10==1)
+			if (niz[br_dogadjaja - 1].br == 1 || (niz[br_dogadjaja - 1].br % 10 ==1 && niz[br_dogadjaja - 1].br > 14))
 				printf("\nUkupno je %d osoba zainteresovana za ovaj dogadjaj.\n", niz[br_dogadjaja - 1].br);
-			else if(niz[br_dogadjaja - 1].br < 5 )
+			else if(niz[br_dogadjaja - 1].br < 5 || (niz[br_dogadjaja - 1].br % 10 < 5 && niz[br_dogadjaja - 1].br > 14))
 				printf("\nUkupno su %d osobe zainteresovane za ovaj dogadjaj.\n", niz[br_dogadjaja - 1].br);
 			else
 				printf("\nUkupno je %d osoba zainteresovanih za ovaj dogadjaj.\n", niz[br_dogadjaja - 1].br);
 		}
 		else
 		{
-			if (niz[i - 1].br == 1 || niz[i - 1].br % 10 == 1)
+			if (niz[i - 1].br == 1 || (niz[i - 1].br % 10 == 1 && niz[i - 1].br > 14))
 				printf("\nUkupno je %d osoba zainteresovana za ovaj dogadjaj.\n", niz[i - 1].br);
-			else if (niz[i - 1].br < 5)
+			else if (niz[i - 1].br < 5 || (niz[i - 1].br%10<5 && niz[i - 1].br>14))
 				printf("\nUkupno su %d osobe zainteresovane za ovaj dogadjaj.\n", niz[i - 1].br);
 			else
 				printf("\nUkupno je %d osoba zainteresovanih za ovaj dogadjaj.\n", niz[i - 1].br);
