@@ -1,7 +1,5 @@
-1005 6
-1000,koncert marije serifovic,0,trg krajine,1,koncert,21:0,1,1
-1001,koncert serifovic,0,trg krajine,1,koncert,21:0,1,1
-1002,jabuka,0,lokacija,ostalo,12.12.2012.,14:14,1,0
-1003,koncert,0,trg krajine,1,koncert,21:0,1,1
-1004,izlozba,0,izlozba,izlozba,11.11.2011.,11:11,0,1
-1005,koncert za novu goddinu,1,trg krajine,koncertiii,21.12.2012.,12:12,0,1
+1003 4
+1000,asas,0,as,ostalo,12.12.2020.,12:12,0,0
+1001,koncert,0,sa,ostalo,12.12.2020.,12:12,0,0
+1002,koncert,0,koncert,koncert,11.11.2019.,11:12,0,1
+1003,spoznaj sebe,0,dvorana borik,seminar,11.12.2019.,11:14,0,1

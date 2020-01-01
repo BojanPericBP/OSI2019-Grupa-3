@@ -1,10 +1,5 @@
-9
-izlozba
-koncert
-promocija
-predstave
-utakmica
-konferencija
-seminar
+4
+predstava
 ostalo
-a
+koncert
+seminar

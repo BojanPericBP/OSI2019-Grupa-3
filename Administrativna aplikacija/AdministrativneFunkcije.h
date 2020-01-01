@@ -274,25 +274,47 @@ int dodaj_dogadjaj()
 	return 1;
 }
 
-int unos_datuma(char* datum)
+int unos_datuma(char* datum1)
 {
 	DATUM datum_check;
+	char datum[500];
 	char mjesec[3], godina[5];
 	do
 	{
-		printf("Dan: ");
-		scanf("%d", &datum_check.dan);
+		
+		printf("Dan (01): ");
+		scanf("\n%[^\n]s", datum);
+		while ((datum[1] != '\0' || datum[0] < 48 || datum[0] > 57) && (datum[2] != '\0' || datum[0]<48 || datum[0] > 57 || datum[1] < 48 || datum[1] > 57))
+		{
+			printf("Neispravan unos, unesite dan ponovo: ");
+			scanf("\n%[^\n]s", datum);
+		}
+		datum_check.dan = (datum[0] - '0') * 10 + datum[1] - '0';
+		
 		printf("Mjesec: ");
-		scanf("%d", &datum_check.mjesec);
+		scanf("\n%[^\n]s", datum);
+		while ((datum[1] != '\0' || datum[0] < 48 || datum[0] > 57) && (datum[2] != '\0' || datum[0] < 48 || datum[0] > 57 || datum[1] < 48 || datum[1] > 57))
+		{
+			printf("Neispravan unos, unesite mjesec ponovo: ");
+			scanf("\n%[^\n]s", datum);
+		}
+		datum_check.mjesec = (datum[0] - '0') * 10 + datum[1] - '0';
 		printf("Godina: ");
-		scanf("%d", &datum_check.godina);
+		scanf("\n%[^\n]s", datum);
+		while (datum[4] != '\0' || datum[0] < 48 || datum[0]>57 || datum[1] < 48 || datum[1]>57 || datum[2] < 48 || datum[2]>57 || datum[3] < 48 || datum[3]>57)
+		{
+			printf("Niste unijeli 4 ciffre unesie ponovo: ");
+			scanf("\n%[^\n]s", datum);
+		}
+		datum_check.godina = (datum[0] - '0') * 1000 + (datum[1] - '0') * 100 + (datum[2] - '0') * 10 + datum[3] - '0';
+
 	} while (!provjera_datuma(datum_check));
-	itoa(datum_check.dan, datum,10);
-	strcat(datum, ".");
-	strcat(datum, itoa(datum_check.mjesec, mjesec, 10));
-	strcat(datum, ".");
-	strcat(datum, itoa(datum_check.godina, godina, 10));
-	strcat(datum, ".");
+	itoa(datum_check.dan, datum1,10);
+	strcat(datum1, ".");
+	strcat(datum1, itoa(datum_check.mjesec, mjesec, 10));
+	strcat(datum1, ".");
+	strcat(datum1, itoa(datum_check.godina, godina, 10));
+	strcat(datum1, ".");
 	return 1;
 }
 
@@ -314,27 +336,27 @@ int provjera_datuma(DATUM datum)
 	
 	else if ((datum.mjesec == 4 || datum.mjesec == 6 || datum.mjesec == 9 || datum.mjesec == 11) && (datum.dan > 30 || datum.dan < 1))
 	{
-		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
+		printf("\nnPogresno ste unijeli dan, pokusajte ponovo!\n");
 		return 0;
 	}
 	else if ((datum.mjesec == 2 && prestupna_godina(datum.godina)) && (datum.dan > 29 || datum.dan <1))
 	{
-		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
+		printf("\nPogresno ste unijeli dan, pokusajte ponovo!\n");
 		return 0;
 	}
 	else if ((datum.mjesec == 2 && !prestupna_godina(datum.godina)) && (datum.dan > 28 || datum.dan < 1))
 	{
-		printf("Pogresno ste unijeli dan, pokusajte ponovo!\n");
+		printf("\nPogresno ste unijelidatum, pokusajte ponovo!\n");
 		return 0;
 	}
 	 else if (datum.mjesec > 12 || datum.mjesec < 1)
 	 {
-		 printf("Pogresno ste unijeli mjesec, pokusajte ponovo!\n");
+		 printf("\nPogresno ste unijelidatum, pokusajte ponovo!\n");
 		 return 0;
 	 }
-	 else if (datum.godina < 1)
+	 else if (datum.godina < 2019)
 	 {
-		 printf("Pogresno ste unijeli godinu, pokusajte ponovo!\n");
+		 printf("Godina ne moze unijeti dogadjaj koji se desio prije 2019. godine, pokusajte ponovo!\n");
 		 return 0;
 	 }
 	return 1;		
@@ -657,6 +679,105 @@ int uredi_dogadjaj()
 	}
 	return 1;
 }
+
+int brisi_kategoriju()
+{
+	FILE* kategorije_dat;
+	char** kategorija;
+	int br_kategorija;
+	char ch,buff_kategorija[500];
+	short flag1 = -1, flag_brisi = 0;
+	DOGADJAJ* dogadjaj;
+	int br_dogadjaja,id;
+
+	dogadjaj = ucitaj_dogadjaje(&id, &br_dogadjaja);
+	if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "r")) != NULL)
+	{
+		fscanf(kategorije_dat, "%d", &br_kategorija);
+		kategorija = (char**)calloc(br_kategorija, sizeof(char*));
+		for (int i = 0; i < br_kategorija; i++)
+			kategorija[i] = (char*)calloc(20, sizeof(char));
+
+		int i = 0;
+		while (fscanf(kategorije_dat, "\n%[^\n]s", kategorija[i]) != EOF)
+			++i;
+
+
+		printf("\n\tUNOS KATEGORIJE\n\n");
+		printf("Odaberite:\n\tU->Unos kategorije koju zelite obrisati.\n\tE->Izalz iz programa\n\tM->Povratak na glavni meni\n\n");
+		printf("\nPOSTOJECE KATEGORIJE:\n\n");
+		for (int i = 0; i < br_kategorija; i++)
+			printf("\t%d.%s\n", i + 1, kategorija[i]);
+		printf("\n");
+		printf("Unos:");
+		do
+		{
+			ch = _getch();
+			printf("%c\n", ch);
+		}
+	
+		while (ch != 'u' && ch != 'U' && ch != 'e' && ch != 'E' && ch != 'm' && ch != 'M');
+
+		if (ch == 'u' || ch == 'U')
+		{
+			do
+			{
+				if (flag1 == 0)
+					printf("Kategorija koju ste unijeli ne postoji, pokusajte ponovo!\n");
+				printf("Unesite kategoriju: ");
+				scanf("\n%[^\n]s", buff_kategorija);
+				strlwr(buff_kategorija);
+			} while (!provjera_kategorije(kategorija, buff_kategorija, br_kategorija, &flag1));
+
+
+			for (int i = 0; i < br_kategorija; i++)
+			{
+				if (strcmp(buff_kategorija, dogadjaj[i].kategorija) == 0)
+				{
+					printf("Nije moguce obrisati kategoriju jer postoje neki dogadjaji sa ovom kategorijom!\n");
+					flag_brisi = 1;
+					break;
+				}
+			}
+
+			for (int i = 0; i < br_kategorija; i++)
+			{
+				if ((strcmp(kategorija[i], buff_kategorija) == 0) && flag_brisi == 0)
+				{
+
+					free(kategorija[i]);
+					kategorija[i] = NULL;
+					br_kategorija--;
+					flag_brisi = 0;
+					fseek(kategorije_dat, 0, SEEK_SET);
+					fprintf(kategorije_dat, "%d\n", br_kategorija);
+					printf("Uspjesno ste brisali kategoriju.\n");
+					break;
+				}
+			}
+			fclose(kategorije_dat);
+		}
+
+		if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "w+")) != NULL)
+		{
+			fprintf(kategorije_dat, "%d\n", br_kategorija);
+			for (int i = 0; i <= br_kategorija; i++)
+				if (kategorija[i] != NULL)
+				{
+					fprintf(kategorije_dat, "%s\n", kategorija[i]);
+				}
+			fclose(kategorije_dat);
+		}
+		else return 0;
+	}
+	else
+	{
+		printf("Greska prilikom otvaranja datoteke, unesite bilos ta za izlazak!");
+		//bilo sta za izlaz
+	}
+	return 1;
+}
+
 void sleep(unsigned int* secs)
 {
 	unsigned int retTime = time(0) + *secs;  
