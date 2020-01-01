@@ -277,7 +277,6 @@ void ispisi_komentar(int id)
 		int c=0;
 		int temp_id=0;
 		char flag = 0;
-		fscanf(dat_komentari, "%d", &c); c = fgetc(dat_komentari);//samo da preskoci red, ne koristim ovaj podatak
 		while (c != EOF) // ide do kraja datoteke jer se moze vise puta pojaviti komentar za isti dogadjaj
 		{
 			temp_id = 0;
@@ -424,7 +423,7 @@ int provjera_datuma(DATUM datum) // 1 ispravan datum, 0 nije ispravan
 int unos_datuma(char* datum)
 {
 	DATUM datum_check;
-	char mjesec[3], godina[5];//bufferi ta funkciju strcat
+	char mjesec[3], godina[5];//bufferi za funkciju strcat
 	char niz[1000] = {};
 	do
 	{
