@@ -34,6 +34,7 @@ typedef struct datum
 	int dan, mjesec, godina;
 }DATUM;
 
+
 int ucitaj_br_dogadjaja(FILE*);
 void ucitaj_dogadjaje_iz_datoteke(FILE*,DOGADJAJ*,int);
 void ispisi_dogadjaj(DOGADJAJ*); //pomocna funkcija, koja ispisuje samo 1 dogadjaj
@@ -42,8 +43,6 @@ void preporuceni_dogadjaji(DOGADJAJ*,int);
 int danasnji_dogadjaji(DOGADJAJ*,int);
 void prosli_dogadjaji(DOGADJAJ*,int);
 void buduci_dogadjaji(DOGADJAJ*,int);
-
-
 int unesi_id();
 DOGADJAJ* trazi_dogadjaj_id(DOGADJAJ*,int,int);
 void pisi_dogadjaje_filter(DOGADJAJ*,int);
@@ -51,6 +50,12 @@ void unesi_komentar(int);
 void ispisi_komentar(int);
 void prikazi_opis(DOGADJAJ*, int);
 void zainteresovan_za_dogadjaj(int);
+int provjera_kategorije(char**, char*, int, short*);
+int unos_datuma(char*);
+int provjera_datuma(DATUM);
+int prestupna_godina(int);
+
+
 
 int ucitaj_br_dogadjaja(FILE* dat_dogadjaji)
 {
@@ -430,7 +435,8 @@ int unos_datuma(char* datum)
 			printf("Neispravan unos, unesite ponovo dan: ");
 			scanf("\n%[^\n]s", niz);
 		}
-		datum_check.dan = (niz[0] - '0') * 10 + niz[1] - '0';
+		if(niz[1]!='\0') datum_check.dan = (niz[0] - '0') * 10 + niz[1] - '0';
+		else datum_check.dan = niz[0] - '0';
 
 		printf("Mjesec: ");
 		scanf("\n%[^\n]s", niz);
@@ -439,7 +445,8 @@ int unos_datuma(char* datum)
 			printf("Neispravan unos, unesite ponovo mjesec: ");
 			scanf("\n%[^\n]s", niz);
 		}
-		datum_check.mjesec = (niz[0] - '0') * 10 + niz[1] - '0';
+		if (niz[1] != '\0') datum_check.mjesec = (niz[0] - '0') * 10 + niz[1] - '0';
+		else datum_check.mjesec = niz[0] - '0';
 
 		printf("Godina: ");
 		scanf("\n%[^\n]s", niz);
