@@ -17,7 +17,5 @@ int main()
 	glavni_meni_korisnicke_aplikacije();
 	odabir_opcije_korisnika(lista_dogadjaja,br_dogadjaja);
 
-	free(lista_dogadjaja);
-
 	return 0;
 }

@@ -10,6 +10,7 @@
 #include <iostream>
 #include <conio.h>
 #include <ctype.h>
+#include <time.h>
 
 typedef struct dogadjaj
 {
@@ -49,13 +50,12 @@ void pisi_dogadjaje_filter(DOGADJAJ*,int);
 void unesi_komentar(int);
 void ispisi_komentar(int);
 void prikazi_opis(DOGADJAJ*, int);
-void zainteresovan_za_dogadjaj(int);
+void zainteresovan_za_dogadjaj(DOGADJAJ*,int);
 int provjera_kategorije(char**, char*, int, short*);
 int unos_datuma(char*);
 int provjera_datuma(DATUM);
 int prestupna_godina(int);
-
-
+void upisi_u_datoteku(DOGADJAJ*, int);
 
 int ucitaj_br_dogadjaja(FILE* dat_dogadjaji)
 {
@@ -249,6 +249,7 @@ void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 	{
 		if ((dat_opis = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "r")) != NULL)
 		{
+			printf("\nNaziv dogadjaja: %s\n",trazeni_dogadjaj->naziv);
 			char temp_arr[200] = {};
 			fscanf(dat_opis, "%d",&pom_id);//samo da preskoci red, ne koristim ovaj podatak
 			while ((fscanf(dat_opis, "\n%[^\n]s", temp_arr) != EOF) && !flag)
@@ -257,7 +258,7 @@ void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 				pom_id = strtol(temp_arr, &ostatak, 10);
 				if (pom_id == id)
 				{
-					printf("\n%s\n\n", ostatak + 1);
+					printf("\nOpis dogadjaja: %s\n\n", ostatak + 1);
 					flag = 1; //opis moze samo jednom biti u datoteci i nema smisla dalje citati datoteku
 				}
 			}
@@ -286,7 +287,7 @@ void ispisi_komentar(int id)
 				temp_id += ((c - 48)* (int)pow(10,i));
 			}
 			c = fgetc(dat_komentari); //da preskoci zapetu
-			if (temp_id == id) { flag = 1; printf("\n"); }
+			if (temp_id == id) { flag = 1; /*printf("\n");*/ }
 			while ((c = fgetc(dat_komentari)) != 10 && c!=EOF)
 			{
 				if (temp_id == id)
@@ -294,7 +295,7 @@ void ispisi_komentar(int id)
 			}
 			if(temp_id==id) printf("\n");
 		}
-		if (!flag) printf("\nNije pronadjen komentar za dogadjaj sa unesenim id-om\n");
+		if (!flag) printf("\nNije pronadjen komentar za dogadjaj sa unesenim id-om\n");//ako u dogadjaji.txt pise da ima komentar, a u komentari.txt nema
 		fclose(dat_komentari);
 	}
 }
@@ -313,7 +314,7 @@ void unesi_komentar(int id)
 	}
 }
 
-void zainteresovan_za_dogadjaj(int id)
+void zainteresovan_za_dogadjaj(DOGADJAJ* trazeni_dogadjaj,int id)
 {
 	FILE* dat_zainteresovani = fopen("../config files/Dogadjaji/zainteresovani_za_dogadjaj.txt", "r");
 	if (!dat_zainteresovani) { printf("Neuspjesno ucitavanje datoteke zainteresovani_za_dogadjaj.txt"); return; }
@@ -344,7 +345,8 @@ void zainteresovan_za_dogadjaj(int id)
 		}
 		else //ako nadje
 			niz[i - 1].br++;
-
+	
+		printf("\nUspjesno ste potvrdili zainteresovanost za dogadjaj %s\n", trazeni_dogadjaj->naziv);
 		//ispis
 		if (i == (br_dogadjaja - 1)&&br_dogadjaja!=br_dogadjaja_backup)
 		{
@@ -513,6 +515,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 				while (fscanf(kategorije_dat, "\n%[^\n]s", kategorija[i]) != EOF)
 					++i;
 				fclose(kategorije_dat);
+				printf("\nFILTRIRANJE PO KATEGORIJI");
 				printf("\nUnesite neku od postojecih kategorija:\n");
 				for (int i = 0; i < br_kategorija; i++)
 					printf("\t%c %s\n", 254,kategorija[i]);
@@ -538,6 +541,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 		}
 		else if (ch == 'D' || ch == 'd')
 		{
+			printf("\nFILTRIRANJE PO DATUMU\n");
 			unos_datuma(uneseni_datum);
 			flag_petlje = 1;
 		}
@@ -565,7 +569,18 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 				ispisi_dogadjaj(&lista_dogadjaja[i]);
 				flag_kategorije = 1;
 			}
-		if (!flag_kategorije) printf("\tNema desavanja u kategoriji %s\n",unos);
+		if (!flag_kategorije) printf("\tNema dogadjaja u kategoriji %s\n",unos);
 	}
-	printf("\n****************************************************************************************************************************************************************************\n");
+}
+
+void upisi_u_datoteku(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
+{
+	FILE* dat_dogadjaji = fopen("../config files/Dogadjaji/dogadjaji.txt", "w");
+	fprintf(dat_dogadjaji, "%d %d", lista_dogadjaja[br_dogadjaja - 1].id, br_dogadjaja);
+	for (int i = 0; i < br_dogadjaja; i++)
+	{
+		fprintf(dat_dogadjaji, "\n%d,%s,%c,%s,%s,%s,%s,%c,%c", lista_dogadjaja[i].id, lista_dogadjaja[i].naziv, lista_dogadjaja[i].opis, lista_dogadjaja[i].lokacija, lista_dogadjaja[i].kategorija,
+			lista_dogadjaja[i].datum, lista_dogadjaja[i].vrijeme, lista_dogadjaja[i].komentari, lista_dogadjaja[i].preporucen);
+	}
+	fclose(dat_dogadjaji);
 }

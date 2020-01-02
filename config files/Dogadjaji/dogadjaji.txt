@@ -1,5 +1,5 @@
 1004 4
 1001,ISTINA,1,pozoriste jazavac,predstava,29.12.2020.,20:00,1,0
-1002,Koncert Jovana Perisica,1,hala Kralja Petra Prvog Oslobodioca,koncert,27.12.2019.,21:00,0,1
-1003,Borac-Tekstilac,0,stadion Borac,utakmica,29.08.2018.,20:00,1,1
-1004,Koncert Seke Aleksic,0,hala Metal,koncert,1.1.2020.,21:00,1,0
+1002,Koncert Jovana Perisica,1,hala Kralja Petra Prvog Oslobodioca,koncert,27.12.2019.,21:00,1,1
+1003,Borac-Tekstilac,0,stadion Borac,utakmica,29.08.2018.,20:00,0,1
+1004,Koncert Seke Aleksic,0,hala Metal,koncert,2.1.2020.,21:00,1,0
