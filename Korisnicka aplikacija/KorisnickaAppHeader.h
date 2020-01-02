@@ -11,7 +11,7 @@ void inicijalizuj_prozor()
 	HWND console = GetConsoleWindow();
 	RECT r;
 	GetWindowRect(console, &r);
-	r.left = 125;
+	r.left = 125; r.top = 50;
 	MoveWindow(console, r.left, r.top, 1270, 700, TRUE);
 }
 
@@ -89,7 +89,8 @@ void meni_kviza()
 	system("cls");
 	system("color 0b");
 	printf("\n************************************************************************ DOBRO DOSLI U KVIZ ********************************************************************************\n\n");
-	//igraj_kviz();
+	//igraj_kviz(); 
+	printf("Kviz uradjen na branchu Bojan Janjic\n");
 	printf("\n****************************************************************************************************************************************************************************\n");
 }
 
@@ -99,6 +100,7 @@ void meni_rang_liste()
 	system("color 5f");
 
 	printf("\n******************************************************************************* RANG LISTA *********************************************************************************\n\n");
+	printf("Rang lista uradjena na branchu Bojan Janjic\n");
 	//prikazi_rang_listu();
 	printf("\n****************************************************************************************************************************************************************************\n");
 }
@@ -109,8 +111,8 @@ void meni_help()
 	system("color 70");
 
 	printf("\n********************************************************************************* POMOC ************************************************************************************\n");
-	printf("\nAplikacija 'Sta se radi na estradi' je aplikacija koja omogucava pracenje dogadjaja u nekom gradu.\nOmogucava korisniku da pregleda koji se sve dogadjai odrzavaju u nekom gradu, datum i mjesto dorzavanja dogadjaja,\nkao i komentare drugih korisnika o predstojecim dogadjajima.\n"
-		"Za detaljne informacije pogledajte korisnicku dokumentaziju.\n");
+	printf("\nAplikacija 'Sta se radi na estradi' je aplikacija koja omogucava pracenje dogadjaja u nekom gradu.\nOmogucava korisniku da pregleda koji se sve dogadjai odrzavaju u nekom gradu, te datum i mjesto odrzavanja dogadjaja,\nkao i komentare drugih korisnika o nekom dogadjaju.\n"
+		"Za detaljne informacije pogledajte korisnicku dokumentaciju.\n");
 	printf("\n****************************************************************************************************************************************************************************\n");
 }
 
@@ -120,8 +122,8 @@ void meni_o_korisnickoj_aplikaciji()
 	system("color 0a");
 
 	printf("\n************************************************************************ O aplikaciji **************************************************************************************\n");
-	printf("\nAplikacija 'Sta se radi na estradi' je aplikacija koja omogucava pracenje dogadjaja u nekom gradu.\nOmogucava korisniku da pregleda koji se sve dogadjai odrzavaju u nekom gradu, datum i mjesto dorzavanja dogadjaja,\nkao i komentare drugih korisnika o predstojecim dogadjajima.\n"
-		"\nApliakciju su radili studenti Elektrotehnickog fakulteta Banjaluka :\n"
+	printf("\nAplikacija 'Sta se radi na estradi' je aplikacija koja omogucava pracenje dogadjaja u nekom gradu.\nOmogucava korisniku da pregleda koji se sve dogadjaji odrzavaju u nekom gradu, te datum i mjesto dorzavanja dogadjaja, kao i komentare drugih korisnika o nekom dogadjaju.\n"
+		"\nAplikaciju su radili studenti Elektrotehnickog fakulteta u Banjaluci :\n"
 		"Jelena Jakovljevic (Jeca Pereca),\nKristina Krickovic (Kricka),\nSasa Stankovic (Sale),\n"
 		"Bojan Janjic (Che),\nBojan Peric (Boki, Bole, Boss)\n");
 	printf("\n****************************************************************************************************************************************************************************\n");
@@ -210,7 +212,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja,br_dogadjaja, temp_id);
 					if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '1')
 					{
-						printf("Komentari za dogadjaj: %s\n\n", trazeni_dogadjaj->naziv);
+						printf("\nKomentari za dogadjaj: %s\n\n", trazeni_dogadjaj->naziv);
 						ispisi_komentar(temp_id);
 					}
 					else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
@@ -301,7 +303,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 					if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '1')
 					{
-						printf("Komentari za dogadjaj %s:\n\n", trazeni_dogadjaj->naziv);
+						printf("\nKomentari za dogadjaj %s:\n\n", trazeni_dogadjaj->naziv);
 						ispisi_komentar(temp_id);
 					}
 					else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
@@ -502,7 +504,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 						DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 						if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '1')
 						{
-							printf("Komentari za dogadjaj %s:\n\n", trazeni_dogadjaj->naziv);
+							printf("\nKomentari za dogadjaj %s:\n\n", trazeni_dogadjaj->naziv);
 							ispisi_komentar(temp_id);
 						}
 						else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
@@ -615,7 +617,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 					if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '1')
 					{
-						printf("Komentari za dogadjaj %s:\n\n", trazeni_dogadjaj->naziv);
+						printf("\nKomentari za dogadjaj %s:\n\n", trazeni_dogadjaj->naziv);
 						ispisi_komentar(temp_id);
 					}
 					else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
@@ -706,7 +708,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 					if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '1')
 					{
-						printf("Komentari za dogadjaj %s:\n\n",trazeni_dogadjaj->naziv);
+						printf("\nKomentari za dogadjaj %s:\n\n",trazeni_dogadjaj->naziv);
 						ispisi_komentar(temp_id);
 					}
 					else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
@@ -730,9 +732,8 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 			} while (!flag);
 			break;
 		default:
-			if (ch != 13 && ch != 32) printf("\nNepostojeca opcija!\n");
+			if (ch != 13 && ch != 32) printf("Nepostojeca opcija!\n");
 			break;
 		}
-
 	}
 }

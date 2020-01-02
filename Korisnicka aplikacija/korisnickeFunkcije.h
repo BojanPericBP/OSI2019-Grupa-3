@@ -558,7 +558,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 				ispisi_dogadjaj(&lista_dogadjaja[i]);
 				flag_datum = 1;
 			}
-		if (!flag_datum) printf("\tNema desavanja u gradu %s... :(\n",uneseni_datum);
+		if (!flag_datum) printf("\tNema desavanja u gradu %s.. :(\n",uneseni_datum);
 	}
 	else if (ch == 'K' || ch == 'k')
 	{
