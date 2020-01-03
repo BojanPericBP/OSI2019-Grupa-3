@@ -57,7 +57,7 @@ int provjera_datuma(DATUM);
 int prestupna_godina(int);
 void upisi_u_datoteku(DOGADJAJ*, int);
 
-int ucitaj_br_dogadjaja(FILE* dat_dogadjaji)
+int ucitaj_br_dogadjaja(FILE* dat_dogadjaji) //samo za datoteku dogadjaji.txt
 {
 	int id, br;
 	fscanf(dat_dogadjaji, "%d %d", &id, &br);
@@ -72,28 +72,28 @@ void ucitaj_dogadjaje_iz_datoteke(FILE* dat_dogadjaji, DOGADJAJ* lista_dogadjaja
 	{
 		char* ostatak;
 		lista_dogadjaja[i].id = strtol(temp_arr, &ostatak,10); //implicitno kastovanje iz long u int //mozda ce praviti problem
-		int j = 1; // 1 zato sto je u stringu "ostatak" prvi karakter zapeta
+		int j = 1; // 1 zato sto je u stringu "ostatak" prvi karakter separator |
 		int t = 0;
 
-		for (t = 0; ostatak[j] != ','; j++, t++)
+		for (t = 0; ostatak[j] != '|'; j++, t++)
 			lista_dogadjaja[i].naziv[t] = ostatak[j];
 		lista_dogadjaja[i].naziv[t] = '\0'; j++;
 
 		lista_dogadjaja[i].opis = ostatak[j];
 		j += 2;
-		for (t = 0; ostatak[j] != ','; j++, t++)
+		for (t = 0; ostatak[j] != '|'; j++, t++)
 			lista_dogadjaja[i].lokacija[t] = ostatak[j];
 		lista_dogadjaja[i].lokacija[t] = '\0'; j++;
 
-		for (t = 0; ostatak[j] != ','; j++, t++)
+		for (t = 0; ostatak[j] != '|'; j++, t++)
 			lista_dogadjaja[i].kategorija[t] = ostatak[j];
 		lista_dogadjaja[i].kategorija[t] = '\0'; j++;
 
-		for (t = 0; ostatak[j] != ','; j++, t++)
+		for (t = 0; ostatak[j] != '|'; j++, t++)
 			lista_dogadjaja[i].datum[t] = ostatak[j];
 		lista_dogadjaja[i].datum[t] = '\0'; j++;
 
-		for (t = 0; ostatak[j] != ','; j++, t++)
+		for (t = 0; ostatak[j] != '|'; j++, t++)
 			lista_dogadjaja[i].vrijeme[t] = ostatak[j];
 		lista_dogadjaja[i].vrijeme[t] = '\0'; j++;
 
@@ -106,7 +106,7 @@ void ucitaj_dogadjaje_iz_datoteke(FILE* dat_dogadjaji, DOGADJAJ* lista_dogadjaja
 
 void ispisi_dogadjaj(DOGADJAJ* lista_dogadjaja)
 {
-	printf("%5d  %-30s  %-10s  %-50s  %-20s  %12s  %5s  %-13s  %s\n",lista_dogadjaja->id,lista_dogadjaja->naziv, lista_dogadjaja->opis=='1'?"ima opis":"nema opisa" ,lista_dogadjaja->lokacija,lista_dogadjaja->kategorija,lista_dogadjaja->datum,lista_dogadjaja->vrijeme,lista_dogadjaja->komentari=='1'?"Ima komentar":"Nema komentar",lista_dogadjaja->preporucen=='1'?"Preporucen":"");
+	printf("%5d  %-30s  %-10s  %-50s  %-20s  %12s  %5s  %-13s  %s\n",lista_dogadjaja->id,lista_dogadjaja->naziv, lista_dogadjaja->opis=='1'?"ima opis":"bez opisa" ,lista_dogadjaja->lokacija,lista_dogadjaja->kategorija,lista_dogadjaja->datum,lista_dogadjaja->vrijeme,lista_dogadjaja->komentari=='1'?"Ima komentar":"Nema komentar",lista_dogadjaja->preporucen=='1'?"Preporucen":"");
 }
 
 void svi_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
@@ -128,10 +128,15 @@ int danasnji_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 	GetLocalTime(&t); //generise danasnji datum
 	char temp_date[12] = {};
 	char buffer[5];
-	strcat(temp_date, itoa(t.wDay, buffer, 10));
+
+	if (t.wDay > 9) strcat(temp_date, itoa(t.wDay, buffer, 10));
+	else { strcat(temp_date, "0"); strcat(temp_date, itoa(t.wDay, buffer, 10)); }
 	strcat(temp_date, ".");
-	strcat(temp_date, itoa(t.wMonth, buffer, 10));
+
+	if (t.wMonth > 9) strcat(temp_date, itoa(t.wMonth, buffer, 10));
+	else { strcat(temp_date, "0"); strcat(temp_date, itoa(t.wMonth, buffer, 10)); }
 	strcat(temp_date, ".");
+
 	strcat(temp_date, itoa(t.wYear, buffer, 10));
 	strcat(temp_date, ".");
 	char flag = 0;
@@ -154,8 +159,13 @@ void buduci_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 	char temp_month[3] = {};
 	char temp_year[5] = {};
 	char buffer[5];
-	strcpy(temp_day, itoa(t.wDay, buffer, 10));
-	strcpy(temp_month, itoa(t.wMonth, buffer, 10));
+
+	if (t.wDay > 9) strcat(temp_day, itoa(t.wDay, buffer, 10));
+	else { strcat(temp_day, "0"); strcat(temp_day, itoa(t.wDay, buffer, 10)); }
+
+	if(t.wMonth > 9) strcat(temp_month, itoa(t.wMonth, buffer, 10));
+	else { strcat(temp_month, "0"); strcat(temp_month, itoa(t.wMonth, buffer, 10)); }
+
 	strcpy(temp_year, itoa(t.wYear, buffer, 10));
 
 
@@ -188,8 +198,12 @@ void prosli_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 	char temp_month[3] = {};
 	char temp_year[5] = {};
 	char buffer[5];
-	strcpy(temp_day, itoa(t.wDay, buffer, 10));
-	strcpy(temp_month, itoa(t.wMonth, buffer, 10));
+	if (t.wDay > 9) strcat(temp_day, itoa(t.wDay, buffer, 10));
+	else { strcat(temp_day, "0"); strcat(temp_day, itoa(t.wDay, buffer, 10)); }
+
+	if (t.wMonth > 9) strcat(temp_month, itoa(t.wMonth, buffer, 10));
+	else { strcat(temp_month, "0"); strcat(temp_month, itoa(t.wMonth, buffer, 10)); }
+
 	strcpy(temp_year, itoa(t.wYear, buffer, 10));
 
 	
@@ -250,7 +264,7 @@ void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 		if ((dat_opis = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "r")) != NULL)
 		{
 			printf("\nNaziv dogadjaja: %s\n",trazeni_dogadjaj->naziv);
-			char temp_arr[200] = {};
+			char temp_arr[1000] = {};
 			fscanf(dat_opis, "%d",&pom_id);//samo da preskoci red, ne koristim ovaj podatak
 			while ((fscanf(dat_opis, "\n%[^\n]s", temp_arr) != EOF) && !flag)
 			{
@@ -262,6 +276,7 @@ void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 					flag = 1; //opis moze samo jednom biti u datoteci i nema smisla dalje citati datoteku
 				}
 			}
+			int q = 0;
 			fclose(dat_opis);
 		}
 		else 
@@ -437,7 +452,7 @@ int unos_datuma(char* datum)
 			scanf("\n%[^\n]s", niz);
 		}
 		if(niz[1]!='\0') datum_check.dan = (niz[0] - '0') * 10 + niz[1] - '0';
-		else datum_check.dan = niz[0] - '0';
+		else { datum_check.dan = niz[0] - '0'; }
 
 		printf("Mjesec: ");
 		scanf("\n%[^\n]s", niz);
@@ -458,12 +473,23 @@ int unos_datuma(char* datum)
 		}
 		datum_check.godina = (niz[0] - '0') * 1000 + (niz[1] - '0') * 100 + (niz[2] - '0') * 10 + niz[3] - '0';
 	} while (!provjera_datuma(datum_check));
+
+	char buffer[5];
+
 	itoa(datum_check.dan, datum, 10);
+
+
+	if (datum_check.dan > 9) strcat(datum, itoa(datum_check.dan, buffer, 10));
+	else { strcat(datum, "0"); strcat(datum, itoa(datum_check.dan, buffer, 10)); }
 	strcat(datum, ".");
-	strcat(datum, itoa(datum_check.mjesec, mjesec, 10));
+
+	if (datum_check.mjesec > 9) strcat(datum, itoa(datum_check.mjesec, buffer, 10));
+	else { strcat(datum, "0"); strcat(datum, itoa(datum_check.mjesec, buffer, 10)); }
 	strcat(datum, ".");
+
 	strcat(datum, itoa(datum_check.godina, godina, 10));
 	strcat(datum, ".");
+
 	return 1;
 }
 
@@ -579,7 +605,7 @@ void upisi_u_datoteku(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 	fprintf(dat_dogadjaji, "%d %d", lista_dogadjaja[br_dogadjaja - 1].id, br_dogadjaja);
 	for (int i = 0; i < br_dogadjaja; i++)
 	{
-		fprintf(dat_dogadjaji, "\n%d,%s,%c,%s,%s,%s,%s,%c,%c", lista_dogadjaja[i].id, lista_dogadjaja[i].naziv, lista_dogadjaja[i].opis, lista_dogadjaja[i].lokacija, lista_dogadjaja[i].kategorija,
+		fprintf(dat_dogadjaji, "\n%d|%s|%c|%s|%s|%s|%s|%c|%c", lista_dogadjaja[i].id, lista_dogadjaja[i].naziv, lista_dogadjaja[i].opis, lista_dogadjaja[i].lokacija, lista_dogadjaja[i].kategorija,
 			lista_dogadjaja[i].datum, lista_dogadjaja[i].vrijeme, lista_dogadjaja[i].komentari, lista_dogadjaja[i].preporucen);
 	}
 	fclose(dat_dogadjaji);

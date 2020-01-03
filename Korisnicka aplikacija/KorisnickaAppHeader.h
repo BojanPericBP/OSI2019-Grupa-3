@@ -341,7 +341,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 			ch = _getch();
 			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 			{
-				if (ch != 13 && ch != 32) printf("\nNepostojeca opcija! Izaberite ponovo: \n");
+				if (ch != 13 && ch != 32) printf("Nepostojeca opcija! Izaberite ponovo: \n");
 				ch = _getch();
 			}
 			if (ch == 'M' || ch == 'm')
