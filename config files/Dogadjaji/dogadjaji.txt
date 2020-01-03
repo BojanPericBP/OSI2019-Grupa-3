@@ -1,5 +1,5 @@
-1003 4
+1005 4
 1000,asas,0,as,ostalo,12.12.2020.,12:12,0,0
 1001,koncert,0,sa,ostalo,12.12.2020.,12:12,0,0
-1002,koncert,0,koncert,koncert,11.11.2019.,11:12,0,1
 1003,spoznaj sebe,0,dvorana borik,seminar,11.12.2019.,11:14,0,1
+1004,koncert,0,trg,koncert,29.2.2020.,8:3,0,0

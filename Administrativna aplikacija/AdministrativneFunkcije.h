@@ -37,6 +37,7 @@ int provjera_vremena(VRIJEME);
 int provjera_kategorije(char**,char*,int,short*);
 int provjera_nove_kategorije(char*);
 int provjera_naziva(char*,const int);
+int brisanje_dogadjaja();
 DOGADJAJ* trazi_dogadjaj(int, DOGADJAJ*,int);
 DOGADJAJ* ucitaj_dogadjaje(int*,int*);
 void sleep(unsigned int secs);
@@ -262,7 +263,7 @@ int dodaj_dogadjaj()
 			fprintf(dogadjaji_dat, "%d %d\n", dogadjaj.id, br_dogadjaja);
 			fseek(dogadjaji_dat, 0, SEEK_END);
 			fprintf(dogadjaji_dat, "%d,%s,%d,%s,%s,%s,%s,%d,%c\n", dogadjaj.id, dogadjaj.naziv, dogadjaj.opis, dogadjaj.lokacija, dogadjaj.kategorija,
-				dogadjaj.datum, dogadjaj.vrijeme, dogadjaj.komentari,dogadjaj.preporucen);
+					dogadjaj.datum, dogadjaj.vrijeme, dogadjaj.komentari, dogadjaj.preporucen);
 			fclose(dogadjaji_dat);
 		}
 		else
@@ -776,6 +777,89 @@ int brisi_kategoriju()
 		//bilo sta za izlaz
 	}
 	return 1;
+}
+
+int brisanje_dogadjaja()
+{
+	char id;
+	int br_dogadjaja,id_dogadjaja;
+	DOGADJAJ* lista_dogadjaja, *temp;
+	FILE* dogadjaji_dat;
+
+	if ((dogadjaji_dat = fopen("../config files/Dogadjaji/dogadjaji.txt", "r")) != NULL)
+	{
+		fscanf(dogadjaji_dat, "%d %d", &id_dogadjaja, &	br_dogadjaja);
+		lista_dogadjaja = (DOGADJAJ*)malloc(br_dogadjaja * sizeof(DOGADJAJ));
+		
+		char temp_arr[200] = {};
+		int i = 0;
+		while (fscanf(dogadjaji_dat, "\n%[^\n]s", temp_arr) != EOF)
+		{
+			char* ostatak;
+			lista_dogadjaja[i].id = strtol(temp_arr, &ostatak, 10); //implicitno kastovanje iz long u int //mozda ce praviti problem
+			int j = 1; // 1 zato sto je u stringu "ostatak" prvi karakter zapeta
+			int t = 0;
+
+			for (t = 0; ostatak[j] != ','; j++, t++)
+				lista_dogadjaja[i].naziv[t] = ostatak[j];
+			lista_dogadjaja[i].naziv[t] = '\0'; j++;
+
+			lista_dogadjaja[i].opis = ostatak[j];
+			j += 2;
+			for (t = 0; ostatak[j] != ','; j++, t++)
+				lista_dogadjaja[i].lokacija[t] = ostatak[j];
+			lista_dogadjaja[i].lokacija[t] = '\0'; j++;
+
+			for (t = 0; ostatak[j] != ','; j++, t++)
+				lista_dogadjaja[i].kategorija[t] = ostatak[j];
+			lista_dogadjaja[i].kategorija[t] = '\0'; j++;
+
+			for (t = 0; ostatak[j] != ','; j++, t++)
+				lista_dogadjaja[i].datum[t] = ostatak[j];
+			lista_dogadjaja[i].datum[t] = '\0'; j++;
+
+			for (t = 0; ostatak[j] != ','; j++, t++)
+				lista_dogadjaja[i].vrijeme[t] = ostatak[j];
+			lista_dogadjaja[i].vrijeme[t] = '\0'; j++;
+
+			lista_dogadjaja[i].komentari = ostatak[j++]; j++;
+			lista_dogadjaja[i].preporucen = ostatak[j++];
+
+			++i;
+		}
+		fclose(dogadjaji_dat);
+		char id_key[200] = {};
+		int id_temp;
+		printf("Unesite identifikacioni broj dogadjaja koji zelite da obrisete: ");
+		scanf("\n%[^\n]s", id_key);
+		id_temp = atoi(id_key);
+		temp = trazi_dogadjaj(id_temp, lista_dogadjaja, br_dogadjaja);
+		while ((temp = trazi_dogadjaj(id_temp, lista_dogadjaja, br_dogadjaja)) == NULL)
+		{
+			printf("Ne postoji dogadjaj sa identifikacionim brojem koji ste unijeli.\nUnesite ponovo identifikacioni broj: ");
+			scanf("\n%[^\n]s", id_key);
+			id_temp = atoi(id_key);
+		}
+
+		if ((dogadjaji_dat = fopen("../config files/Dogadjaji/dogadjaji.txt", "w")) != NULL)
+		{
+			fprintf(dogadjaji_dat, "%d %d\n", id_dogadjaja, br_dogadjaja - 1);
+
+			for (int i = 0; i < br_dogadjaja; i++)
+			{
+				if (id_temp != lista_dogadjaja[i].id)
+					fprintf(dogadjaji_dat, "%d,%s,%c,%s,%s,%s,%s,%c,%c\n", lista_dogadjaja[i].id, lista_dogadjaja[i].naziv, lista_dogadjaja[i].opis, lista_dogadjaja[i].lokacija, lista_dogadjaja[i].kategorija,
+						lista_dogadjaja[i].datum, lista_dogadjaja[i].vrijeme, lista_dogadjaja[i].komentari, lista_dogadjaja[i].preporucen);
+			}
+		}
+		fclose(dogadjaji_dat);
+	}
+	else
+	{
+		printf("greska prilikom otvaradnja datoteke dogadjaji prilikom brisanja dogadjaja\n");
+		//bilo sta za izlaz
+	}
+	return 0;
 }
 
 void sleep(unsigned int* secs)
