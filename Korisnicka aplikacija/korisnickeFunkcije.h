@@ -476,9 +476,6 @@ int unos_datuma(char* datum)
 
 	char buffer[5];
 
-	itoa(datum_check.dan, datum, 10);
-
-
 	if (datum_check.dan > 9) strcat(datum, itoa(datum_check.dan, buffer, 10));
 	else { strcat(datum, "0"); strcat(datum, itoa(datum_check.dan, buffer, 10)); }
 	strcat(datum, ".");
