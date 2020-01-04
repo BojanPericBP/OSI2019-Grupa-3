@@ -11,8 +11,8 @@ void inicijalizuj_prozor()
 	HWND console = GetConsoleWindow();
 	RECT r;
 	GetWindowRect(console, &r);
-	r.left = 125; r.top = 50;
-	MoveWindow(console, r.left, r.top, 1270, 700, TRUE);
+	r.left = 125; r.top = 20;
+	MoveWindow(console, r.left, r.top, 1270, 800, TRUE);
 }
 
 void glavni_meni_korisnicke_aplikacije()
@@ -131,7 +131,7 @@ void meni_o_korisnickoj_aplikaciji()
 
 void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 {
-	char ch = 0,izbor=0;
+	int ch = 0,izbor=0;
 	char flag = 0,flag_danasnji=0;
 	while (1)
 	{

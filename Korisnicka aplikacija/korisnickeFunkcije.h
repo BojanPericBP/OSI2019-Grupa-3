@@ -251,32 +251,51 @@ int unesi_id()
 
 void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 {
-	int flag = 0, pom_id = 0;
 	FILE* dat_opis = NULL;
 	int id = unesi_id();
 	DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, id);
 	if (!trazeni_dogadjaj) 
-		printf("\nNe postoji dogadjaj sa unesenim id-om.\n\n");
+		printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
 	else if ((trazeni_dogadjaj->opis - 48)==0) 
-		printf("\nDogadjaj sa unesenim id-om nema opis.\n\n");
+		printf("\nDogadjaj sa unesenim id-om nema opis.\n");
 	else
 	{
 		if ((dat_opis = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "r")) != NULL)
 		{
-			printf("\nNaziv dogadjaja: %s\n",trazeni_dogadjaj->naziv);
-			char temp_arr[1000] = {};
-			fscanf(dat_opis, "%d",&pom_id);//samo da preskoci red, ne koristim ovaj podatak
-			while ((fscanf(dat_opis, "\n%[^\n]s", temp_arr) != EOF) && !flag)
+			char c = 0;
+			int temp_id = 0;
+			printf("\nNaziv dogadjaja:\n%s\n", trazeni_dogadjaj->naziv);
+			printf("\nOpis dogadjaja: \n");
+			fscanf(dat_opis, "%d", &temp_id); c = fgetc(dat_opis);//samo da preskoci red, ne koristim ovaj podatak
+			int br_slova = 0;
+			while (c != EOF)
 			{
-				char* ostatak;
-				pom_id = strtol(temp_arr, &ostatak, 10);
-				if (pom_id == id)
+				temp_id = 0;
+				for (int i = 3; i >= 0; i--)
 				{
-					printf("\nOpis dogadjaja: %s\n\n", ostatak + 1);
-					flag = 1; //opis moze samo jednom biti u datoteci i nema smisla dalje citati datoteku
+					c = fgetc(dat_opis);
+					temp_id += ((c - 48) * (int)pow(10, i));
 				}
+				c = fgetc(dat_opis); //da preskoci zapetu
+				br_slova = 0;
+				while ((c = fgetc(dat_opis)) != 10 && c != EOF)
+				{
+					if (temp_id == id) 
+					{
+						br_slova++;
+						if (br_slova <= 160)
+							printf("%c", c);
+						else if(br_slova>160 && c!=32)
+							printf("%c", c);
+						else 
+						{
+							printf("\n"); 
+							br_slova = 0;
+						}
+					}
+				}
+				if (temp_id == id) printf("\n");
 			}
-			int q = 0;
 			fclose(dat_opis);
 		}
 		else 
