@@ -266,7 +266,6 @@ void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 			int temp_id = 0;
 			printf("\nNaziv dogadjaja:\n%s\n", trazeni_dogadjaj->naziv);
 			printf("\nOpis dogadjaja: \n");
-			fscanf(dat_opis, "%d", &temp_id); c = fgetc(dat_opis);//samo da preskoci red, ne koristim ovaj podatak
 			int br_slova = 0;
 			while (c != EOF)
 			{
