@@ -124,7 +124,7 @@ int dodaj_dogadjaj()
 	int br_kategorija,id,br_dogadjaja;
 	short flag1 = -1, flag2 = 0;
 	char** kategorija;
-	char datum[12] = "", vrijeme[6], nova_kategorija[100],ch,naziv[100],mjesto[100],opis[1000];
+	char datum[12] = "", vrijeme[6]= "", nova_kategorija[100],ch,naziv[100],mjesto[100],opis[1000];
 	DOGADJAJ dogadjaj;
 	VRIJEME vrijeme_provjera;//za provjeru da li je korisnik dobro unio vrijeme
 	FILE* kategorije_dat,* dogadjaji_dat,* opis_dogadjaja_dat;
@@ -150,23 +150,29 @@ int dodaj_dogadjaj()
 			while (fscanf(kategorije_dat, "\n%[^\n]s", kategorija[i]) != EOF)
 				++i;
 
-			printf("\n\tUNOS KATEGORIJE\n\n");
-			printf("Odaberite:\n\tU->Unos postojecu kategoriju\n\tD->Dodavanje nove kategorije\n\n");
-			printf("\n\tPOSTOJECE KATEGORIJE:\n\n");
+			printf("\n\tUNOS KATEGORIJE\n________________________________________________\n");
+			
+			printf("\nPOSTOJECE KATEGORIJE:\n\n");
 			for (int i = 0; i < br_kategorija; i++)
 				printf("\t%d.%s\n", i + 1, kategorija[i]);
-			printf("\n");
+			printf("________________________________________________________________\n");
 
+			printf("\nOdaberite:\n\tU->Unos postojecu kategoriju\n\tD->Dodavanje nove kategorije\n\n");
+			
 			do
 				ch = _getch();
 			while (ch != 'u' && ch != 'U' && ch != 'd' && ch != 'D');
+
+			printf("___________________________________________________________________\n\n");
+			printf("Ukucajte slovima naziv kategoriju koju zelite unijeti!\n");
+			printf("___________________________________________________________________\n\n");
 
 			if (ch == 'u' || ch == 'U')
 			{
 				do
 				{
 					if (flag1 == 0)
-						printf("Kategorija koju ste unijeli ne postoji, pokusajte ponovo!\n");
+						printf("Kategorija koju ste unijeli ne postoji, pokusajte ponovo!\n\n");
 					printf("Unesite kategoriju: ");
 					scanf("\n%[^\n]s", dogadjaj.kategorija);
 					strlwr(dogadjaj.kategorija);
@@ -199,7 +205,7 @@ int dodaj_dogadjaj()
 			}
 			fclose(kategorije_dat);
 
-			printf("NAZIV DOGADJAJA:\n");
+			printf("\nNAZIV DOGADJAJA:\n");
 			do
 			{
 				printf("Unesite naziv dogadjaja: ");
@@ -208,6 +214,7 @@ int dodaj_dogadjaj()
 
 			strcpy(dogadjaj.naziv, naziv);
 
+			printf("\nMJESTO ODRZAVANJA DOGADJAJA:\n");
 			do
 			{
 				printf("Unesite mjesto gdje se odrzava dogadjaj: ");
@@ -216,7 +223,7 @@ int dodaj_dogadjaj()
 			strcpy(dogadjaj.lokacija, mjesto);
 			
 
-			dogadjaj.komentari = 0;
+			dogadjaj.komentari = '0';
 
 
 			if ((opis_dogadjaja_dat = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "a")) == NULL)
@@ -228,7 +235,7 @@ int dodaj_dogadjaj()
 			}
 			else
 			{
-				printf("UNOS DOGADJAJA:\n");
+				printf("\nOPIS DOGADJAJA:\n");
 				printf("Unesite:\n\to->za unos opisa\n\tp->da preskocite ovaj korak\n");
 				do
 					ch = _getch();
@@ -236,33 +243,36 @@ int dodaj_dogadjaj()
 
 				if (ch == 'o' || ch == 'O')
 				{
+					printf("Opis: ");
 					scanf("\n%[^\n]s", opis);
 					fprintf(opis_dogadjaja_dat, "%d,%s\n", dogadjaj.id, opis);
-					dogadjaj.opis = 1;
+					dogadjaj.opis = '1';
 				}
 				else if (ch == 'p' || ch == 'P')
-					dogadjaj.opis = 0;
+					dogadjaj.opis = '0';
 
 				do
 				{
-					printf("da li zelite preporuciti ovaj dogadjaj drugim korisnicima?\nunesite:\n\t1->DA\n\t0->NE\n");
+					printf("\nDa li zelite preporuciti ovaj dogadjaj drugim korisnicima?\nUnesite:\n\t1->DA\n\t0->NE\n");
 					dogadjaj.preporucen = _getch();
+					printf("%c", ch);
 				} while (dogadjaj.preporucen != '1' && dogadjaj.preporucen != '0');
 				
 
 			}
 			fclose(opis_dogadjaja_dat);
 
-			printf("UNOS DATUMA:\n\n");
+			printf("\nUNOS DATUMA:\n\n");
 			unos_datuma(datum);
 			strcpy(dogadjaj.datum, datum);
+			printf("\nUNOS VREMENA:\n\n");
 			unos_vremena(vrijeme);
 			strcpy(dogadjaj.vrijeme, vrijeme);
 
 			fseek(dogadjaji_dat, 0, SEEK_SET);
 			fprintf(dogadjaji_dat, "%d %d\n", dogadjaj.id, br_dogadjaja);
 			fseek(dogadjaji_dat, 0, SEEK_END);
-			fprintf(dogadjaji_dat, "%d,%s,%d,%s,%s,%s,%s,%d,%c\n", dogadjaj.id, dogadjaj.naziv, dogadjaj.opis, dogadjaj.lokacija, dogadjaj.kategorija,
+			fprintf(dogadjaji_dat, "%d|%s|%c|%s|%s|%s|%s|%c|%c\n", dogadjaj.id, dogadjaj.naziv, dogadjaj.opis, dogadjaj.lokacija, dogadjaj.kategorija,
 					dogadjaj.datum, dogadjaj.vrijeme, dogadjaj.komentari, dogadjaj.preporucen);
 			fclose(dogadjaji_dat);
 		}
@@ -275,47 +285,56 @@ int dodaj_dogadjaj()
 	return 1;
 }
 
-int unos_datuma(char* datum1)
+int unos_datuma(char* datum)
 {
 	DATUM datum_check;
-	char datum[500];
-	char mjesec[3], godina[5];
+	char mjesec[3], godina[5];//bufferi za funkciju strcat
+	char niz[1000] = {};
 	do
 	{
-		
-		printf("Dan (01): ");
-		scanf("\n%[^\n]s", datum);
-		while ((datum[1] != '\0' || datum[0] < 48 || datum[0] > 57) && (datum[2] != '\0' || datum[0]<48 || datum[0] > 57 || datum[1] < 48 || datum[1] > 57))
+		printf("Dan: ");
+		scanf("\n%[^\n]s", niz);
+		while ((niz[1] != '\0' || niz[0] < 48 || niz[0]>57) && (niz[2] != '\0' || niz[0] < 48 || niz[0]>57 || niz[1] < 48 || niz[1]>57))
 		{
-			printf("Neispravan unos, unesite dan ponovo: ");
-			scanf("\n%[^\n]s", datum);
+			printf("Neispravan unos, unesite ponovo dan: ");
+			scanf("\n%[^\n]s", niz);
 		}
-		datum_check.dan = (datum[0] - '0') * 10 + datum[1] - '0';
-		
-		printf("Mjesec: ");
-		scanf("\n%[^\n]s", datum);
-		while ((datum[1] != '\0' || datum[0] < 48 || datum[0] > 57) && (datum[2] != '\0' || datum[0] < 48 || datum[0] > 57 || datum[1] < 48 || datum[1] > 57))
-		{
-			printf("Neispravan unos, unesite mjesec ponovo: ");
-			scanf("\n%[^\n]s", datum);
-		}
-		datum_check.mjesec = (datum[0] - '0') * 10 + datum[1] - '0';
-		printf("Godina: ");
-		scanf("\n%[^\n]s", datum);
-		while (datum[4] != '\0' || datum[0] < 48 || datum[0]>57 || datum[1] < 48 || datum[1]>57 || datum[2] < 48 || datum[2]>57 || datum[3] < 48 || datum[3]>57)
-		{
-			printf("Niste unijeli 4 ciffre unesie ponovo: ");
-			scanf("\n%[^\n]s", datum);
-		}
-		datum_check.godina = (datum[0] - '0') * 1000 + (datum[1] - '0') * 100 + (datum[2] - '0') * 10 + datum[3] - '0';
+		if (niz[1] != '\0') datum_check.dan = (niz[0] - '0') * 10 + niz[1] - '0';
+		else { datum_check.dan = niz[0] - '0'; }
 
+		printf("Mjesec: ");
+		scanf("\n%[^\n]s", niz);
+		while ((niz[1] != '\0' || niz[0] < 48 || niz[0]>57) && (niz[2] != '\0' || niz[0] < 48 || niz[0]>57 || niz[1] < 48 || niz[1]>57))
+		{
+			printf("Neispravan unos, unesite ponovo mjesec: ");
+			scanf("\n%[^\n]s", niz);
+		}
+		if (niz[1] != '\0') datum_check.mjesec = (niz[0] - '0') * 10 + niz[1] - '0';
+		else datum_check.mjesec = niz[0] - '0';
+
+		printf("Godina: ");
+		scanf("\n%[^\n]s", niz);
+		while (niz[4] != '\0' || niz[0] < 48 || niz[0]>57 || niz[1] < 48 || niz[1]>57 || niz[2] < 48 || niz[2]>57 || niz[3] < 48 || niz[3]>57)
+		{
+			printf("Niste unijeli sve cetiri cifre za godinu, unesite ponovo godinu: ");
+			scanf("\n%[^\n]s", niz);
+		}
+		datum_check.godina = (niz[0] - '0') * 1000 + (niz[1] - '0') * 100 + (niz[2] - '0') * 10 + niz[3] - '0';
 	} while (!provjera_datuma(datum_check));
-	itoa(datum_check.dan, datum1,10);
-	strcat(datum1, ".");
-	strcat(datum1, itoa(datum_check.mjesec, mjesec, 10));
-	strcat(datum1, ".");
-	strcat(datum1, itoa(datum_check.godina, godina, 10));
-	strcat(datum1, ".");
+
+	char buffer[5];
+
+	if (datum_check.dan > 9) strcat(datum, itoa(datum_check.dan, buffer, 10));
+	else { strcat(datum, "0"); strcat(datum, itoa(datum_check.dan, buffer, 10)); }
+	strcat(datum, ".");
+
+	if (datum_check.mjesec > 9) strcat(datum, itoa(datum_check.mjesec, buffer, 10));
+	else { strcat(datum, "0"); strcat(datum, itoa(datum_check.mjesec, buffer, 10)); }
+	strcat(datum, ".");
+
+	strcat(datum, itoa(datum_check.godina, godina, 10));
+	strcat(datum, ".");
+
 	return 1;
 }
 
@@ -366,17 +385,56 @@ int provjera_datuma(DATUM datum)
 int unos_vremena(char vrijeme[])
 {
 	VRIJEME time;
+	char niz[1000] = {};
+	char min[3];
+
 	do
 	{
+		
 		printf("U koliko sati: ");
-		scanf("%d", &time.sat);
+		scanf("\n%[^\n]s", niz);
+
+		while ((niz[1] != '\0' || niz[0] < 48 || niz[0]>57) && (niz[2] != '\0' || niz[0] < 48 || niz[0]>57 || niz[1] < 48 || niz[1]>57))
+		{
+			printf("Neispravan unos, unesite ponovo sate: ");
+			scanf("\n%[^\n]s", niz);
+		}
+
+		if (niz[1] != '\0') time.sat = (niz[0] - '0') * 10 + niz[1] - '0';
+		else { time.sat = niz[0] - '0'; }
+
 		printf("U koliko minuta: ");
-		scanf("%d", &time.minute);
+		scanf("\n%[^\n]s", niz);
+
+		while ((niz[1] != '\0' || niz[0] < 48 || niz[0]>57) && (niz[2] != '\0' || niz[0] < 48 || niz[0]>57 || niz[1] < 48 || niz[1]>57))
+		{
+			printf("Neispravan unos, unesite ponovo minute: ");
+			scanf("\n%[^\n]s", niz);
+		}
+
+		if (niz[1] != '\0') time.minute = (niz[0] - '0') * 10 + niz[1] - '0';
+		else { time.minute = niz[0] - '0'; }
+
 	} while (!provjera_vremena(time));
-	char min[3];
-	itoa(time.sat, vrijeme, 10);
+
+	if (time.sat > 9) 
+		strcat(vrijeme, itoa(time.sat, min, 10));
+	else
+	{ 
+		strcat(vrijeme, "0"); 
+		strcat(vrijeme,
+			itoa(time.sat, min, 10));
+	}
 	strcat(vrijeme, ":");
-	strcat(vrijeme, itoa(time.minute, min, 10));
+
+	if (time.minute > 9)
+		strcat(vrijeme, itoa(time.minute, min, 10));
+	else 
+	{
+		strcat(vrijeme, "0");
+		strcat(vrijeme, itoa(time.sat, min, 10)); 
+	}
+
 	return 1;
 }
 
@@ -464,30 +522,32 @@ DOGADJAJ* ucitaj_dogadjaje(int *id,int *br_dogadjaja)
 			int j = 1; // 1 zato sto je u stringu "ostatak" prvi karakter zapeta
 			int t = 0;
 
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].naziv[t] = ostatak[j];
 			lista_dogadjaja[i].naziv[t] = '\0'; j++;
 
 			lista_dogadjaja[i].opis = ostatak[j];
 			j += 2;
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].lokacija[t] = ostatak[j];
 			lista_dogadjaja[i].lokacija[t] = '\0'; j++;
 
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].kategorija[t] = ostatak[j];
 			lista_dogadjaja[i].kategorija[t] = '\0'; j++;
 
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].datum[t] = ostatak[j];
 			lista_dogadjaja[i].datum[t] = '\0'; j++;
 
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].vrijeme[t] = ostatak[j];
 			lista_dogadjaja[i].vrijeme[t] = '\0'; j++;
 
 			lista_dogadjaja[i].komentari = ostatak[j++]; j++;
 			lista_dogadjaja[i].preporucen = ostatak[j++];
+
+
 
 			++i;
 		}
@@ -668,7 +728,7 @@ int uredi_dogadjaj()
 		fprintf(dogadjaji_dat, "%d %d\n", id_back, br_dogadjaja);
 		while (i<br_dogadjaja)
 		{
-			fprintf(dogadjaji_dat, "%d,%s,%c,%s,%s,%s,%s,%c,%c\n", dogadjaji[i].id, dogadjaji[i].naziv, dogadjaji[i].opis, dogadjaji[i].lokacija, dogadjaji[i].kategorija,
+			fprintf(dogadjaji_dat, "%d|%s|%c|%s|%s|%s|%s|%c|%c\n", dogadjaji[i].id, dogadjaji[i].naziv, dogadjaji[i].opis, dogadjaji[i].lokacija, dogadjaji[i].kategorija,
 				dogadjaji[i].datum, dogadjaji[i].vrijeme, dogadjaji[i].komentari, dogadjaji[i].preporucen);
 			i++;
 		}
@@ -795,30 +855,31 @@ int brisanje_dogadjaja()
 		int i = 0;
 		while (fscanf(dogadjaji_dat, "\n%[^\n]s", temp_arr) != EOF)
 		{
+		
 			char* ostatak;
 			lista_dogadjaja[i].id = strtol(temp_arr, &ostatak, 10); //implicitno kastovanje iz long u int //mozda ce praviti problem
-			int j = 1; // 1 zato sto je u stringu "ostatak" prvi karakter zapeta
+			int j = 1; // 1 zato sto je u stringu "ostatak" prvi karakter separator |
 			int t = 0;
 
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].naziv[t] = ostatak[j];
 			lista_dogadjaja[i].naziv[t] = '\0'; j++;
 
 			lista_dogadjaja[i].opis = ostatak[j];
 			j += 2;
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].lokacija[t] = ostatak[j];
 			lista_dogadjaja[i].lokacija[t] = '\0'; j++;
 
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].kategorija[t] = ostatak[j];
 			lista_dogadjaja[i].kategorija[t] = '\0'; j++;
 
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].datum[t] = ostatak[j];
 			lista_dogadjaja[i].datum[t] = '\0'; j++;
 
-			for (t = 0; ostatak[j] != ','; j++, t++)
+			for (t = 0; ostatak[j] != '|'; j++, t++)
 				lista_dogadjaja[i].vrijeme[t] = ostatak[j];
 			lista_dogadjaja[i].vrijeme[t] = '\0'; j++;
 
@@ -848,7 +909,7 @@ int brisanje_dogadjaja()
 			for (int i = 0; i < br_dogadjaja; i++)
 			{
 				if (id_temp != lista_dogadjaja[i].id)
-					fprintf(dogadjaji_dat, "%d,%s,%c,%s,%s,%s,%s,%c,%c\n", lista_dogadjaja[i].id, lista_dogadjaja[i].naziv, lista_dogadjaja[i].opis, lista_dogadjaja[i].lokacija, lista_dogadjaja[i].kategorija,
+					fprintf(dogadjaji_dat, "%d|%s|%c|%s|%s|%s|%s|%c|%c\n", lista_dogadjaja[i].id, lista_dogadjaja[i].naziv, lista_dogadjaja[i].opis, lista_dogadjaja[i].lokacija, lista_dogadjaja[i].kategorija,
 						lista_dogadjaja[i].datum, lista_dogadjaja[i].vrijeme, lista_dogadjaja[i].komentari, lista_dogadjaja[i].preporucen);
 			}
 		}

@@ -1,4 +1,9 @@
-3
+8
 ostalo
 koncert
 seminar
+utakmica
+zurka
+sport
+predstava
+film
