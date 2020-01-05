@@ -87,7 +87,7 @@ int unos_korisnickih_podataka_admina()
 int logovanje_admina()
 {
 	char c[5];
-	int br_pokusaja = 5;  //broji pokusaja da se unesu tacni podaci
+	int br_pokusaja = 2;  //broji pokusaja da se unesu tacni podaci
 	while (br_pokusaja && !unos_korisnickih_podataka_admina())
 	{
 		--br_pokusaja;
@@ -100,23 +100,28 @@ int logovanje_admina()
 			printf("Nepostojeca opcija!\nUnesite 'e' ili 'p': ");
 			scanf("\n%s", &c);
 		}
+
 		if (c[0] == 'e' || c[0] == 'E')
 			exit(1);
-		else if (c[0] == 'p' || c[0] == 'P')
+
+		else if ((c[0] == 'p' || c[0] == 'P') && br_pokusaja)
 		{
 			printf("\nUPOZORENJE!\nOSTALO VAM JE JOS %d POKUSAJA!\n", br_pokusaja);
 			continue;
 		}
-	}
-	if (br_pokusaja == 0)
-	{
-		printf("Vas nalog ce biti blokiran narednih sat vremena!");
-		do
+		else if (br_pokusaja == 0)
 		{
-			printf("Unesite 'e' za izlazak: ");
-			scanf("%s", &c);
-		} while (c[1] != 0 || (c[0] != 'e' && c[0] != 'E'));
+			printf("Pogresno ste unijeli pristupne podatke 5 puta za redom, ne mozete se prijaviti!");
+			do
+			{
+				printf("Unesite 'e' za izlazak: ");
+				scanf("%s", &c);
+			} while (c[1] != 0 || (c[0] != 'e' && c[0] != 'E'));
+
+			exit(1);
+		}
 	}
+	
 }
 
 

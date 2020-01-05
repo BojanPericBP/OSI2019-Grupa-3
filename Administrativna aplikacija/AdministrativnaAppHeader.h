@@ -88,14 +88,14 @@ void meni_uredjivanje_kviza()
 void odabir_opcije_admina()
 {
 	system("title STA SE RADI NA ESTRADI");
-	char a[50];
-	char c[50];
+	char a[500];
+	char c[500];
 	char ch;
 
 	while (1)
 	{
 		
-		//scanf("\n%[^\n]s", a);
+		
 		ch = _getch();
 		
 		switch (ch)
