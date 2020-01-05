@@ -111,7 +111,7 @@ void meni_help()
 	system("color 70");
 
 	printf("\n********************************************************************************* POMOC ************************************************************************************\n");
-	printf("\nAplikacija 'Sta se radi na estradi' je aplikacija koja omogucava pracenje dogadjaja u nekom gradu.\nOmogucava korisniku da pregleda koji se sve dogadjai odrzavaju u nekom gradu, te datum i mjesto odrzavanja dogadjaja,\nkao i komentare drugih korisnika o nekom dogadjaju.\n"
+	printf("\nAplikacija 'Sta se radi na estradi' je aplikacija koja omogucava pracenje dogadjaja u nekom gradu.\nOmogucava korisniku da pregleda koji se sve dogadjaji odrzavaju u nekom gradu, da sazna datum i mjesto odrzavanja dogadjaja, kao i da pogleda komentare drugih korisnika \no nekom dogadjaju.\n"
 		"Za detaljne informacije pogledajte korisnicku dokumentaciju.\n");
 	printf("\n****************************************************************************************************************************************************************************\n");
 }
@@ -122,7 +122,7 @@ void meni_o_korisnickoj_aplikaciji()
 	system("color 0a");
 
 	printf("\n************************************************************************ O aplikaciji **************************************************************************************\n");
-	printf("\nAplikacija 'Sta se radi na estradi' je aplikacija koja omogucava pracenje dogadjaja u nekom gradu.\nOmogucava korisniku da pregleda koji se sve dogadjaji odrzavaju u nekom gradu, te datum i mjesto dorzavanja dogadjaja, kao i komentare drugih korisnika o nekom dogadjaju.\n"
+	printf("\nAplikacija 'Sta se radi na estradi' je aplikacija koja omogucava pracenje dogadjaja u nekom gradu.\nOmogucava korisniku da pregleda koji se sve dogadjaji odrzavaju u nekom gradu, te datum i mjesto odrzavanja dogadjaja, kao i da pogleda komentare drugih korisnika o \nnekom dogadjaju.\n"
 		"\nAplikaciju su radili studenti Elektrotehnickog fakulteta u Banjaluci :\n"
 		"Jelena Jakovljevic (Jeca Pereca),\nKristina Krickovic (Kricka),\nSasa Stankovic (Sale),\n"
 		"Bojan Janjic (Che),\nBojan Peric (Boki, Bole, Boss)\n");
