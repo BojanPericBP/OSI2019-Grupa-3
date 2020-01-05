@@ -283,9 +283,7 @@ void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 					if (temp_id == id) 
 					{
 						br_slova++;
-						if (br_slova <= 160)
-							printf("%c", c);
-						else if(br_slova>160 && c!=32)
+						if (br_slova <= 160 || (br_slova > 160 && c != 32))
 							printf("%c", c);
 						else 
 						{
@@ -312,6 +310,7 @@ void ispisi_komentar(int id)
 		int c=0;
 		int temp_id=0;
 		char flag = 0;
+		int br_slova = 0;
 		while (c != EOF) // ide do kraja datoteke jer se moze vise puta pojaviti komentar za isti dogadjaj
 		{
 			temp_id = 0;
@@ -322,10 +321,20 @@ void ispisi_komentar(int id)
 			}
 			c = fgetc(dat_komentari); //da preskoci zapetu
 			if (temp_id == id) { flag = 1; /*printf("\n");*/ }
-			while ((c = fgetc(dat_komentari)) != 10 && c!=EOF)
+	
+			while ((c = fgetc(dat_komentari)) != 10 && c != EOF)
 			{
 				if (temp_id == id)
-					printf("%c", c);
+				{
+					br_slova++;
+					if (br_slova <= 160 || (br_slova > 160 && c != 32))
+						printf("%c", c);
+					else
+					{
+						printf("\n");
+						br_slova = 0;
+					}
+				}
 			}
 			if(temp_id==id) printf("\n");
 		}
