@@ -1,6 +1,7 @@
 #pragma once
 #pragma warning(disable : 4996)
 #define MAX 20
+//#include "AdministrativnaAppHeader.h"
 #include<conio.h>
 #include <stdlib.h>
 #include<string>
@@ -491,7 +492,6 @@ int provjera_naziva(char* arr,const int a)
 int unesi_id()
 {
 	char  niz[500] = {};
-	printf("\nUnesite id dogadjaja:");
 	scanf("\n%[^\n]s", niz);
 	while (niz[4] != 0 || (niz[0] < 48 || niz[0]>57) || (niz[1] < 48 || niz[1]>57) || (niz[2] < 48 || niz[2]>57) || (niz[3] < 48 || niz[3]>57))
 	{
@@ -580,6 +580,10 @@ int uredi_dogadjaj()
 {
 	int br_dogadjaja,id,id_back;
 	char ch;
+	char mjesto[100] = "";
+	char naziv[200] = "";
+	char datum[12] = "";
+	char vrijeme[6] = "";
 	DOGADJAJ* dogadjaji = ucitaj_dogadjaje(&id_back,&br_dogadjaja);
 	DOGADJAJ* dogadjaj_check ,*pom;
 	FILE* dogadjaji_dat;
@@ -604,12 +608,13 @@ int uredi_dogadjaj()
 		{
 			printf("Unos: ");
 			ch = _getch();
+			printf("%c", ch);
 		} while (ch != '1' && ch != '2' && ch != '3' && ch != '4' && ch != '5' && ch != '6' && ch != '7' && ch != '0');
 
 		switch (ch)
 		{
 		case '1':
-			char naziv[200];
+			
 			//strcpy(dogadjaj_check->naziv, "");
 			do
 			{
@@ -619,10 +624,9 @@ int uredi_dogadjaj()
 			strcpy(dogadjaj_check->naziv, naziv);
 			break;
 		case '2':
-			char mjesto[100];
 			do
 			{
-				printf("Unesite mjesto gdje se odrzava dogadjaj: ");
+				printf("\nUnesite mjesto gdje se odrzava dogadjaj: ");
 				scanf("\n%[^\n]s", mjesto);
 			} while (provjera_naziva(mjesto, 51) == 0);
 			strcpy(dogadjaj_check->lokacija, mjesto);
@@ -703,12 +707,13 @@ int uredi_dogadjaj()
 			}
 			break;
 		case '5':
-			char datum[12];
+			printf("\n");
+			
 			unos_datuma(datum);
 			strcpy(dogadjaj_check->datum, datum);
 			break;
 		case '6':
-			char vrijeme[6];
+			printf("\n");
 			unos_vremena(vrijeme);
 			strcpy(dogadjaj_check->vrijeme, vrijeme);
 			break;
@@ -764,22 +769,35 @@ int brisi_kategoriju()
 			++i;
 
 
-		printf("\n\tUNOS KATEGORIJE\n\n");
-		printf("Odaberite:\n\tU->Unos kategorije koju zelite obrisati.\n\tE->Izalz iz programa\n\tM->Povratak na glavni meni\n\n");
+
 		printf("\nPOSTOJECE KATEGORIJE:\n\n");
 		for (int i = 0; i < br_kategorija; i++)
 			printf("\t%d.%s\n", i + 1, kategorija[i]);
 		printf("\n");
+		printf("Odaberite:\n\tU->Unos kategorije koju zelite obrisati.\n\tO->Ukoliko zelite odustati od brisanja kategorije\n\n");
 		printf("Unos:");
 		do
 		{
 			ch = _getch();
 			printf("%c\n", ch);
 		}
-	
-		while (ch != 'u' && ch != 'U' && ch != 'e' && ch != 'E' && ch != 'm' && ch != 'M');
 
-		if (ch == 'u' || ch == 'U')
+		while (ch != 'u' && ch != 'U' && ch != 'o' && ch != 'O');
+
+		if (ch == 'o' || ch == 'O')
+		{
+			fclose(kategorije_dat);
+			return 1;
+		}
+
+		else if (ch == 'e' || ch == 'E')
+		{
+			fclose(kategorije_dat);
+			exit(1);
+
+		}
+
+		else if (ch == 'u' || ch == 'U')
 		{
 			do
 			{
@@ -791,7 +809,7 @@ int brisi_kategoriju()
 			} while (!provjera_kategorije(kategorija, buff_kategorija, br_kategorija, &flag1));
 
 
-			for (int i = 0; i < br_kategorija; i++)
+			for (int i = 0; i < br_dogadjaja; i++)
 			{
 				if (strcmp(buff_kategorija, dogadjaj[i].kategorija) == 0)
 				{
@@ -800,36 +818,42 @@ int brisi_kategoriju()
 					break;
 				}
 			}
-
-			for (int i = 0; i < br_kategorija; i++)
+			if (flag_brisi == 0)
 			{
-				if ((strcmp(kategorija[i], buff_kategorija) == 0) && flag_brisi == 0)
-				{
 
-					free(kategorija[i]);
-					kategorija[i] = NULL;
-					br_kategorija--;
-					flag_brisi = 0;
-					fseek(kategorije_dat, 0, SEEK_SET);
-					fprintf(kategorije_dat, "%d\n", br_kategorija);
-					printf("Uspjesno ste brisali kategoriju.\n");
-					break;
+				for (int i = 0; i < br_kategorija; i++)
+				{
+					if (strcmp(kategorija[i], buff_kategorija) == 0)
+					{
+
+						free(kategorija[i]);
+						kategorija[i] = NULL;
+						br_kategorija--;
+						flag_brisi = 0;
+						fseek(kategorije_dat, 0, SEEK_SET);
+						fprintf(kategorije_dat, "%d\n", br_kategorija);
+						printf("Uspjesno ste brisali kategoriju.\n");
+						break;
+					}
 				}
 			}
 			fclose(kategorije_dat);
 		}
 
-		if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "w+")) != NULL)
+		if (flag_brisi == 0)
 		{
-			fprintf(kategorije_dat, "%d\n", br_kategorija);
-			for (int i = 0; i <= br_kategorija; i++)
-				if (kategorija[i] != NULL)
-				{
-					fprintf(kategorije_dat, "%s\n", kategorija[i]);
-				}
-			fclose(kategorije_dat);
+			if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "w+")) != NULL)
+			{
+				fprintf(kategorije_dat, "%d\n", br_kategorija);
+				for (int i = 0; i <= br_kategorija; i++)
+					if (kategorija[i] != NULL)
+					{
+						fprintf(kategorije_dat, "%s\n", kategorija[i]);
+					}
+				fclose(kategorije_dat);
+			}
 		}
-		else return 0;
+
 	}
 	else
 	{
@@ -914,6 +938,7 @@ int brisanje_dogadjaja()
 			}
 		}
 		fclose(dogadjaji_dat);
+		printf("\nUspjesnos te izbrisali dogadjaj!\n\n");
 	}
 	else
 	{

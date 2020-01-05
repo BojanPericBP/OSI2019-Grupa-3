@@ -1,9 +1,10 @@
-8
-ostalo
+9
+izlozbe
 koncert
+promocija
 seminar
-utakmica
-zurka
-sport
 predstava
+sport
 film
+zurka
+ostalo
