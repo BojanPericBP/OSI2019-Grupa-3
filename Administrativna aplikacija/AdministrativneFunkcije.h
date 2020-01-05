@@ -86,37 +86,39 @@ int unos_korisnickih_podataka_admina()
 
 int logovanje_admina()
 {
-	char c[5];
+	char c[500];
+	char ch;
 	int br_pokusaja = 2;  //broji pokusaja da se unesu tacni podaci
 	while (br_pokusaja && !unos_korisnickih_podataka_admina())
 	{
 		--br_pokusaja;
 
 		printf("\nPorgesno korisnicko ime ili lozinka!\nUnesite 'e' za izlaz iz programa ili unesite 'p' za ponovni unos podataka!\n");
-		scanf("\n%s", &c);
-
-		while (c[1] != 0 || (c[0] != 'p' && c[0] != 'P' && c[0] != 'e' && c[0] != 'E'))
+		//scanf("\n%s", &c);
+		ch = _getch();
+		while (ch != 'p' && ch != 'P' && ch != 'e' && ch != 'E')
 		{
 			printf("Nepostojeca opcija!\nUnesite 'e' ili 'p': ");
 			scanf("\n%s", &c);
 		}
 
-		if (c[0] == 'e' || c[0] == 'E')
+		if (ch == 'e' || ch == 'E')
 			exit(1);
 
-		else if ((c[0] == 'p' || c[0] == 'P') && br_pokusaja)
+		else if ((ch == 'p' || ch == 'P') && br_pokusaja)
 		{
 			printf("\nUPOZORENJE!\nOSTALO VAM JE JOS %d POKUSAJA!\n", br_pokusaja);
 			continue;
 		}
 		else if (br_pokusaja == 0)
 		{
-			printf("Pogresno ste unijeli pristupne podatke 5 puta za redom, ne mozete se prijaviti!");
+			printf("\nPogresno ste unijeli pristupne podatke 5 puta za redom, ne mozete se prijaviti!");
 			do
 			{
-				printf("Unesite 'e' za izlazak: ");
-				scanf("%s", &c);
-			} while (c[1] != 0 || (c[0] != 'e' && c[0] != 'E'));
+				printf("\nUnesite 'e' za izlazak: ");
+				//scanf("%s", &c);
+				ch = _getch();
+			} while (ch != 'e' && ch != 'E');
 
 			exit(1);
 		}
