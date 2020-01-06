@@ -54,7 +54,7 @@ int unos_korisnickih_podataka_admina()
 	for ( int i = 0; i < MAX; i++)
 		admin.password[i] = 0;
 
-	printf("\nKorisnicko ime: "); scanf("%s", admin.username);
+	printf("\nKorisnicko ime: "); scanf("\n%[^\n]s", admin.username);
 	if ((admin.username[0] == 'e' && admin.username[1] == 0) || (admin.username[0] == 'E' && admin.username[1] == 0))
 		exit(1);
 		
@@ -99,7 +99,7 @@ int logovanje_admina()
 		while (ch != 'p' && ch != 'P' && ch != 'e' && ch != 'E')
 		{
 			printf("Nepostojeca opcija!\nUnesite 'e' ili 'p': ");
-			scanf("\n%s", &c);
+			ch = _getch();
 		}
 
 		if (ch == 'e' || ch == 'E')
@@ -162,7 +162,7 @@ int dodaj_dogadjaj()
 			
 			printf("\nPOSTOJECE KATEGORIJE:\n\n");
 			for (int i = 0; i < br_kategorija; i++)
-				printf("\t%d.%s\n", i + 1, kategorija[i]);
+				printf("\t%c %s\n", 254, kategorija[i]);
 			printf("________________________________________________________________\n");
 
 			printf("\nOdaberite:\n\tU->Unos postojecu kategoriju\n\tD->Dodavanje nove kategorije\n\n");
@@ -286,7 +286,10 @@ int dodaj_dogadjaj()
 		}
 		else
 			printf("Greska u otvaranju datoteke kategorije.txt");
-			fclose(dogadjaji_dat);
+		for (int i = 0; i < br_kategorija; i++)
+//			free(kategorija[i]);
+		//free(kategorija);
+		fclose(dogadjaji_dat);
 	}
 	else
 	printf("Greska prilikom otvaranja datoteke sa dogadjajima!\n");
@@ -554,10 +557,9 @@ DOGADJAJ* ucitaj_dogadjaje(int *id,int *br_dogadjaja)
 			lista_dogadjaja[i].komentari = ostatak[j++]; j++;
 			lista_dogadjaja[i].preporucen = ostatak[j++];
 
-
-
 			++i;
 		}
+		free(lista_dogadjaja);
 		fclose(dogadjaji_dat);
 		return lista_dogadjaja;
 	}
@@ -622,7 +624,6 @@ int uredi_dogadjaj()
 		{
 		case '1':
 			
-			//strcpy(dogadjaj_check->naziv, "");
 			do
 			{
 				printf("\nUnesite novi naziv dogadjaja: ");
@@ -663,7 +664,7 @@ int uredi_dogadjaj()
 				printf("Odaberite:\n\tU->Unos postojecu kategoriju\n\tD->Dodavanje nove kategorije\n\n");
 				printf("\n\tPOSTOJECE KATEGORIJE:\n\n");
 				for (int i = 0; i < br_kategorija; i++)
-					printf("\t%d.%s\n", i + 1, kategorija[i]);
+					printf("\t%c %s\n", 254, kategorija[i]);
 				printf("\n");
 
 				do
@@ -705,6 +706,7 @@ int uredi_dogadjaj()
 					fseek(kategorije_dat, 0, SEEK_SET);
 					fprintf(kategorije_dat, "%d", br_kategorija);
 				}
+				
 				fclose(kategorije_dat);
 			}
 			else
@@ -727,7 +729,7 @@ int uredi_dogadjaj()
 		case '7':
 			do
 			{
-				printf("da li zelite preporuciti ovaj dogadjaj drugim korisnicima?\nunesite:\n\t1->DA\n\t0->NE\n");
+				printf("\nDa li zelite preporuciti ovaj dogadjaj drugim korisnicima?\nunesite:\n\t1->DA\n\t0->NE\n");
 				dogadjaj_check->preporucen = _getch();
 			} while (dogadjaj_check->preporucen != '1' && dogadjaj_check->preporucen != '0');
 			break;
@@ -750,6 +752,7 @@ int uredi_dogadjaj()
 		printf("greska prilikom otvaranja datoteke dogadjajji prilikom cuvanja rezultata!\nUnesite bilos ta za izlaz: ");
 		//bio sta za izlaz
 	}
+	free(dogadjaji);
 	return 1;
 }
 
@@ -779,7 +782,7 @@ int brisi_kategoriju()
 
 		printf("\nPOSTOJECE KATEGORIJE:\n\n");
 		for (int i = 0; i < br_kategorija; i++)
-			printf("\t%d.%s\n", i + 1, kategorija[i]);
+			printf("\t%c %s\n", 254, kategorija[i]);
 		printf("\n");
 		printf("Odaberite:\n\tU->Unos kategorije koju zelite obrisati.\n\tO->Ukoliko zelite odustati od brisanja kategorije\n\n");
 		printf("Unos:");
@@ -867,6 +870,8 @@ int brisi_kategoriju()
 		printf("Greska prilikom otvaranja datoteke, unesite bilos ta za izlazak!");
 		//bilo sta za izlaz
 	}
+	for (int i = 0; i < br_kategorija; i++)
+//		free(kategorija[i]);
 	return 1;
 }
 
@@ -952,6 +957,7 @@ int brisanje_dogadjaja()
 		printf("greska prilikom otvaradnja datoteke dogadjaji prilikom brisanja dogadjaja\n");
 		//bilo sta za izlaz
 	}
+	//free(lista_dogadjaja);
 	return 0;
 }
 
