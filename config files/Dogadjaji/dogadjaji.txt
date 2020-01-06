@@ -12,10 +12,10 @@
 1013|Kancelarijsko poslovanje|1|Hotel Bosna, Banjaluka|seminar|30.03.2020.|18:00|0|0
 1014|Vjestine komunikacije|0|Pedagoski fakultet, Banjaluka|seminar|18.01.2020.|18:45|0|0
 1015|Sto te nema|1|Narodno pozoriste RS|predstava|18.10.2019.|18:00|0|1
-1016|Zlocin i kazna|1|Narodno pozoriste RS|predstava|27.03.2020.|16:00|0|1
+1016|Zlocin i kazna|1|Narodno pozoriste RS|predstava|27.03.2020.|16:00|1|1
 1017|Ozaloscena porodica|0|Narodno pozoriste RS|predstava|21.01.2020.|16:45|0|1
 1018|Urnebesna tragedija|0|Narodno pozoriste RS|predstava|22.01.2020.|21:00|0|0
-1019|Velika iluzija|0|Narodno pozoriste RS|predstava|13.01.2020.|18:00|0|1
+1019|Velika iluzija|0|Narodno pozoriste RS|predstava|06.01.2020.|18:00|0|1
 1020|Na dnu kace|0|Narodno pozoriste RS|predstava|15.02.2020.|17:30|0|0
 1021|Gospodja ministarka|1|Narodno pozoriste RS|predstava|12.02.2020.|15:30|0|1
 1022|Banjaluka Spring Trail 2020|0|Banjaluka|sport|22.03.2020.|10:00|0|1

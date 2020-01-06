@@ -17,8 +17,8 @@ typedef struct dogadjaj
 	int id;
 	char naziv[31];
 	char opis;
-	char lokacija[52];
-	char kategorija[20];
+	char lokacija[51];
+	char kategorija[21];
 	char datum[12];
 	char vrijeme[6];
 	char komentari;
@@ -56,6 +56,7 @@ int unos_datuma(char*);
 int provjera_datuma(DATUM);
 int prestupna_godina(int);
 void upisi_u_datoteku(DOGADJAJ*, int);
+void zaglavlje_dogadjaja();
 
 int ucitaj_br_dogadjaja(FILE* dat_dogadjaji) //samo za datoteku dogadjaji.txt
 {
@@ -104,9 +105,16 @@ void ucitaj_dogadjaje_iz_datoteke(FILE* dat_dogadjaji, DOGADJAJ* lista_dogadjaja
 	}
 }
 
+void zaglavlje_dogadjaja()
+{
+	printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+	printf(" IB  | Naziv dogadjaja               | Opis      | Lokacija                                          | Kategorija           | Datum      | Vrijeme | Komentari    | Preporucen\n");
+	printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+}
+
 void ispisi_dogadjaj(DOGADJAJ* lista_dogadjaja)
 {
-	printf("%5d  %-30s  %-10s  %-50s  %-20s  %12s  %5s  %-13s  %s\n",lista_dogadjaja->id,lista_dogadjaja->naziv, lista_dogadjaja->opis=='1'?"ima opis":"bez opisa" ,lista_dogadjaja->lokacija,lista_dogadjaja->kategorija,lista_dogadjaja->datum,lista_dogadjaja->vrijeme,lista_dogadjaja->komentari=='1'?"Ima komentar":"Nema komentar",lista_dogadjaja->preporucen=='1'?"Preporucen":"");
+	printf("%5d  %-30s  %-10s  %-50s  %-20s  %12s  %-8s  %-13s  %s\n",lista_dogadjaja->id,lista_dogadjaja->naziv, lista_dogadjaja->opis=='1'?"ima opis":"bez opisa" ,lista_dogadjaja->lokacija,lista_dogadjaja->kategorija,lista_dogadjaja->datum,lista_dogadjaja->vrijeme,lista_dogadjaja->komentari=='1'?"Ima komentar":"Nema komentar",lista_dogadjaja->preporucen=='1'?" Da":"");
 }
 
 void svi_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
@@ -143,10 +151,11 @@ int danasnji_dogadjaji(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 	for (int i = 0; i < br_dogadjaja; i++)
 		if (!strcmp(temp_date, lista_dogadjaja[i].datum))
 		{
+			flag++;
+			if (flag == 1) zaglavlje_dogadjaja();
 			ispisi_dogadjaj(&lista_dogadjaja[i]);
-			flag = 1;
 		}
-	if (!flag) printf("\tNema desavanja u gradu danas... :(\n");
+	if (!flag) printf("\n\tNema desavanja u gradu danas... :(\n");
 	return flag;
 }
 
@@ -238,11 +247,11 @@ DOGADJAJ* trazi_dogadjaj_id(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,int src_
 int unesi_id()
 {
 	char  niz[1000] = {};
-	printf("\nUnesite id dogadjaja:");
+	printf("\nUnesite identifikacioni broj dogadjaja:");
 	scanf("\n%[^\n]s",niz);
 	while (niz[4] != 0 || (niz[0]<48 || niz[0]>57) || (niz[1] < 48 || niz[1]>57) || (niz[2] < 48 || niz[2]>57) || (niz[3] < 48 || niz[3]>57))
 	{
-		printf("\nPogresan unos. Unesite ponovo:");
+		printf("\nPogresan unos. Unesite ponovo identifikacioni broj:");
 		scanf("\n%[^\n]s", niz);
 	}
 	int id=((niz[0]-48)*1000)+((niz[1]-48)*100)+((niz[2]-48)*10)+(niz[3]-48);
@@ -255,9 +264,9 @@ void prikazi_opis(DOGADJAJ* lista_dogadjaja,int br_dogadjaja)
 	int id = unesi_id();
 	DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, id);
 	if (!trazeni_dogadjaj) 
-		printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+		printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 	else if ((trazeni_dogadjaj->opis - 48)==0) 
-		printf("\nDogadjaj sa unesenim id-om nema opis.\n");
+		printf("\nDogadjaj sa unesenim identifikacionim brojem nema opis.\n");
 	else
 	{
 		if ((dat_opis = fopen("../config files/Dogadjaji/opis_dogadjaja.txt", "r")) != NULL)
@@ -337,7 +346,7 @@ void ispisi_komentar(int id)
 			}
 			if(temp_id==id) printf("\n");
 		}
-		if (!flag) printf("\nNije pronadjen komentar za dogadjaj sa unesenim id-om\n");//ako u dogadjaji.txt pise da ima komentar, a u komentari.txt nema
+		if (!flag) printf("\nNije pronadjen komentar za dogadjaj sa unesenim identifikacionim brojem\n");//ako u dogadjaji.txt pise da ima komentar, a u komentari.txt nema
 		fclose(dat_komentari);
 	}
 }
@@ -394,7 +403,7 @@ void zainteresovan_za_dogadjaj(DOGADJAJ* trazeni_dogadjaj,int id)
 		{
 			if (niz[br_dogadjaja - 1].br == 1 || (niz[br_dogadjaja - 1].br % 10 ==1 && niz[br_dogadjaja - 1].br > 14))
 				printf("\nUkupno je %d osoba zainteresovana za ovaj dogadjaj.\n", niz[br_dogadjaja - 1].br);
-			else if(niz[br_dogadjaja - 1].br < 5 || (niz[br_dogadjaja - 1].br % 10 < 5 && niz[br_dogadjaja - 1].br > 14))
+			else if(niz[br_dogadjaja - 1].br < 5 || (niz[br_dogadjaja - 1].br % 10 < 5 && niz[br_dogadjaja - 1].br % 10 > 0 && niz[br_dogadjaja - 1].br > 14))
 				printf("\nUkupno su %d osobe zainteresovane za ovaj dogadjaj.\n", niz[br_dogadjaja - 1].br);
 			else
 				printf("\nUkupno je %d osoba zainteresovanih za ovaj dogadjaj.\n", niz[br_dogadjaja - 1].br);
@@ -403,7 +412,7 @@ void zainteresovan_za_dogadjaj(DOGADJAJ* trazeni_dogadjaj,int id)
 		{
 			if (niz[i - 1].br == 1 || (niz[i - 1].br % 10 == 1 && niz[i - 1].br > 14))
 				printf("\nUkupno je %d osoba zainteresovana za ovaj dogadjaj.\n", niz[i - 1].br);
-			else if (niz[i - 1].br < 5 || (niz[i - 1].br%10<5 && niz[i - 1].br>14))
+			else if (niz[i - 1].br < 5 || (niz[i - 1].br%10<5 && niz[i - 1].br % 10 > 0 && niz[i - 1].br>14))
 				printf("\nUkupno su %d osobe zainteresovane za ovaj dogadjaj.\n", niz[i - 1].br);
 			else
 				printf("\nUkupno je %d osoba zainteresovanih za ovaj dogadjaj.\n", niz[i - 1].br);
@@ -585,7 +594,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 			}
 			else 
 			{
-				printf("\Greska prilikom otvaranja datoteke kategorije.txt\n");
+				printf("\nGreska prilikom otvaranja datoteke kategorije.txt\n");
 			}
 			flag_petlje = 1;
 		}
@@ -597,7 +606,7 @@ void pisi_dogadjaje_filter(DOGADJAJ* lista_dogadjaja, int br_dogadjaja)
 		}
 	} while (!flag_petlje);
 
-	printf("\n****************************************************************************************************************************************************************************\n");
+	printf("\n*******************************************************************************************************************************************************************************\n");
 
 	if (ch == 'D' || ch == 'd')
 	{
