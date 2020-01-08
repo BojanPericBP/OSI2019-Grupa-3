@@ -1,2 +1,3 @@
-0001,erge ehethetheh24t4t43tethh 234 2 2+enter
-0002,dvasfbabaednedtn+ascii enter
+0001 erge ehethetheh24t4t43tethh
+0002 dvasfbabaednedtn
+strtol function

@@ -1,0 +1,10 @@
+9
+izlozbe
+koncert
+promocija
+seminar
+predstava
+sport
+film
+zurka
+ostalo
