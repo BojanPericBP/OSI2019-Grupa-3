@@ -1,11 +1,16 @@
-1005,docekajte novu godinu sa nama
-1006,opis dogadjaja za test 1
-1007,opis za test2
-1008,opis dogadjaja za test3
-1035,test
-1035,test
-1035,opis
-1036,opis
-1037,assdfass
-1036,Dobar dan i dobro dosli
-1037,opis
+1005,Docekajte novu godinu sa Marijom Serifovic, na Trgu Krajine. Ocekuje vas nezaboravan spektakl.
+1006,Karte su u prodaji po cijeni od 10 i 15 KM, na Trgu Krajine i u agenciji Travel 4 FUN Banja Luka. Vip ulaznice su 30 KM.
+1007,Prvi nastup Parnog valjka bio je 29. 11. 1975. godine, te se najavljeni koncert organizuje u okviru turneje "Runda 44",  kojom rok legende proslavljaju 44 godine od osnivanja. Naslov turneje "Runda 44" proizasao je iz stiha pjesme "Kad nemas kud",  s novog albuma "Ne znam koja runda, al' jos uvijek stojim", te predstavlja omaz bogatoj muzickoj istoriji i pjesmama koje publika i danas  prepoznaje."Runda 44" je izraz iz sportskog zargona za nasu 44. godinu i upornu borbu na sceni", izjavili su clanovi grupe.
+1010,Ulaznice po cijeni od 10 KM bice u pretprodaji od 11. jula na blagajni VP Aquana i na prodajnom mjestu ispred RK Boska.
+1011,Na tvrdavi Kastel od 27. do 29. juna ocekuje vas fantastican festivalski line-up: Riblja Corba, Galija, Zabranjeno pusenje, Osvajaci, Edo Maajka,Parni valjak i YU grupa.
+1012,REC d.o.o. organizuje jednodnevni specijalisticki seminar: PRIMJENA ZAKONA O ZASTITI NA RADU - INSPEKCIJSKI NAZDOR U REPUBLICI SRPSKOJ - Banja Luka.
+1013,Sadrzaj seminara: kancelarijsko poslovanje, arhivsko i takseno poslovanje, rad sa strankama, povremeni kancelarijski poslovi, elektronsko kancelarijsko poslovanje...  
+1015,"Sto te nema" je sevdah drama autorke Marijane Aracki. Glavnu musku ulogu igra Bojan Kolopic.
+1016,BANJALUKA - Veliki roman u odlicnoj dramatizaciji, pojedini glumci na vrhuncu dosadasnje pozorisne karijere, muzika po mjeri psiholoske nestabilnosti likova na sceni i drama koju 180 minuta gledamo bez treptaja, sjecajuci se zasto je Fjodor Mihajlovic Dostojevski nas savremenik i kucni prijatelj. Sve ovo donosi novi komad Narodnog pozorista Republike Srpske (NP RS) "Zlocin i kazna", koji po romanu Dostojevskog na Veliku scenu ove kuce postavlja reditelj Dusan Petrovic, ujedno zaduzen i za kodramatizaciju teksta.
+1021,Autor: Branislav Nusic - Knjizevni rod: drama - Knjizevna vrsta: komedija 
+1023,Opis filma: Roden u bogataskoj porodici, mladi Grigorij, "Grisa" (Milos Bikovic) je toliko ususkan u svom lagodnom zivotu da misli da je ,iznad zakona". Kada ode predaleko u svojim ispadima i biva suocen sa zatvorskom kaznom, njegov otac preduzima radikalne mjere. Uz pomoc starog prijatelja, psihologa, otac smislja plan da rehabilituje svog neposlusnog sina. Grisa upada u izreziranu saobracajnu nezgodu, a kada dode sebi, bice 1860. godina, a on ce se naci na velikom seoskom imanju, kao obicni sluga bez veza i bez primesa zivota kakav je do tada ziveo. Glumci: Milos Bikovic, Ivan Ohlobistin, Marija Mironova, Aleksandr Samojlenko, Aleksandra Bortic, Olga Dibceva...
+1028,Trka je duzine 5 kilometara za odrasle i 500 metara za djecu do 14 godina. Limit trke je 500 trkaca i trkacica, a participacija je za sve besplatna.
+1031,Regionalna hit komedija "Kakva ti je zena,takav ti je zivot" otvara novu sezonu predstava diljem regija. Jedna od prvih lokacija je Banjaluka -Gradsko pozoriste Jazavac. Autor predstave je Dragan Marinkovic Maca.
+1032,Docekajmo zajedno jos jednu, pravoslavnu, Novu 2020. godinu! Kao i prethodnih godina, uz bisere starogradske i narodne muzike, te gurmanske specijalitete tradicionalne domace kuhinje ocekuje Vas nezaboravan provod do ranih jutarnjih casova.
+1033,Moondance, Fjuzna pruga, Underdog i Skeleton Boogie su ekipa koja ce da svira u sklopu humanitarne akcije "TETOVIRAJ-DONIRAJ". 
+1034,Bendovi: Fjuzna pruga i Loryn. Rezervacija mjesta je 25 KM, a ceka vas pice dobrodoslice i meza.
