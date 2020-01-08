@@ -1,5 +1,4 @@
-1033 29
-1003|Spoznaj sebe|0|Dvorana Borik|seminar|11.12.2019.|11:15|1|1
+1033 28
 1004|Koncert "Crvene jabuke"|0|Trg Krajine, Banjaluka|koncert|31.12.2019.|23:00|0|1
 1005|Koncert Marije Serifovic|1|Trg Krajine, Banjaluka|koncert|30.12.2019.|22:00|0|0
 1006|Koncert Sase Kovacevica|1|Dvorana Borik|koncert|06.12.2019.|21:30|0|0

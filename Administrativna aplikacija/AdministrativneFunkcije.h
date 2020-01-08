@@ -38,6 +38,7 @@ int provjera_vremena(VRIJEME);
 int provjera_kategorije(char**,char*,int,short*);
 int provjera_nove_kategorije(char*);
 int provjera_naziva(char*,const int);
+
 int brisanje_dogadjaja();
 DOGADJAJ* trazi_dogadjaj(int, DOGADJAJ*,int);
 DOGADJAJ* ucitaj_dogadjaje(int*,int*);
@@ -759,7 +760,7 @@ int brisi_kategoriju()
 {
 	FILE* kategorije_dat;
 	char** kategorija;
-	int br_kategorija;
+	int br_kategorija,i;
 	char ch,buff_kategorija[500];
 	short flag1 = -1, flag_brisi = 0;
 	DOGADJAJ* dogadjaj;
@@ -773,14 +774,14 @@ int brisi_kategoriju()
 		for (int i = 0; i < br_kategorija; i++)
 			kategorija[i] = (char*)calloc(20, sizeof(char));
 
-		int i = 0;
+		i = 0;
 		while (fscanf(kategorije_dat, "\n%[^\n]s", kategorija[i]) != EOF)
 			++i;
 
 
 
 		printf("\nPOSTOJECE KATEGORIJE:\n\n");
-		for (int i = 0; i < br_kategorija; i++)
+		for (i = 0; i < br_kategorija; i++)
 			printf("\t%c %s\n", 254, kategorija[i]);
 		printf("\n");
 		printf("Odaberite:\n\tU->Unos kategorije koju zelite obrisati.\n\tO->Ukoliko zelite odustati od brisanja kategorije\n\n");
@@ -818,7 +819,7 @@ int brisi_kategoriju()
 			} while (!provjera_kategorije(kategorija, buff_kategorija, br_kategorija, &flag1));
 
 
-			for (int i = 0; i < br_dogadjaja; i++)
+			for (i = 0; i < br_dogadjaja; i++)
 			{
 				if (strcmp(buff_kategorija, dogadjaj[i].kategorija) == 0)
 				{
@@ -830,7 +831,7 @@ int brisi_kategoriju()
 			if (flag_brisi == 0)
 			{
 
-				for (int i = 0; i < br_kategorija; i++)
+				for (i = 0; i < br_kategorija; i++)
 				{
 					if (strcmp(kategorija[i], buff_kategorija) == 0)
 					{
@@ -846,9 +847,7 @@ int brisi_kategoriju()
 					}
 				}
 			}
-			for (int i = 0; i < br_kategorija; i++)
-				free(kategorija[i]);
-			free(kategorija);
+			
 			fclose(kategorije_dat);
 		}
 
@@ -857,13 +856,16 @@ int brisi_kategoriju()
 			if ((kategorije_dat = fopen("../config files/Dogadjaji/kategorije.txt", "w+")) != NULL)
 			{
 				fprintf(kategorije_dat, "%d\n", br_kategorija);
-				for (int i = 0; i <= br_kategorija; i++)
+				for (i = 0; i <= br_kategorija; i++)
 					if (kategorija[i] != NULL)
 					{
 						fprintf(kategorije_dat, "%s\n", kategorija[i]);
 					}
-				for (int i = 0; i < br_kategorija; i++)
-					free(kategorija[i]);
+				for (i = 0; i < br_kategorija; i++)
+					if (kategorija[i] != 0)
+					{
+						free(kategorija[i]);
+					}
 				free(kategorija);
 				fclose(kategorije_dat);
 			}
