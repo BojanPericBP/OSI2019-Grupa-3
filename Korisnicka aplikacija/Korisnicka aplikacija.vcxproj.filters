@@ -21,6 +21,9 @@
     <ClInclude Include="KorisnickaAppHeader.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="KvizHeader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

@@ -1,150 +1,177 @@
 30
-1 Koje godine Banski dvor zvanično postaje javna kulturna ustanova pod nazivom ,,Kulturni centar Banski dvor"?
-a 1998.
-b 1979.
-c 1996.
-
+1 Koje godine Banski dvor zvanicno postaje javna kulturna ustanova pod nazivom "Kulturni centar Banski dvor"?
+c
+a) 1979.
+b) 1996.
+c) 1998.
 2 Kad je osnovan univerzitet u Banjoj luci ?
-a 7. novembra 1975.
-b 7. novembra 1967.
-c 8. novembra 1973.
-
-3 Kad je izgrađen Hram Hrista Spasitelja u Banjaluci?
-a 1939.
-b 1938.
-c 1941.
+a
+a) 7. novembra 1975.
+b) 7. novembra 1967.
+c) 8. novembra 1973.
+3 Kad je izgradjen Hram Hrista Spasitelja u Banjaluci?
+a
+a) 1939.
+b) 1938.
+c) 1941.
 
 4 Koje godine je otvorena prva kafana u Banjaluci?
-a 1617.
-b 1734.
-c 1693.
+b
+a) 1734.
+b) 1617.
+c) 1693.
 
 5 Koji rok bend izvodi pjesmu "Wish You Where Here" ?
-a Pink Floyd 
-b Led Zeppelin
-c Areosmith
+c
+a) Led Zeppelin
+b) Areosmith
+c) Pink Floyd 
 
-6 Koje je najpoznatije banjalučko pivo?
-a Nektar
-b Jelen
-c Lav
+6 Koje je najpoznatije banjalucko pivo?
+a
+a) Nektar
+b) Jelen
+c) Lav
 
-7 Koja od ponuđenih rijeka je desna pritoka Vrbasa?
-a Ugar
-b Crna rijeka
-c Pliva
+7 Koja od ponudjenih rijeka je desna pritoka Vrbasa?
+c
+a) Crna rijeka
+b) Pliva
+c) Ugar
 
-8 U kom mjesecu se održava Nektar Fresh Wave Festival na tvrđavi Kastel? 
-a Avgustu
-b Julu
-c Septembru
+8 U kom mjesecu se odrzava Nektar Fresh Wave Festival na tvrdjavi Kastel? 
+b
+a) U julu
+b) U avgustu
+c) U septembru
 
 9 Mac Tire je?
-a Pab
-b Klub
-c Kafana
+c
+a) Klub
+b) Kafana
+c) Pab
 
-10 Koliko iznosi ukupna površina kompleksa Kastel?
-a 48000 metara kvadratnih
-b 56000 metara kvadratnih 
-c 39000 metara kvadratnih 
+10 Koliko iznosi ukupna povrsina kompleksa Kastel?
+a
+a) 48000 metara kvadratnih
+b) 56000 metara kvadratnih 
+c) 39000 metara kvadratnih 
 
 11 Kako glasi prvobitno ime Muzeja Republike Srpske?
-a Muzej Vrbaske banovine 
-b Državni etnografski muzej Bosanske 
-krajine
-c Narodni muzej u Banjoj Luci
+b
+a) Drzavni etnografski muzej Bosanske Krajine
+b) Muzej Vrbaske banovine 
+c) Narodni muzej u Banjoj Luci
 
-12 Koji je najveći park u Banjoj Luci?
-a Park Mladen Stojanović
-b Park Petar Kočić
+12 Koji je najveci park u Banjoj Luci?
+c
+a) Park Petar Kocic
+b) Park za pse
+c) Park Mladen Stojanovic
 
 13 Koliko je stepeni po Merkalijevoj skali iznosio najrazorniji zemljotres koji je zadesio Banjaluku 27. oktobra 1969. godine?
-a 8,5
-b 8,4
-c 8,7
+b
+a) 8,4
+b) 8,5
+c) 8,7
 
-14 Kada se obilježava Dan grada kao znak sjećanja kada je Banjaluka oslobođena od fašizma 1945. godine?
-a 22. Aprila
-b 22. Maja
-c 22. Jula
+14 Kada se obiljezava Dan grada kao znak sjecanja kada je Banjaluka oslobodjena od fasizma 1945. godine?
+a
+a) 22. Aprila
+b) 22. Maja
+c) 22. Jula
 
-15 Koliko približno stanovnika ima Banjaluka?
-a 250000
-b 200000
-c 300000
+15 Koliko priblizno stanovnika ima Banjaluka?
+a
+a) 250000
+b) 200000
+c) 300000
 
-16 Borac je u svojoj dugogodišnjoj istoriji, prvi trofej Kupa Jugoslavije osvojio 11. maja 1988. godine poslije pobjede u finalu na stadionu JNA protiv Crvene zvezde. Koji je bio krajnji rezultat utakmice?
-a 1:0
-b 2:1 
-c 3:2
+16 Borac je u svojoj dugogodisnjoj istoriji, prvi trofej Kupa Jugoslavije osvojio 11. maja 1988. godine poslije pobjede u finalu na stadionu JNA protiv Crvene zvezde. Koji je bio krajnji rezultat utakmice?
+b
+a) 2:1 
+b) 1:0
+c) 3:2
 
 17 Koliki kapacitet ima Gradski stadion u Banjoj Luci?
-a 10030 mjesta
-b 13010 mjesta
-c 11800 mjesta
+b
+a) 13010 mjesta
+b) 10030 mjesta
+c) 11800 mjesta
 
 18 Koji poznati glumac je rodom iz Banjaluke?
-a Nikola Pejaković 
-b Žarko Laušević
-c Dragan Bjelogrlić 
+c
+a) Zarko Lausevic
+b) Dragan Bjelogrlic 
+c) Nikola Pejakovic 
 
-19 Koji britanski bend je nastupao na Demofestu 23. jula 2009. godine na tvrđavi Kastel?
-a Kosheen
-b Brutal Attack
-c Kajagoogoo
+19 Koji britanski bend je nastupao na Demofestu 23. jula 2009. godine na tvrdjavi Kastel?
+b
+a) Brutal Attack
+b) Kosheen
+c) Kajagoogoo
 
 20 Koliko dvorana posjeduje Cineplexx Palas?
-a 7
-b 6
-c 5
+a
+a) 7
+b) 6
+c) 5
 
-21 Koje je drugo ime za najpoznatije banjalučko šetalište, Gospodsku ulicu ?
-a Ulica Veselina Masleše
-b Ulica Carice Milice
-c Ulica Gavrila Principa
+21 Koje je drugo ime za najpoznatije banjalucko setaliste, Gospodsku ulicu ?
+c
+a) Ulica Carice Milice
+b) Ulica Gavrila Principa
+c) Ulica Veselina Maslese
 
-22 Koliko dana traje muzičko-zabavna manifestacija "Banjalučki dani muzike" ?
-a 3
-b 2
-c 1
-
+22 Koliko dana traje muzicko-zabavna manifestacija "Banjalucki dani muzike" ?
+c
+a) 2
+b) 4
+c) 3
 23 Koliko mjesnih zajednica se nalazi na području grada Banjaluke?
-a 57
-b 59
-c 58
+a
+a) 57
+b) 59
+c) 58
 
 24 Od kakvog kamena je zidan Hram Hrista Spasitelja u Banjaluci?
-a Crvenog i žutog travertina
-b Kamena Studenice
-c Ravnogorskog bordo kamena 
+c
+a) Kamena Studenice
+b) Ravnogorskog bordo kamena 
+c) Crvenog i zutog travertina
 
 25 Gradski most je drugi naziv za koji most u Banjaluci?
-a Patre
-b Venecija
-c Rebrovac
+b
+a) Venecija
+b) Patre
+c) Rebrovac
 
-26 Palatu Republike u Banjaluci krase dva bronzana kipa krajiških seljaka koji su naknadno dodani. Ko je izradio kipove?
-a Vladimir Pavlovič Zagorodnjuk
-b Antoan Pevnzer
-c Jevgenij Viktorović Vučetić 
+26 Palatu Republike u Banjaluci krase dva bronzana kipa krajiskih seljaka koji su naknadno dodani. Ko je izradio kipove?
+b
+a) Antoan Pevnzer
+b) Vladimir Pavlovic Zagorodnjuk
+c) Jevgenij Viktorović Vucetic 
 
 27 Na kojoj nadmorskoj visini se nalazi grad Banjaluka?
-a 163 m
-b 136 m
-c 144 m
+a
+a) 163 m
+b) 136 m
+c) 144 m
 
-28 Ko je bio direktor Narodnog pozorišta Republike Srpske u periodu od 1992. do 1994. godine?
-a Nebojša Zubović
-b Ljiljana Labović
-c Željko Stjepanović
+28 Ko je bio direktor Narodnog pozorista Republike Srpske u periodu od 1992. do 1994. godine?
+a
+a) Nebojsa Zubovic
+b) Ljiljana Labovic
+c) Zeljko Stjepanovic
 
-29 Na kojoj strani od Banjaluke se nalazi planina Manjača? 
-a Južno
-b Sjeverno 
-c Zapadno 
+29 Na kojoj strani od Banjaluke se nalazi planina Manjaca? 
+c
+a) Sjevernoj
+b) Zapadnoj
+c) Juznoj
 
-30 Kada je osnovana ETŠ škola "Nikola Tesla" u Banjaluci?
-a 1939.
-b 1942.
-c 1944.
+30 Kada je osnovana ETS škola "Nikola Tesla" u Banjaluci?
+a
+a) 1939.
+b) 1942.
+c) 1944.
