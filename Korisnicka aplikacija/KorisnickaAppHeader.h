@@ -13,6 +13,8 @@ void inicijalizuj_prozor()
 	GetWindowRect(console, &r);
 	r.left = 125; r.top = 17;
 	MoveWindow(console, r.left, r.top, 1291, 806, TRUE);
+	HMENU hmeni = GetSystemMenu(console, FALSE);
+	EnableMenuItem(hmeni, SC_CLOSE, MF_GRAYED);
 }
 
 void glavni_meni_korisnicke_aplikacije()
