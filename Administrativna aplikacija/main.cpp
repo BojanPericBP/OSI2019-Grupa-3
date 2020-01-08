@@ -4,10 +4,7 @@
 #include <windows.h>
 #pragma warning(disable : 4996)
 
-DWORD WINAPI CreateMessageBox(void*) { //threaded so we can still work with it
-	MessageBox(nullptr, "Message", "Title", MB_OKCANCEL);
-	return 0;
-}
+
 
 int main()
 {
