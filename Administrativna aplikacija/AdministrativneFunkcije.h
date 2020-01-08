@@ -218,7 +218,7 @@ int dodaj_dogadjaj()
 			{
 				printf("Unesite naziv dogadjaja: ");
 				scanf("\n%[^\n]s", naziv);
-			} while (provjera_naziva(naziv, 31) == 0);
+			} while (provjera_naziva(naziv, 30) == 0);
 
 			strcpy(dogadjaj.naziv, naziv);
 
@@ -227,7 +227,7 @@ int dodaj_dogadjaj()
 			{
 				printf("Unesite mjesto gdje se odrzava dogadjaj: ");
 				scanf("\n%[^\n]s", mjesto);
-			} while (provjera_naziva(mjesto, 51) == 0);
+			} while (provjera_naziva(mjesto, 50) == 0);
 			strcpy(dogadjaj.lokacija, mjesto);
 			
 
@@ -282,13 +282,14 @@ int dodaj_dogadjaj()
 			fseek(dogadjaji_dat, 0, SEEK_END);
 			fprintf(dogadjaji_dat, "%d|%s|%c|%s|%s|%s|%s|%c|%c\n", dogadjaj.id, dogadjaj.naziv, dogadjaj.opis, dogadjaj.lokacija, dogadjaj.kategorija,
 					dogadjaj.datum, dogadjaj.vrijeme, dogadjaj.komentari, dogadjaj.preporucen);
+			for (int i = 0; i < br_kategorija; i++)
+				free(kategorija[i]);
+			free(kategorija);
 			fclose(dogadjaji_dat);
 		}
 		else
 			printf("Greska u otvaranju datoteke kategorije.txt");
-		for (int i = 0; i < br_kategorija; i++)
-//			free(kategorija[i]);
-		//free(kategorija);
+		
 		fclose(dogadjaji_dat);
 	}
 	else
@@ -401,7 +402,6 @@ int unos_vremena(char vrijeme[])
 
 	do
 	{
-		
 		printf("U koliko sati: ");
 		scanf("\n%[^\n]s", niz);
 
@@ -488,11 +488,9 @@ int provjera_nove_kategorije(char* kategorija)
 
 int provjera_naziva(char* arr,const int a)
 {
-	int i;
-	for (i = 0; i < strlen(arr); i++);
-	if (i > a)
+	if (strlen(arr) > a)
 	{
-		printf("Dozvoljeno je maksimalno 30 karaktera, pokusajte ponovo!\n");
+		printf("Dozvoljeno je maksimalno %d karaktera, pokusajte ponovo!\n",a);
 		return 0;
 	}
 
@@ -559,7 +557,7 @@ DOGADJAJ* ucitaj_dogadjaje(int *id,int *br_dogadjaja)
 
 			++i;
 		}
-		free(lista_dogadjaja);
+		
 		fclose(dogadjaji_dat);
 		return lista_dogadjaja;
 	}
@@ -613,6 +611,7 @@ int uredi_dogadjaj()
 	
 	do
 	{
+		int x = 5;
 		do
 		{
 			printf("Unos: ");
@@ -847,6 +846,9 @@ int brisi_kategoriju()
 					}
 				}
 			}
+			for (int i = 0; i < br_kategorija; i++)
+				free(kategorija[i]);
+			free(kategorija);
 			fclose(kategorije_dat);
 		}
 
@@ -860,6 +862,9 @@ int brisi_kategoriju()
 					{
 						fprintf(kategorije_dat, "%s\n", kategorija[i]);
 					}
+				for (int i = 0; i < br_kategorija; i++)
+					free(kategorija[i]);
+				free(kategorija);
 				fclose(kategorije_dat);
 			}
 		}
@@ -870,8 +875,7 @@ int brisi_kategoriju()
 		printf("Greska prilikom otvaranja datoteke, unesite bilos ta za izlazak!");
 		//bilo sta za izlaz
 	}
-	for (int i = 0; i < br_kategorija; i++)
-//		free(kategorija[i]);
+	
 	return 1;
 }
 
@@ -949,6 +953,7 @@ int brisanje_dogadjaja()
 						lista_dogadjaja[i].datum, lista_dogadjaja[i].vrijeme, lista_dogadjaja[i].komentari, lista_dogadjaja[i].preporucen);
 			}
 		}
+		free(lista_dogadjaja);
 		fclose(dogadjaji_dat);
 		printf("\nUspjesnos te izbrisali dogadjaj!\n\n");
 	}

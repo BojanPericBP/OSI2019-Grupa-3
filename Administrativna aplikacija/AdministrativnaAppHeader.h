@@ -84,7 +84,17 @@ void meni_uredjivanje_kviza()
 }
 
 
+void init_prozora()
+{
+	HWND console = GetConsoleWindow();
+	RECT r;
+	GetWindowRect(console, &r);
+	MoveWindow(console, r.left, r.top, 1291, 806, TRUE);
+	system("title STA SE RADI NA ESTRADI");
 
+	HMENU hmenu = GetSystemMenu(console, FALSE);
+	EnableMenuItem(hmenu, SC_CLOSE,MF_GRAYED);
+}
 void odabir_opcije_admina()
 {
 	system("title STA SE RADI NA ESTRADI");
