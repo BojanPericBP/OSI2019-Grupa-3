@@ -6,14 +6,6 @@
 
 
 
-int main()
-{
-
-	init_prozora();
-	meni_logovanje_administratora();
-
-	glavni_meni_administrativne_aplikacije();
-	odabir_opcije_admina();
-
-	return 0;
+int main(t_prozora();
+	meni_logovanje_administratora(
 }

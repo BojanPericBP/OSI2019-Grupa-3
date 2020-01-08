@@ -98,8 +98,7 @@ void init_prozora()
 void odabir_opcije_admina()
 {
 	system("title STA SE RADI NA ESTRADI");
-	char a[500];
-	char c[500];
+	
 	char ch;
 
 	while (1)
