@@ -89,6 +89,7 @@ void init_prozora()
 	HWND console = GetConsoleWindow();
 	RECT r;
 	GetWindowRect(console, &r);
+	r.left = 125; r.top = 17;
 	MoveWindow(console, r.left, r.top, 1291, 806, TRUE);
 	system("title STA SE RADI NA ESTRADI");
 
