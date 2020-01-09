@@ -226,7 +226,7 @@ void odabir_opcije_admina(char* username)
 				{
 					system("cls");
 					flag = 1;
-					glavni_meni_korisnicke_aplikacije();
+					glavni_meni_administrativne_aplikacije();
 				}
 				else if (ch == 'E' || ch == 'e')
 				{
