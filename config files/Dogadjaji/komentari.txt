@@ -1,3 +1,12 @@
-1034,komentar dogadjaja sa id-om 1034, komentar dogadjaja sa id-om 1034, komentar dogadjaja sa id-om 1034, komentar dogadjaja sa id-om 1034, komentar dogadjaja sa id-om 1034, komentar dogadjaja sa id-om 1034
-1003,komentar dogadjaja sa id-om 1003
-1016,komkomkom123
+1034|sasa1|kkkooommmmmmmmmm
+1003|sasa12|komentar dogadjaja sa id-om 1003,123456
+1016|sasa1234|komkomkom123.,saaaaasssaaa
+1003|rreerrrr|novi,komentar
+1007|wawa|rrrrrrrrrrrr
+1022|gaga|3333333333333333333
+1034|a|ddddd
+1005|sssssssssssss|komkomkom123
+1033|wwwuuuu|komentar1033
+1016|bojan|komentarrrrrrrrrkom
+1036|testni komentar|komentear
+1035|s|test

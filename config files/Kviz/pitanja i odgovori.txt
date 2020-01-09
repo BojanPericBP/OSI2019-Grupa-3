@@ -1,4 +1,4 @@
-30
+31
 1 Koje godine Banski dvor zvanicno postaje javna kulturna ustanova pod nazivom "Kulturni centar Banski dvor"?
 c
 a) 1979.
@@ -170,8 +170,13 @@ a) Sjevernoj
 b) Zapadnoj
 c) Juznoj
 
-30 Kada je osnovana ETS škola "Nikola Tesla" u Banjaluci?
+30 Kada je osnovana ETS skola "Nikola Tesla" u Banjaluci?
 a
 a) 1939.
 b) 1942.
 c) 1944.
+31 Koje godine je osnovan Elektrotehnicki fakultet u Banjoj Luci?
+c
+a) 1965.
+b) 1975.
+c) 1962.
