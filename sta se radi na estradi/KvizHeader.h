@@ -316,7 +316,7 @@ void uredjivanje_kviza()
 	strcat(kviz.svi_odgovori[2], temp);
 	strcpy(temp, "");
 
-	printf("Koji od opnudjenih odgovora je tacan (a,b ili c): ");
+	printf("Koji od ponudjenih odgovora je tacan (a,b ili c): ");
 
 	kviz.odgovor = _getch();
 	tolower(kviz.odgovor);
@@ -346,7 +346,7 @@ void uredjivanje_kviza()
 		fseek(kviz_dat, 0, SEEK_END);
 		fprintf(kviz_dat, "%s\n", kviz.svi_odgovori[2]);
 
-		printf("Uspjesno ste dodali pitanje!\n\n");
+		printf("\nUspjesno ste dodali pitanje!\n\n");
 		fclose(kviz_dat);
 	}
 }

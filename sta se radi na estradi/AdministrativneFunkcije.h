@@ -150,14 +150,14 @@ int dodaj_dogadjaj(char* username)
 				printf("\t%c %s\n", 254, kategorija[i]);
 			printf("________________________________________________________________\n");
 
-			printf("\nOdaberite:\n\tU->Unos postojecu kategoriju\n\tD->Dodavanje nove kategorije\n\n");
+			printf("\nOdaberite:\n\tU->Unos postojece kategorije\n\tD->Dodavanje nove kategorije\n\n");
 			
 			do
 				ch = _getch();
 			while (ch != 'u' && ch != 'U' && ch != 'd' && ch != 'D');
 
 			printf("___________________________________________________________________\n\n");
-			printf("Ukucajte slovima naziv kategoriju koju zelite unijeti!\n");
+			printf("Ukucajte slovima naziv kategorije koju zelite unijeti!\n");
 			printf("___________________________________________________________________\n\n");
 
 			if (ch == 'u' || ch == 'U')
@@ -171,7 +171,7 @@ int dodaj_dogadjaj(char* username)
 					strlwr(dogadjaj.kategorija);
 				} while (!provjera_kategorije(kategorija, dogadjaj.kategorija, br_kategorija, &flag1));
 				if (flag1)
-					printf("Uspjesnos te unijeli kategoriju.\n");
+					printf("Uspjesno ste unijeli kategoriju.\n");
 
 			}
 			else if (ch == 'd' || ch == 'D')
@@ -471,13 +471,13 @@ int uredi_dogadjaj()
 		printf("Ne postoji dogadjaj sa identifikacionim brojem %d!", id);
 
 	printf("Unesite broj odgovarajuceg polja koji zelite da promjenite:\n ");
-	printf("\n\t1->Naziv\n\t2->Lokacija\n\t3->opis\n\t4->Kategorija\n\t5->Datum\n\t6->Vrijeme\n\t7->Preporucen dogadjaj ili ne\n\t0->Sacuvaj i izadji\n");
+	printf("\n\t1->Naziv\n\t2->Lokacija\n\t3->Opis\n\t4->Kategorija\n\t5->Datum\n\t6->Vrijeme\n\t7->Preporucen dogadjaj ili ne\n\t0->Sacuvaj izmjene\n");
 	
 	do
 	{
 		do
 		{
-			printf("Unos: ");
+			printf("\nOdabir opcije [1-7]: ");
 			ch = _getch();
 			printf("%c", ch);
 		} while (ch != '1' && ch != '2' && ch != '3' && ch != '4' && ch != '5' && ch != '6' && ch != '7' && ch != '0');
@@ -503,7 +503,7 @@ int uredi_dogadjaj()
 			break;
 		case '3':
 
-			printf("\nDa li zzelite da obrisete opis? [d,n]: ");
+			printf("\nDa li zelite da obrisete opis? [d,n]: ");
 			ch = _getch();
 			printf("%c\n", ch);
 			while (ch != 'd' && ch != 'D' && ch != 'n' && ch != 'N')

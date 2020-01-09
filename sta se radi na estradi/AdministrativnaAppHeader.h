@@ -44,13 +44,25 @@ void meni_dodavanje_dogadjaja(char* username)
 	printf("\n**************************************************************************** DODAVANJE DOGADJAJA ****************************************************************************\n\n");
 	dodaj_dogadjaj(username);
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
-	printf("\tUnesite:\n\t\tM-> za povratak na glavni meni\n\t\tE->za izlazak iz programa\n");
+	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
 }
 void meni_uredjivanje_dogadjaja()
 {
 	system("color 0a");
 	printf("\n*************************************************************************** UREDJIVANJE DOGADJAJA ***************************************************************************\n\n");
+	FILE* fp = fopen("../config files/Dogadjaji/dogadjaji.txt", "r");
+	if (fp == NULL)
+		exit(1);
+	int br_dogadjaja = ucitaj_br_dogadjaja(fp);
+
+	DOGADJAJ* lista_dogadjaja = (DOGADJAJ*)calloc(br_dogadjaja, sizeof(DOGADJAJ));
+	ucitaj_dogadjaje_iz_datoteke(fp, lista_dogadjaja, br_dogadjaja);
+	zaglavlje_dogadjaja();
+	svi_dogadjaji(lista_dogadjaja, br_dogadjaja);
+	free(lista_dogadjaja);
+	fclose(fp);
+	printf("\n\n*******************************************************************************************************************************************************************************\n");
 	uredi_dogadjaj();
 	printf("\n_____________________________________________________________________________________________________________________________________________________________________________\n\n");
 	printf("\tUnesite:\n\t\tM-> za povratak na glavni meni\n\t\tE->za izlazak iz programa\n");
@@ -84,8 +96,9 @@ void meni_uredjivanje_kviza()
 	system("color 0a");
 	printf("\n***************************************************************************** UREDJIVANJE KVIZA *****************************************************************************\n\n");
 	uredjivanje_kviza();
-	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
-	printf("________________________________________________________________________________________________________________________________________________________________________________\n\n");
+	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
+	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE-> za izlazak iz programa\n");
+	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
 }
 
 void odabir_opcije_admina(char* username)

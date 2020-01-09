@@ -11,7 +11,7 @@ int main()
 
 	char ch;
 
-	printf("Unesite:\n\tA->za pristup za administrativni dio.\n\tK->za pristup korisnickom dijelu aplliakcije.\n\tE->za izlazak iz programa.\n");
+	printf("Unesite:\n\tA -> za pristup administrativnom dijelu aplikacije.\n\tK -> za pristup korisnickom dijelu aplikacije.\n\tE -> za izlazak iz programa.\n");
 
 	printf("Unos: ");
 	ch = _getch();
