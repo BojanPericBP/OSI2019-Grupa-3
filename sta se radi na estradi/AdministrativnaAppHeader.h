@@ -1,3 +1,5 @@
+#pragma once
+#pragma warning(disable:4996)
 #include <stdio.h>
 #include <iostream>
 #include <windows.h>
@@ -5,8 +7,6 @@
 #include "KvizHeader.h"
 #include "KorisnickaAppHeader.h"
 
-#pragma once
-#pragma warning(disable:4996)
 
 void glavni_meni_administrativne_aplikacije()
 {
@@ -22,6 +22,7 @@ void glavni_meni_administrativne_aplikacije()
 	printf("                       5: UREDJIVANJE KVIZA\n");
 	printf("                       6: PRIKAZ SVIH DOGADJAJA\n");
 	printf("     ________________________________________________________________________________________________________________________________________________________________________\n\n");
+	printf("                       7: POVRATAK NA GLAVNI MENI\n");
 	printf("                       0: IZLAZ\n");
 	printf("\n*******************************************************************************************************************************************************************************\n\n");
 }
@@ -32,7 +33,7 @@ void meni_logovanje_administratora(char admin_username[], char admin_pass[])
 	//system("color f0");
 	printf("\n********************************************************************************** PRIJAVA ************************************************************************************\n");
 	//funkcija za logovanje administratora u kojoj se nalazi funkcija za provjeru validnosti pristupnih podataka
-	printf("Unesite:E->za izlazak iz programa\n");
+	printf("Unesite:E-> Za izlazak iz programa\n");
 	printf("   ___________________________________________________________________________________________________________________________________________________________________________\n\n");
 
 	logovanje_admina(admin_username,admin_pass);
@@ -44,7 +45,7 @@ void meni_dodavanje_dogadjaja(char* username)
 	printf("\n**************************************************************************** DODAVANJE DOGADJAJA ****************************************************************************\n\n");
 	dodaj_dogadjaj(username);
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
-	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE->za izlazak iz programa\n");
+	printf("Unesite:\n\tM -> Za nazad\n\tE -> Za izlazak iz programa\n");
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
 }
 void meni_uredjivanje_dogadjaja()
@@ -65,18 +66,18 @@ void meni_uredjivanje_dogadjaja()
 	printf("\n\n*******************************************************************************************************************************************************************************\n");
 	uredi_dogadjaj();
 	printf("\n_____________________________________________________________________________________________________________________________________________________________________________\n\n");
-	printf("\tUnesite:\n\t\tM-> za povratak na glavni meni\n\t\tE->za izlazak iz programa\n");
+	printf("\tUnesite:\n\t\tM-> Za nazad\n\t\tE-> Za izlazak iz programa\n");
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
 }
 
 void meni_brisanje_dogadjaja()
 {
-	system("color 0a");
+	system("color 4f");
 	
 	printf("\n***************************************************************************** BRISANJE DOGADJAJA ****************************************************************************\n\n");
 	brisanje_dogadjaja();
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
-	printf("\tUnesite:\n\t\tM-> za povratak na glavni meni\n\t\tE->za izlazak iz programa\n");
+	printf("\tUnesite:\n\t\tM-> Za nazad\n\t\tE-> Za izlazak iz programa\n");
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
 }
 
@@ -86,7 +87,7 @@ void meni_brisanje_kategorije()
 	printf("\n**************************************************************************** BRISANJE KATEGORIJE ****************************************************************************\n\n");
 	brisi_kategoriju();
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
-	printf("\tUnesite:\n\t\tM-> za povratak na glavni meni\n\t\tE->za izlazak iz programa\n");
+	printf("\tUnesite:\n\t\tM-> Za nazad\n\t\tE->Za izlazak iz programa\n");
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
 
 }
@@ -97,7 +98,7 @@ void meni_uredjivanje_kviza()
 	printf("\n***************************************************************************** UREDJIVANJE KVIZA *****************************************************************************\n\n");
 	uredjivanje_kviza();
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
-	printf("Unesite:\n\tM-> za povratak na glavni meni\n\tE-> za izlazak iz programa\n");
+	printf("Unesite:\n\tM-> Za nazad\n\tE-> Za izlazak iz programa\n");
 	printf("_______________________________________________________________________________________________________________________________________________________________________________\n\n");
 }
 
@@ -160,6 +161,19 @@ void odabir_opcije_admina(char* username)
 			break;
 		case '3':
 			system("cls");
+
+
+			fp = fopen("../config files/Dogadjaji/dogadjaji.txt", "r");
+			if (fp == NULL)
+				exit(1);
+			br_dogadjaja = ucitaj_br_dogadjaja(fp);
+
+			lista_dogadjaja = (DOGADJAJ*)calloc(br_dogadjaja, sizeof(DOGADJAJ));
+			ucitaj_dogadjaje_iz_datoteke(fp, lista_dogadjaja, br_dogadjaja);
+			zaglavlje_dogadjaja();
+			meni_svih_dogadjaja(lista_dogadjaja, br_dogadjaja);
+
+
 			meni_brisanje_dogadjaja();
 
 			ch = _getch();
@@ -224,11 +238,12 @@ void odabir_opcije_admina(char* username)
 
 			lista_dogadjaja = (DOGADJAJ*)calloc(br_dogadjaja,sizeof(DOGADJAJ));
 			ucitaj_dogadjaje_iz_datoteke(fp, lista_dogadjaja, br_dogadjaja);
+			zaglavlje_dogadjaja();
 			meni_svih_dogadjaja(lista_dogadjaja,br_dogadjaja);
 
 			do {
 				printf("\n*******************************************************************************************************************************************************************************\n");
-				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n\tF -> Ako zelite da sortirate listu po nekom filtru\n");
+				printf("\nUnesite M -> Nazad\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n\tF -> Ako zelite da sortirate listu po nekom filtru\n");
 				ch = _getch();
 				while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e' && ch != 'K' && ch != 'k' && ch != 'P' && ch != 'p' && ch != 'O' && ch != 'o' && ch != 'Z' && ch != 'z' && ch != 'F' && ch != 'f')
 				{
@@ -322,6 +337,11 @@ void odabir_opcije_admina(char* username)
 				}
 			} while (!flag);
 			break;
+			case '7':
+				system("cls");
+				system("color 5f");
+				glavni_meni();
+				break;
 		default:
 			printf("Nepostojeca opcija!\n");
 			}

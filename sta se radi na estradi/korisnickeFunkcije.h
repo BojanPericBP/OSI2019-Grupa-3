@@ -10,7 +10,7 @@
 #include <conio.h>
 #include <ctype.h>
 #include <time.h>
-#include "strukture.h"
+#include "AdministrativnaAppHeader.h"
 
 
 

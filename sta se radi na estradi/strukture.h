@@ -45,3 +45,4 @@ typedef struct igrac
 	int br_bod;
 	char nick[31];
 }IGRAC;
+

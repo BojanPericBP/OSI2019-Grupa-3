@@ -346,7 +346,7 @@ int unos_vremena(char vrijeme[])
 	else 
 	{
 		strcat(vrijeme, "0");
-		strcat(vrijeme, itoa(time.sat, min, 10)); 
+		strcat(vrijeme, itoa(time.minute, min, 10)); 
 	}
 
 	return 1;

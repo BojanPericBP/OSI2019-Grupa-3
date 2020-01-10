@@ -1,12 +1,15 @@
-11
-1 sasa
-2 woki
-2 nnnnnnnnnnnnnn
-4 aaaaa
-5 hhhhh
-8 ime
-8 rrr
-9 www
-10 llll
+14
 10 qqqqq
 10 eeee
+10 llll
+9 www
+8 rrr
+8 ime
+6 patuljak
+6 boki
+5 hhhhh
+4 boyan
+4 aaaaa
+2 woki
+2 nnnnnnnnnnnnnn
+1 sasa

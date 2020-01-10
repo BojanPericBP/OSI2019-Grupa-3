@@ -5,7 +5,60 @@
 #include <Windows.h>
 #include "KvizHeader.h"
 #include "korisnickeFunkcije.h"
+#include "AdministrativnaAppHeader.h"
+//#include "AdministrativneFunkcije.h"
 //#include "strukture.h"
+
+void glavni_meni_korisnicke_aplikacije();
+void odabir_opcije_korisnika(DOGADJAJ*, int, char*);
+void meni_logovanje_administratora(char*, char*);
+void glavni_meni_administrativne_aplikacije();
+void odabir_opcije_admina(char*);
+
+void glavni_meni()
+{
+	printf("\n******************************************************************************** DOBRO DOSLI **********************************************************************************\n\n");
+
+	char ch;
+
+	printf("Unesite:\n\tA -> za pristup administrativnom dijelu aplikacije.\n\tK -> za pristup korisnickom dijelu aplikacije.\n\tE -> za izlazak iz programa.\n");
+
+	printf("Unos: ");
+	ch = _getch();
+	char username[21] = {};
+	printf("%c", ch);
+	while (ch != 'a' && ch != 'A' && ch != 'k' && ch != 'K' && ch != 'e' && ch != 'E')
+	{
+		printf("\nPogresan unos, unesite ponovo: ");
+		ch = _getch();
+		printf("%c", ch);
+	}
+
+	if (ch == 'e' || ch == 'E')
+		exit(1);
+	else if (ch == 'k' || ch == 'K')
+	{
+		FILE* dat_dogadjaji = fopen("../config files/Dogadjaji/dogadjaji.txt", "r");
+		if (!dat_dogadjaji) { printf("Neuspjesno ucitavanje datoteke dogadjaji.txt..."); getchar();  exit(1); }
+
+		int br_dogadjaja = ucitaj_br_dogadjaja(dat_dogadjaji);
+		DOGADJAJ* lista_dogadjaja = (DOGADJAJ*)calloc(br_dogadjaja, sizeof(DOGADJAJ));
+
+		ucitaj_dogadjaje_iz_datoteke(dat_dogadjaji, lista_dogadjaja, br_dogadjaja);
+		fclose(dat_dogadjaji);
+
+		glavni_meni_korisnicke_aplikacije();
+		odabir_opcije_korisnika(lista_dogadjaja, br_dogadjaja, username);
+	}
+	else if (ch == 'a' || ch == 'A')
+	{
+		char admin_username[21] = {}, admin_pass[21] = {};
+		meni_logovanje_administratora(admin_username, admin_pass);
+
+		glavni_meni_administrativne_aplikacije();
+		odabir_opcije_admina(admin_username);
+	}
+}
 
 void inicijalizuj_prozor()
 {
@@ -36,7 +89,7 @@ void glavni_meni_korisnicke_aplikacije()
 	printf("                              8: POMOC\n");
 	printf("                              9: O APLIKACIJI\n");
 	printf("     _____________________________________________________________________________________________________________________________________________________________________     \n\n");
-	printf("                              0: IZLAZ IZ PROGRAMA\n");
+	printf("                              0: POVRATAK NA GLAVNI MENI\n");
 	printf("\n*******************************************************************************************************************************************************************************\n");
 }
 
@@ -148,7 +201,9 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 		case '0':
 			upisi_u_datoteku(lista_dogadjaja, br_dogadjaja);
 			free(lista_dogadjaja);
-			exit(1);
+			system("cls");
+			system("color 5f");
+			glavni_meni();
 			break;
 
 		case '1':
@@ -156,7 +211,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 			meni_prikaz_preporucenih_dogadjaja(lista_dogadjaja, br_dogadjaja);
 			do {
 				printf("\n*******************************************************************************************************************************************************************************\n");
-				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
+				printf("\nUnesite M ->Nazad\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
 				ch = _getch();
 				while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e' && ch != 'K' && ch != 'k' && ch != 'P' && ch != 'p' && ch != 'O' && ch != 'o' && ch != 'Z' && ch != 'z')
 				{
@@ -249,7 +304,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 			meni_svih_dogadjaja(lista_dogadjaja, br_dogadjaja);
 			do {
 				printf("\n*******************************************************************************************************************************************************************************\n");
-				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n\tF -> Ako zelite da sortirate listu po nekom filtru\n");
+				printf("\nUnesite M -> Nazad\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n\tF -> Ako zelite da sortirate listu po nekom filtru\n");
 				ch = _getch();
 				while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e' && ch != 'K' && ch != 'k' && ch != 'P' && ch != 'p' && ch != 'O' && ch != 'o' && ch != 'Z' && ch != 'z' && ch != 'F' && ch != 'f')
 				{
@@ -347,7 +402,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 			system("cls");
 
 			meni_kviza();
-			printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
+			printf("\nUnesite M ->Nazad\n\tE -> Izlaz iz programa\n");
 			ch = _getch();
 			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 			{
@@ -371,7 +426,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 			system("cls");
 
 			meni_rang_liste();
-			printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
+			printf("\nUnesite M -> Nazad\n\tE -> Izlaz iz programa\n");
 			ch = _getch();
 			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 			{
@@ -394,7 +449,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 		case '9':
 			system("cls");
 			meni_o_korisnickoj_aplikaciji();
-			printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
+			printf("\nUnesite M -> Nazad\n\tE -> Izlaz iz programa\n");
 			ch = _getch();
 			while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 			{
@@ -419,7 +474,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 			meni_help();
 			do
 			{
-				printf("\nUnesite D -> Pregled korisnicke dokumentacije\n\tM -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
+				printf("\nUnesite D -> Pregled korisnicke dokumentacije\n\tM -> Nazad\n\tE -> Izlaz iz programa\n");
 				ch = _getch();
 				while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e' && ch != 'D' && ch != 'd')
 				{
@@ -452,7 +507,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 			{
 				do {
 					printf("\n*******************************************************************************************************************************************************************************\n");
-					printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
+					printf("\nUnesite M -> Nazad\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
 					ch = _getch();
 					while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e' && ch != 'K' && ch != 'k' && ch != 'P' && ch != 'p' && ch != 'O' && ch != 'o' && ch != 'Z' && ch != 'z')
 					{
@@ -542,7 +597,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 			else
 			{
 				printf("\n*******************************************************************************************************************************************************************************\n");
-				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n");
+				printf("\nUnesite M -> Nazad\n\tE -> Izlaz iz programa\n");
 				ch = _getch();
 				while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e')
 				{
@@ -567,7 +622,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 			meni_prosli_dogadjaja(lista_dogadjaja, br_dogadjaja);
 			do {
 				printf("\n*******************************************************************************************************************************************************************************\n");
-				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
+				printf("\nUnesite M -> Nazad\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
 				ch = _getch();
 				while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e' && ch != 'K' && ch != 'k' && ch != 'P' && ch != 'p' && ch != 'O' && ch != 'o' && ch != 'Z' && ch != 'z')
 				{
@@ -660,7 +715,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 			do
 			{
 				printf("\n*******************************************************************************************************************************************************************************\n");
-				printf("\nUnesite M -> Nazad na pocetni meni\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
+				printf("\nUnesite M -> Nazad\n\tE -> Izlaz iz programa\n\tK -> Dodavanje komentara za neki dogadjaj\n\tP -> Pregled komentara nekog dogadjaja\n\tO -> Pogledaj opis dogadjaja\n\tZ -> Da oznacite da ste zainteresovani za neki dogadjaj\n");
 				ch = _getch();
 				while (ch != 'M' && ch != 'm' && ch != 'E' && ch != 'e' && ch != 'K' && ch != 'k' && ch != 'P' && ch != 'p' && ch != 'O' && ch != 'o' && ch != 'Z' && ch != 'z')
 				{

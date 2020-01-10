@@ -1,3 +1,4 @@
+
 #include "AdministrativnaAppHeader.h"
 #include "KorisnickaAppHeader.h"
 
@@ -7,7 +8,9 @@ int main()
 {
 	system("color 57");
 	inicijalizuj_prozor();
-	printf("\n******************************************************************************** DOBRO DOSLI **********************************************************************************\n\n");
+	glavni_meni();
+	//glavni_meni();
+	/*printf("\n******************************************************************************** DOBRO DOSLI **********************************************************************************\n\n");
 
 	char ch;
 
@@ -47,7 +50,7 @@ int main()
 
 		glavni_meni_administrativne_aplikacije();
 		odabir_opcije_admina(admin_username);
-	}
+	}*/
 
 	return 0;
 }

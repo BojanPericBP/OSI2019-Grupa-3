@@ -49,7 +49,7 @@ void igraj_kviz()
 			fscanf(fp, "\n%[^\n]s", obj.svi_odgovori[1]);
 			fscanf(fp, "\n%[^\n]s", obj.svi_odgovori[2]);
 
-			if (provjera_niza(arr, obj.rb,30)==0)
+			if (provjera_niza(arr, obj.rb,br_pitanja)==0)
 			{
 				printf("\n%d. %s\n%s\n%s\n%s\n\n ", i + 1, obj.pitanje, obj.svi_odgovori[0], obj.svi_odgovori[1], obj.svi_odgovori[2]);
 				
@@ -115,9 +115,9 @@ int odgovor_korisnika(char tacan_odgovor, char odgovor)
 	else
 	{
 		system("color 0c");
-		printf("NETACAN ODGOVOR!\n");
+		printf("TACAN ODGOVOR JE POD %c!\n",toupper(tacan_odgovor));
 		PlaySoundA("pogresanodgovor.wav", NULL, SND_SYNC | SND_LOOP | SND_FILENAME);
-
+		//printf("Tacan odgovor je pod %c", tacan_odgovor);
 		return 0;
 	}
 	
@@ -125,7 +125,7 @@ int odgovor_korisnika(char tacan_odgovor, char odgovor)
 
 int provjera_niza(int* arr,int br,int n)
 {
-	for ( int i = 0; i < n; i++)
+	for ( int i = 0; i < 10; i++)
 		if (arr[i] == br)
 			return 0;
 
@@ -135,6 +135,12 @@ int provjera_niza(int* arr,int br,int n)
 int cmpfunc(const void* a, const void* b) 
 {
 	return (*(int*)a - *(int*)b);
+}
+
+
+int cmpfunc_htl(const void* a, const void* b)
+{
+	return (*(int*)b - *(int*)a);
 }
 void random_pitanja(int* niz)
 {
@@ -242,7 +248,7 @@ void sacuvaj_rezultat(int br_bodova)
 		niz_igraca[br_igraca - 1].br_bod = br_bodova;
 		if (flag_postoji) strcpy(niz_igraca[br_igraca - 1].nick, uneseni_nick2);
 		else strcpy(niz_igraca[br_igraca - 1].nick, uneseni_nick);
-		qsort(niz_igraca, br_igraca, sizeof(IGRAC), cmpfunc);
+		qsort(niz_igraca, br_igraca, sizeof(IGRAC), cmpfunc_htl);
 
 		rang_lista_dat = fopen("../config files/Kviz/rang_lista.txt", "w");
 		fprintf(rang_lista_dat, "%d", br_igraca);
