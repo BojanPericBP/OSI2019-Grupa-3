@@ -6,8 +6,6 @@
 #include "KvizHeader.h"
 #include "korisnickeFunkcije.h"
 #include "AdministrativnaAppHeader.h"
-//#include "AdministrativneFunkcije.h"
-//#include "strukture.h"
 
 void glavni_meni_korisnicke_aplikacije();
 void odabir_opcije_korisnika(DOGADJAJ*, int, char*);

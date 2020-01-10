@@ -9,14 +9,12 @@
 #include <Windows.h>
 #include "strukture.h"
 
-
 void sacuvaj_rezultat(int);
 void prikazi_rang_listu();
 void igraj_kviz();
 int provjera_niza(int*, int,const int);
 void random_pitanja(int*);
 int odgovor_korisnika(char, char);
-
 
 void igraj_kviz()
 {
@@ -117,7 +115,6 @@ int odgovor_korisnika(char tacan_odgovor, char odgovor)
 		system("color 0c");
 		printf("TACAN ODGOVOR JE POD %c!\n",toupper(tacan_odgovor));
 		PlaySoundA("pogresanodgovor.wav", NULL, SND_SYNC | SND_LOOP | SND_FILENAME);
-		//printf("Tacan odgovor je pod %c", tacan_odgovor);
 		return 0;
 	}
 	
@@ -137,11 +134,11 @@ int cmpfunc(const void* a, const void* b)
 	return (*(int*)a - *(int*)b);
 }
 
-
 int cmpfunc_htl(const void* a, const void* b)
 {
 	return (*(int*)b - *(int*)a);
 }
+
 void random_pitanja(int* niz)
 {
 	int i=0 , n;

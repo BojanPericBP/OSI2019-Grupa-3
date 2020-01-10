@@ -13,7 +13,7 @@ void glavni_meni_administrativne_aplikacije()
 	system("color 0a");
 	system("cls");
 	printf("\n********************************************************************************** DOBRO DOSLI ********************************************************************************\n\n");
-	printf("                                         Da bi ste odabrali zeljenu opciju unesite odgovarajuci broj!");
+	printf("                                         Da biste odabrali zeljenu opciju unesite odgovarajuci broj!");
 	printf("\n     _______________________________________________________________________________________________________________________________________________________________________\n\n");
 	printf("                       1: DODAVANJE DOGADJAJA\n");
 	printf("                       2: UREDJIVANJE DOGADJAJA\n");

@@ -463,7 +463,6 @@ int uredi_dogadjaj()
 
 	do
 	{
-		//printf("Unesite identifikacioni broj dogadjaja koji zelite da uredite: ");
 		id = unesi_id();
 	} while ((dogadjaj_check = trazi_dogadjaj(id, dogadjaji, br_dogadjaja)) == NULL);
 

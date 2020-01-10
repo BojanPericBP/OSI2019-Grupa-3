@@ -12,9 +12,6 @@
 #include <time.h>
 #include "AdministrativnaAppHeader.h"
 
-
-
-
 int ucitaj_br_dogadjaja(FILE*);
 void ucitaj_dogadjaje_iz_datoteke(FILE*,DOGADJAJ*,int);
 void ispisi_dogadjaj(DOGADJAJ*); //pomocna funkcija, koja ispisuje samo 1 dogadjaj
@@ -37,64 +34,48 @@ int prestupna_godina(int);
 void upisi_u_datoteku(DOGADJAJ*, int);
 void zaglavlje_dogadjaja();
 void unesi_username(char*);
-int ucitaj_nickove(char**);
-int pronadji_nick(char**, int, char*);
 
-int pronadji_nick(char** username_arr, int duzina, char* trazeni_nick)
+int kontrolno_pitanje()
 {
-	for (int i = 0; i < duzina; i++)
-		if (!strcmp(username_arr[i], trazeni_nick))
-			return 1;
-	return 0;
-}
+	KONTR_PITANJE* niz_pitanja;
+	niz_pitanja = (KONTR_PITANJE*)malloc(3* sizeof(KONTR_PITANJE));
 
-int ucitaj_nickove(char** username_arr)
-{
-	FILE* dat_komentari = fopen("../config files/Dogadjaji/komentari.txt", "r");
-	if (!dat_komentari) { printf("Neuspjesno ucitavanje datoteke komentari.txt"); return 0; }
+	strcpy(niz_pitanja[0].pitanje,"Koliko je jedan plus pet?");
+	strcpy(niz_pitanja[0].odgovor,"sest");
+
+	strcpy(niz_pitanja[1].pitanje, "Koliko je jedan plus dva puta cetiri?");
+	strcpy(niz_pitanja[1].odgovor, "devet");
+
+	strcpy(niz_pitanja[2].pitanje, "Majina majka ima dvoje djece. Jedno se zove Ana. Kako se zove drugo dijete?");
+	strcpy(niz_pitanja[2].odgovor, "maja");
+	srand(time(NULL));
+	char unos[1000] = {};
+	printf("\nDa biste mogli komentarisati odgovorite na kontrolno pitanje\n");
+	int sluc = rand() % 3;
+	printf("%s\n", niz_pitanja[sluc].pitanje);
+	scanf("\n%[^\n]s",unos);
+	strlwr(unos);
+	if (!strcmp(unos, niz_pitanja[sluc].odgovor))
+	{
+		printf("\nTacan odgovor.\n");
+		return 1;
+	}
 	else
 	{
-		char c = 0;
-		int i = 0;
-		int j = 0;
-		while (c != EOF) // ide do kraja datoteke jer se moze vise puta pojaviti komentar za isti dogadjaj
-		{
-			if (i%20000==0 && i!=0)
-			{
-				username_arr = (char**)realloc(username_arr, i + 20000);
-				for (int k = i; k < i + 20000; k++)
-					username_arr[k] = (char*)calloc(21, sizeof(char));
-			}
-
-			for (int m = 0; m < 5; m++) //preskace ID i separator
-				c = fgetc(dat_komentari);
-			j = 0;
-			while ((c = fgetc(dat_komentari)) != '|')
-			{
-				username_arr[i][j] = c;
-				j++;
-			}
-			while ((c = fgetc(dat_komentari)) != 10 && c != EOF);
-			i++;
-		}
-		fclose(dat_komentari);
-		return i;
+		printf("\nNetacan odgovor\n");
+		return 0;
 	}
 }
 
 void unesi_username(char* username)
 {
-	char** username_arr = (char**)calloc(20000, sizeof(char*));
-	for (int i = 0; i < 20000; i++)
-		username_arr[i] = (char*)calloc(21, sizeof(char));
-	int duzina = ucitaj_nickove(username_arr);
 	char temp_username[1000] = {};
 	printf("\nUnesite korisnicko ime: \n");
 	scanf("\n%[^\n]s",temp_username);
-	while(strlen(temp_username) > 20 || pronadji_nick(username_arr,duzina,temp_username))
+	while(strlen(temp_username) > 20 || !kontrolno_pitanje())
 	{
 		if(strlen(temp_username) > 20)printf("\nUnijeli ste predugo korisnicko ime. Unesite ponovo korisnicko ime:\n");
-		else printf("\nUnijeli ste korisnicko ime koje vec postoji. Unesite ponovo korisnicko ime:\n");
+		else printf("\nPogresan odgovor na kontrolno pitanje. Unesite ponovo korisnicko ime:\n");
 		scanf("\n%[^\n]s", temp_username);
 	}
 	strcpy(username, temp_username);

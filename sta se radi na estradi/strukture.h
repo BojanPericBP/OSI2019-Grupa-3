@@ -20,6 +20,12 @@ typedef struct zainteres
 	int id, br;
 }ZAINTERESOVAN;
 
+typedef struct kontrola
+{
+	char pitanje[100];
+	char odgovor[10];
+}KONTR_PITANJE;
+
 typedef struct dogadjaj
 {
 	int id;
