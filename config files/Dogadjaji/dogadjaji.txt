@@ -1,7 +1,7 @@
 1034 30
 1004|Koncert "Crvene jabuke"|0|Trg Krajine, Banjaluka|koncert|31.12.2019.|23:00|1|1
-1005|Koncert Marije Serifovic|1|Trg Krajine, Banjaluka|koncert|30.12.2019.|22:00|0|0
-1006|Koncert Sase Kovacevica|1|Dvorana Borik|koncert|06.12.2019.|21:00|0|0
+1005|Koncert Marije Serifovic|1|Trg Krajine, Banjaluka|koncert|30.12.2019.|22:00|1|0
+1006|Koncert Sase Kovacevica|1|Dvorana Borik|koncert|06.12.2019.|21:00|1|0
 1007|Koncert Parnog Valjka|1|Dvorana Borik, Banjaluka|koncert|29.11.2019.|20:00|0|1
 1008|Koncert Dragane Mirkovic|0|Tvrdjava Kastel|koncert|24.01.2020.|21:00|1|1
 1009|Koncert Riblje corbe|0|Tvrdjava Kastel Banjaluka|koncert|16.02.2020.|22:00|0|1

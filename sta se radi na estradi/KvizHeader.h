@@ -22,7 +22,7 @@ void igraj_kviz()
 	
 	if ((fp = fopen("../config files/Kviz/pitanja i odgovori.txt", "r")) != NULL)
 	{
-		PlaySoundA("ulazukviz.wav", NULL, SND_SYNC | SND_LOOP | SND_FILENAME);
+		PlaySoundA("../config files/Kviz/zvucni efekti/ulazukviz.wav", NULL, SND_SYNC | SND_LOOP | SND_FILENAME);
 		int br_pitanja,arr[10],br_bodova = 0; 
 		KVIZ obj;
 		char* odgovori[3],ch;
@@ -106,7 +106,7 @@ int odgovor_korisnika(char tacan_odgovor, char odgovor)
 	{
 		system("color 0a");
 		printf("TACAN ODGOVOR!\n");
-		PlaySoundA("tacanodgovor.wav", NULL, SND_SYNC | SND_LOOP | SND_FILENAME);
+		PlaySoundA("../config files/Kviz/zvucni efekti/tacanodgovor.wav", NULL, SND_SYNC | SND_LOOP | SND_FILENAME);
 
 		return 1;
 	}
@@ -114,7 +114,7 @@ int odgovor_korisnika(char tacan_odgovor, char odgovor)
 	{
 		system("color 0c");
 		printf("TACAN ODGOVOR JE POD %c!\n",toupper(tacan_odgovor));
-		PlaySoundA("pogresanodgovor.wav", NULL, SND_SYNC | SND_LOOP | SND_FILENAME);
+		PlaySoundA("../config files/Kviz/zvucni efekti/pogresanodgovor.wav", NULL, SND_SYNC | SND_LOOP | SND_FILENAME);
 		return 0;
 	}
 	
