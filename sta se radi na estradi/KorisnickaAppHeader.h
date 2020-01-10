@@ -345,7 +345,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						{
 							printf("\nSvi komentari dogadjaja %s: \n\n", trazeni_dogadjaj->naziv);
 							ispisi_komentar(temp_id);
-							printf("\nUnesite -> N za nastavak\n");
+							printf("\nUnesite N -> za nastavak\n");
 							izbor = _getch();
 							while (izbor != 'N' && izbor != 'n')
 							{
