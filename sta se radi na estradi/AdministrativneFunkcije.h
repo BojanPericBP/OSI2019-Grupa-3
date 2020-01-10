@@ -76,7 +76,7 @@ int logovanje_admina(char admin_username[], char admin_pass[])
 {
 	char c[500];
 	char ch;
-	int br_pokusaja = 2;  //broji pokusaja da se unesu tacni podaci
+	int br_pokusaja = 5;  //broji pokusaja da se unesu tacni podaci
 	while (br_pokusaja && !unos_korisnickih_podataka_admina(admin_username,admin_pass))
 	{
 		--br_pokusaja;
@@ -252,7 +252,7 @@ int dodaj_dogadjaj(char* username)
 				{
 					printf("Opis: ");
 					scanf("\n%[^\n]s", opis);
-					fprintf(opis_dogadjaja_dat, "%d,%s\n", dogadjaj.id, opis);
+					fprintf(opis_dogadjaja_dat, "\n%d,%s", dogadjaj.id, opis);
 					dogadjaj.opis = '1';
 				}
 				else if (ch == 'p' || ch == 'P')

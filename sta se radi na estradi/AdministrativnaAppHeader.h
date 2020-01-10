@@ -30,9 +30,7 @@ void glavni_meni_administrativne_aplikacije()
 void meni_logovanje_administratora(char admin_username[], char admin_pass[])
 {
 	system("cls");
-	//system("color f0");
 	printf("\n********************************************************************************** PRIJAVA ************************************************************************************\n");
-	//funkcija za logovanje administratora u kojoj se nalazi funkcija za provjeru validnosti pristupnih podataka
 	printf("Unesite:E-> Za izlazak iz programa\n");
 	printf("   ___________________________________________________________________________________________________________________________________________________________________________\n\n");
 

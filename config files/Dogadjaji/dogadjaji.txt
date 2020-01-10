@@ -1,60 +1,31 @@
-1034 30
-1004|Koncert "Crvene jabuke"|0|Trg Krajine, Banjaluka|koncert|31.12.2019.|23:00|0|1
-
+1037 33
+1004|Koncert "Crvene jabuke"|0|Trg Krajine, Banjaluka|koncert|31.12.2019.|23:00|1|1
 1005|Koncert Marije Serifovic|1|Trg Krajine, Banjaluka|koncert|30.12.2019.|22:00|0|0
-
 1006|Koncert Sase Kovacevica|1|Dvorana Borik|koncert|06.12.2019.|21:30|0|0
-
 1007|Koncert Parnog Valjka|1|Dvorana Borik, Banjaluka|koncert|29.11.2019.|20:00|0|1
-
-1008|Koncert Dragane Mirkovic|0|Tvrdjava Kastel|koncert|24.01.2020.|21:00|0|1
-
+1008|Koncert Dragane Mirkovic|0|Tvrdjava Kastel|koncert|24.01.2020.|21:00|1|1
 1009|Koncert Riblje corbe|0|Tvrdjava Kastel Banjaluka|koncert|16.02.2020.|22:00|0|1
-
 1010|Koncert Stefana Raste|1|Aquana, Banjaluka|koncert|11.08.2020.|19:30|0|1
-
-1011|Banjalucki Dani Muzike 2020.|1|Tvrdjava Kastel|koncert|27.06.2020.|19:00|0|1
-
+1011|Banjalucki Dani Muzike 2020.|1|Tvrdjava Kastel|koncert|27.06.2020.|19:00|1|1
 1012|Radni odnosi Banjaluka|1|Hotel Bosna, Banjaluka|seminar|23.01.2020.|19:30|0|0
-
 1013|Kancelarijsko poslovanje|1|Hotel Bosna, Banjaluka|seminar|30.03.2020.|18:00|0|0
-
-1014|Vjestine komunikacije|0|Pedagoski fakultet, Banjaluka|seminar|18.01.2020.|18:45|0|0
-
+1014|Vjestine komunikacije|0|Pedagoski fakultet, Banjaluka|seminar|18.01.2020.|18:45|1|0
 1015|Sto te nema|1|Narodno pozoriste RS|predstava|18.10.2019.|18:00|0|1
-
 1016|Zlocin i kazna|1|Narodno pozoriste RS|predstava|27.03.2020.|16:00|1|1
-
 1017|Ozaloscena porodica|0|Narodno pozoriste RS|predstava|21.01.2020.|16:45|0|1
-
-1018|Urnebesna tragedija|0|Narodno pozoriste RS|predstava|22.01.2020.|21:00|0|0
-
+1018|Urnebesna tragedija|0|Narodno pozoriste RS|predstava|22.01.2020.|21:00|1|0
 1019|Velika iluzija|0|Narodno pozoriste RS|predstava|06.01.2020.|18:00|0|1
-
 1020|Na dnu kace|0|Narodno pozoriste RS|predstava|15.02.2020.|17:30|0|0
-
-1021|Gospodja ministarka|1|Narodno pozoriste RS|predstava|12.02.2020.|15:30|0|1
-
+1021|Gospodja ministarka|1|Narodno pozoriste RS|predstava|12.02.2020.|15:30|1|1
 1022|Banjaluka Spring Trail 2020|0|Banjaluka|sport|22.03.2020.|10:00|0|1
-
-1023|Premijera filma Sluga|1|Cineplexx Palas, Banjaluka|film|26.12.2019.|18:45|0|1
-
+1023|Premijera filma Sluga|1|Cineplexx Palas, Banjaluka|film|26.12.2019.|18:45|1|1
 1024|Zaboravljeni Bozic|0|Cineplexx Palas|film|07.01.2020.|17:45|0|1
-
 1025|Cats|0|Cineplexx Palas|film|15.01.2020.|20:35|0|0
-
 1026|FK BORAC - FK ZELJEZNIK|0|Gradski stadion, Banjaluka|sport|03.01.2020.|16:00|0|1
-
-1027|Jumanji: The Next Level|0|Cineplexx Palas|film|17.06.2020.|14:00|0|0
-
+1027|Jumanji: The Next Level|0|Cineplexx Palas|film|17.06.2020.|14:00|1|0
 1028|Elta invest trcimo za Srpsku|1|Trg Krajine, Banjaluka|sport|12.01.2020.|11:00|0|1
-
-1029|Festival cokolade i vina|0|Aquana, Banjaluka|ostalo|15.03.2020.|18:15|0|1
-
+1029|Festival cokolade i vina|0|Aquana, Banjaluka|ostalo|15.03.2020.|18:15|1|1
 1030|Banjaluka Dog Show|0|Banjaluka|ostalo|28.03.2020.|14:30|0|1
-
 1031|Hit komedija|1|Gradsko pozoriste Jazavac, Banjaluka|predstava|25.01.2020.|20:00|0|1
-
-1032|Pravoslavna Nova 2020.|1|Mala Skadarlija, Banjaluka|zurka|13.01.2020.|20:00|0|1
-
+1032|Pravoslavna Nova 2020.|1|Mala Skadarlija, Banjaluka|zurka|13.01.2020.|20:00|1|1
 1034|Docek Nove godine|0|Rock Symphony, Banjaluka|zurka|31.12.2019.|21:00|1|0
