@@ -210,7 +210,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						system("cls");
 						meni_prikaz_preporucenih_dogadjaja(lista_dogadjaja, br_dogadjaja);
 					}
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 				else if (ch == 'P' || ch == 'p')
 				{
@@ -224,7 +224,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						ispisi_komentar(temp_id);
 					}
 					else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 				else if (ch == 'O' || ch == 'o')
 				{
@@ -239,7 +239,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 					int temp_id = unesi_id();
 					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 					if (trazeni_dogadjaj) zainteresovan_za_dogadjaj(trazeni_dogadjaj, temp_id);
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 			} while (!flag);
 			break;
@@ -303,7 +303,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						system("cls");
 						meni_svih_dogadjaja(lista_dogadjaja, br_dogadjaja);
 					}
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 				else if (ch == 'P' || ch == 'p')
 				{
@@ -317,7 +317,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						ispisi_komentar(temp_id);
 					}
 					else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 				else if (ch == 'O' || ch == 'o')
 				{
@@ -332,7 +332,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 					int temp_id = unesi_id();
 					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 					if (trazeni_dogadjaj) zainteresovan_za_dogadjaj(trazeni_dogadjaj, temp_id);
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 				else if (ch == 'F' || ch == 'f')
 				{
@@ -506,7 +506,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 							system("cls");
 							meni_danasnjih_dogadjaja(lista_dogadjaja, br_dogadjaja);
 						}
-						else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+						else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 					}
 					else if (ch == 'P' || ch == 'p')
 					{
@@ -520,7 +520,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 							ispisi_komentar(temp_id);
 						}
 						else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
-						else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+						else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 					}
 					else if (ch == 'O' || ch == 'o')
 					{
@@ -535,7 +535,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						int temp_id = unesi_id();
 						DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 						if (trazeni_dogadjaj) zainteresovan_za_dogadjaj(trazeni_dogadjaj, temp_id);
-						else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+						else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 					}
 				} while (!flag);
 			}
@@ -621,7 +621,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						system("cls");
 						meni_prosli_dogadjaja(lista_dogadjaja, br_dogadjaja);
 					}
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 				else if (ch == 'P' || ch == 'p')
 				{
@@ -635,7 +635,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						ispisi_komentar(temp_id);
 					}
 					else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 				else if (ch == 'O' || ch == 'o')
 				{
@@ -650,7 +650,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 					int temp_id = unesi_id();
 					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 					if (trazeni_dogadjaj) zainteresovan_za_dogadjaj(trazeni_dogadjaj, temp_id);
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 			} while (!flag);
 			break;
@@ -714,7 +714,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						system("cls");
 						meni_buducih_dogadjaja(lista_dogadjaja, br_dogadjaja);
 					}
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 				else if (ch == 'P' || ch == 'p')
 				{
@@ -728,7 +728,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 						ispisi_komentar(temp_id);
 					}
 					else if (trazeni_dogadjaj && trazeni_dogadjaj->komentari == '0') printf("\nIzabrani dogadjaj nema komentara.\n");
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 				else if (ch == 'O' || ch == 'o')
 				{
@@ -743,7 +743,7 @@ void odabir_opcije_korisnika(DOGADJAJ* lista_dogadjaja, int br_dogadjaja,char* u
 					int temp_id = unesi_id();
 					DOGADJAJ* trazeni_dogadjaj = trazi_dogadjaj_id(lista_dogadjaja, br_dogadjaja, temp_id);
 					if (trazeni_dogadjaj) zainteresovan_za_dogadjaj(trazeni_dogadjaj, temp_id);
-					else printf("\nNe postoji dogadjaj sa unesenim id-om.\n");
+					else printf("\nNe postoji dogadjaj sa unesenim identifikacionim brojem.\n");
 				}
 			} while (!flag);
 			break;
